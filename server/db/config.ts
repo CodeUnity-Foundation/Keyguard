@@ -10,3 +10,6 @@ export const DB_USERNAME = NODE_ENV.DB_USERNAME;
 export const DB_PASSWORD = NODE_ENV.DB_PASSWORD;
 export const DB_NAME = NODE_ENV.DB_NAME;
 export const CLUSTER_URL = NODE_ENV.CLUSTER_URL;
+
+//* JWT config
+export const JWT_SECRET = NODE_ENV.JWT_SECRET || 'secret';
