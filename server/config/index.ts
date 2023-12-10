@@ -13,3 +13,7 @@ export const CLUSTER_URL = NODE_ENV.CLUSTER_URL;
 
 //* JWT config
 export const JWT_SECRET = NODE_ENV.JWT_SECRET || 'secret';
+
+//* Mail config
+export const EMAIL = NODE_ENV.EMAIL;
+export const EMAIL_PASSWORD = NODE_ENV.EMAIL_PASSWORD;

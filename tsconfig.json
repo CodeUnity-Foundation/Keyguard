@@ -1,0 +1,14 @@
+// root/tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@vaultmaster/*": ["*"]
+    }
+  },
+  "include": ["packages/**/*.ts", "server/**/*.ts"],
+  "exclude": ["node_modules"]
+}

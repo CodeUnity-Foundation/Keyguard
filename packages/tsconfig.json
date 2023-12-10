@@ -1,11 +1,11 @@
-// server/tsconfig.json
+// packages/tsconfig.json
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "target": "ES6",
-    "rootDir": "",
+    "baseUrl": "./",
     "strict": true
   },
-  "include": ["routes/**/*.ts", "../packages/**/*.ts"],
+  "include": ["emails/**/*.ts"],
   "exclude": ["node_modules"]
 }

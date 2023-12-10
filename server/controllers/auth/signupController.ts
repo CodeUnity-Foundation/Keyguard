@@ -1,13 +1,18 @@
 import bcrypt from 'bcrypt';
-import User from '../../models/user';
 import { authSchema } from './authSchema';
 import { publicProcedure } from '../../trpc';
-import { BAD_REQUEST, INTERNAL_SERVER_ERROR_CODE, OK } from '../../constants';
-import { generateJWT } from '../../utils/generateJWT';
+import { sendOTPVarificationEmail } from '@vaultmaster/packages/emails/email-manager';
+
+import User from '../../models/user';
 import { IUser } from '../../models/types';
 
+import { generateJWT } from '../../utils/generateJWT';
+import { generateOTP } from '../../utils/generateOTP';
+import { asyncHandler } from '../../utils/asyncHandler';
+import { BAD_REQUEST, OK } from '../../constants';
+
 export const signupController = publicProcedure.input(authSchema).mutation(async ({ input }) => {
-  try {
+  return asyncHandler(async () => {
     const payload = input;
     const existingUser = await User.findOne({ email: payload.email });
     if (existingUser) {
@@ -15,23 +20,22 @@ export const signupController = publicProcedure.input(authSchema).mutation(async
     }
 
     const hashedPassword = await bcrypt.hash(payload.password, 10);
-    const newUser = new User({ ...payload, password: hashedPassword });
+    const otp = generateOTP();
+    const newUser = new User({ ...payload, password: hashedPassword, emailVerification: { otp } });
     const savedUser = await newUser.save();
 
-    const userWithoutPassword: IUser = await User.findById(savedUser._id).select('-password');
-    const token = generateJWT(userWithoutPassword._id, userWithoutPassword.email);
-    const userData = { user: userWithoutPassword, token };
+    const user: IUser = await User.findById(savedUser._id).select('-password');
+    const token = generateJWT(user._id, user.email);
 
+    if (!user) return { statusCode: BAD_REQUEST, success: false, message: 'Something went wrong!' };
+    const emailResposne = await sendOTPVarificationEmail({ email: user.email, otp });
+
+    const userData = { user, token, emailResposne };
     return {
       statusCode: OK,
       success: true,
       message: 'User created successfully',
       data: userData,
     };
-  } catch (error) {
-    return {
-      statusCode: INTERNAL_SERVER_ERROR_CODE,
-      message: error,
-    };
-  }
+  });
 });

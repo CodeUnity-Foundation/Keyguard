@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import { MongoClientOptions } from 'mongodb';
-import { CLUSTER_URL, DB_NAME, DB_PASSWORD, DB_USERNAME } from './config';
+import mongoose, { ConnectOptions } from 'mongoose';
+import { CLUSTER_URL, DB_NAME, DB_PASSWORD, DB_USERNAME } from '../config';
+import { logger } from '../utils/logger';
 
 if (!DB_USERNAME || !DB_PASSWORD || !CLUSTER_URL || !DB_NAME) {
   throw new Error(`Missing environment variables for MongoDB connection`);
@@ -12,13 +12,13 @@ async function connectToDB() {
   const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  } as MongoClientOptions;
+  } as ConnectOptions;
 
   try {
     await mongoose.connect(MONGODB_URI, options);
-    console.log('⚡️[DB]: Connected successfully!');
+    logger.info('⚡️[DB]: Connected successfully!');
   } catch (error) {
-    console.log(`❌[DB]: Could not connect. Here is the error: ${error as string}`);
+    logger.error(`❌[DB]: Could not connect. Here is the error: ${error as string}`);
     process.exit();
   }
 }

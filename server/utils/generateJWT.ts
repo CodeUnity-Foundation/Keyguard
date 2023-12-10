@@ -1,6 +1,6 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
-import { JWT_SECRET } from '../db/config';
 import { JWT_EXPIRES_IN } from '../constants';
+import { JWT_SECRET } from '../config';
 
 interface JWT {
   sign(

@@ -7,10 +7,16 @@ const UserSchema = new mongoose.Schema(
     email: { type: String, unique: true },
     password: { type: String },
     profile: { type: String },
-    otp: { type: Number },
-    otp_expiry: { type: Date },
     is_verified: { type: Boolean },
     master_password: { type: String },
+    emailVerification: {
+      otp: { type: Number },
+      otp_expiry: {
+        type: Date,
+        default: Date.now(),
+        expires: 60 * 5, // 5 minutes
+      },
+    },
   },
   { timestamps: true },
 );

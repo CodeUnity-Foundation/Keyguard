@@ -4,8 +4,10 @@ export interface IUser {
   email: string;
   password: string;
   profile?: string;
-  otp?: number;
-  otp_expiry?: Date;
   is_verified: boolean;
   master_password?: string;
+  emailVerification?: {
+    otp?: string;
+    otp_expiry?: Date;
+  };
 }

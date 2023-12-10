@@ -6,3 +6,6 @@ export const UNAUTHORIZED_CODE: number = 401;
 export const INTERNAL_SERVER_ERROR_CODE: number = 500;
 
 export const JWT_EXPIRES_IN = 604800000; // 7 days
+
+export const EMAIL_SUCCESS = 'Email sent successfully';
+export const EMAIL_FAILED = 'Unable to send email';
