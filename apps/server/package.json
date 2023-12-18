@@ -4,13 +4,14 @@
   "description": "",
   "main": "_app.ts",
   "scripts": {
-    "dev:server": "npx nodemon _app.ts",
-    "build:server": "npm run build && node build/app.js"
+    "dev": "nodemon _app.ts",
+    "build": "tsc -p ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@repo/ui":"workspace:*",
     "@trpc/server": "^10.43.3",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
