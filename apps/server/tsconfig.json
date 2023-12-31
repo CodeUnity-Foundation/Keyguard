@@ -1,0 +1,13 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "plugins": [],
+    "outDir": "build",
+    "declarationMap":false,
+    "declaration": false,
+    "baseUrl": "@server",
+    "jsx": "react-jsx",
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules","build"]
+}
