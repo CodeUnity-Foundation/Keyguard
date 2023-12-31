@@ -1,7 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
-export default function Box({children}:{children:ReactNode}){
-    return (
-        <div>{children}</div>
-    )
+export default function Box({ children }: { children: ReactNode }) {
+  return <div>{children}</div>;
 }

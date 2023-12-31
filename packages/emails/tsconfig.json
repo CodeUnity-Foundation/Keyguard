@@ -1,0 +1,15 @@
+{
+   "extends": "@repo/typescript-config/react-library.json",
+   "compilerOptions": {
+     "plugins": [],
+     "outDir": "build",
+     "declarationMap":false,
+     "declaration": false,
+     "baseUrl": "@emails",
+     "jsx": "react-jsx",
+     "lib": ["ES2015", "DOM"],
+    "target": "ES6",
+   },
+   "include": ["**/*.ts", "**/*.tsx"],
+   "exclude": ["node_modules","build"]
+ }

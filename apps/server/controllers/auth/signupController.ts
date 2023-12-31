@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { authSchema } from './authSchema';
 import { publicProcedure } from '../../trpc';
-import { sendOTPVarificationEmail } from '@vaultmaster/packages/emails/email-manager';
+import { sendOTPVarificationEmail } from '@repo/emails';
 
 import User from '../../models/user';
 import { IUser } from '../../models/types';

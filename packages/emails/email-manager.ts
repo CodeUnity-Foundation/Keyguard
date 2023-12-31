@@ -1,5 +1,5 @@
-import { EMAIL } from 'server/config';
-import { mailSender } from 'server/utils/mailSender';
+import { EMAIL } from './config';
+import mailSender from './mailSender';
 import renderEmail from './src/renderEmail';
 
 interface IOTPVerificationEvent {

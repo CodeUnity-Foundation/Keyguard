@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -19,6 +23,9 @@ importers:
 
   apps/server:
     dependencies:
+      '@repo/emails':
+        specifier: workspace:*
+        version: link:../../packages/emails
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -133,7 +140,33 @@ importers:
         specifier: ^5
         version: 5.3.3
 
-  packages/emails: {}
+  packages/emails:
+    dependencies:
+      '@vaultmaster/lib':
+        specifier: workspace:*
+        version: link:../lib
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
+      nodemailer:
+        specifier: ^6.9.7
+        version: 6.9.7
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@types/nodemailer':
+        specifier: ^6.4.14
+        version: 6.4.14
+      '@types/react':
+        specifier: ^18.2.46
+        version: 18.2.46
+      '@types/react-dom':
+        specifier: ^18.2.18
+        version: 18.2.18
 
   packages/eslint-config:
     devDependencies:
@@ -158,6 +191,12 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
+
+  packages/lib:
+    dependencies:
+      winston:
+        specifier: ^3.11.0
+        version: 3.11.0
 
   packages/typescript-config: {}
 
@@ -928,6 +967,12 @@ packages:
       '@types/react': 18.2.45
     dev: true
 
+  /@types/react-dom@18.2.18:
+    resolution: {integrity: sha512-TJxDm6OfAX2KJWJdMEVTwWke5Sc/E/RlnPGvGfS0W7+6ocy2xhDVQVh/KvC2Uf7kACs+gDytdusDSdWfWkaNzw==}
+    dependencies:
+      '@types/react': 18.2.46
+    dev: true
+
   /@types/react@18.2.37:
     resolution: {integrity: sha512-RGAYMi2bhRgEXT3f4B92WTohopH6bIXw05FuGlmJEnv/omEn190+QYEIYxIAuIBdKgboYYdVved2p1AxZVQnaw==}
     dependencies:
@@ -938,6 +983,14 @@ packages:
 
   /@types/react@18.2.45:
     resolution: {integrity: sha512-TtAxCNrlrBp8GoeEp1npd5g+d/OejJHFxS3OWmrPBMFaVQMSN0OFySozJio5BHxTuTeug00AVXVAjfDSfk+lUg==}
+    dependencies:
+      '@types/prop-types': 15.7.10
+      '@types/scheduler': 0.16.6
+      csstype: 3.1.2
+    dev: true
+
+  /@types/react@18.2.46:
+    resolution: {integrity: sha512-nNCvVBcZlvX4NU1nRRNV/mFl1nNRuTuslAJglQsq+8ldXe5Xv0Wd2f7WTE3jOxhLH2BFfiZGC6GCp+kHQbgG+w==}
     dependencies:
       '@types/prop-types': 15.7.10
       '@types/scheduler': 0.16.6
@@ -6250,7 +6303,3 @@ packages:
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

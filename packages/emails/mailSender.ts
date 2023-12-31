@@ -1,7 +1,9 @@
 import nodemailer from 'nodemailer';
-import { logger } from './logger';
-import { EMAIL, EMAIL_PASSWORD } from '../config';
-import { EMAIL_FAILED, EMAIL_SUCCESS } from '../constants';
+import { logger } from '@vaultmaster/lib/logger';
+import { EMAIL, EMAIL_PASSWORD } from './config';
+
+const EMAIL_SUCCESS = 'Email sent successfully';
+const EMAIL_FAILED = 'Unable to send email';
 
 async function mailSender(mailerPayload: nodemailer.SendMailOptions) {
   return new Promise((resolve, reject) => {
