@@ -18,10 +18,10 @@ async function mailSender(mailerPayload: nodemailer.SendMailOptions) {
 
     transporter.sendMail(mailerPayload, (error) => {
       if (error) {
-        logger.error(error);
+        logger.error('Unable to send mail because =>', error);
         return reject(EMAIL_FAILED);
       } else {
-        logger.error(`Email sent: ${EMAIL_SUCCESS}`);
+        logger.info(`Email sent: ${EMAIL_SUCCESS}`);
         return resolve(EMAIL_SUCCESS);
       }
     });

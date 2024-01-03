@@ -3,6 +3,7 @@ import * as trpcExpress from '@trpc/server/adapters/express';
 import express, { Application } from 'express';
 import { appRouter } from './routes';
 import connectToDB from './db';
+import { createContext } from './trpc';
 
 const app: Application = express();
 
@@ -10,7 +11,7 @@ connectToDB();
 
 app.use(cors());
 
-app.use('/api', trpcExpress.createExpressMiddleware({ router: appRouter }));
+app.use('/api', trpcExpress.createExpressMiddleware({ router: appRouter, createContext }));
 
 app.use(express.json());
 

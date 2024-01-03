@@ -6,7 +6,9 @@ if (!DB_USERNAME || !DB_PASSWORD || !CLUSTER_URL || !DB_NAME) {
   throw new Error(`Missing environment variables for MongoDB connection`);
 }
 
-const MONGODB_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${CLUSTER_URL}/${DB_NAME}?retryWrites=true&w=majority`;
+// const MONGODB_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${CLUSTER_URL}/${DB_NAME}?retryWrites=true&w=majority`;
+
+const MONGODB_URI = `mongodb://localhost:27017/${DB_NAME}`;
 
 async function connectToDB() {
   const options = {

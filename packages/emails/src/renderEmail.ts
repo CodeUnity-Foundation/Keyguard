@@ -8,7 +8,7 @@ function renderEmail<K extends keyof typeof templates>(
 ) {
   const Component = templates[template];
   return (
-    ReactDOMServer.renderToString(Component())
+    ReactDOMServer.renderToString(Component(props))
       // Remove `<RawHtml />` injected scripts
       .replace(/<script><\/script>/g, '')
       .replace(
