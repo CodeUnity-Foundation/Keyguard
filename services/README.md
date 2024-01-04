@@ -1,1 +1,0 @@
-# Email Services Templates

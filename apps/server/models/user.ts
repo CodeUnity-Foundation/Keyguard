@@ -1,0 +1,26 @@
+import mongoose from 'mongoose';
+import { IUser } from './types';
+
+const UserSchema = new mongoose.Schema(
+  {
+    name: { type: String },
+    email: { type: String, unique: true },
+    password: { type: String },
+    profile: { type: String },
+    is_verified: { type: Boolean },
+    master_password: { type: String },
+    emailVerification: {
+      otp: { type: Number },
+      otp_expiry: {
+        type: Date,
+        default: Date.now(),
+        expires: 60 * 5, // 5 minutes
+      },
+    },
+  },
+  { timestamps: true },
+);
+
+const User = mongoose.model<IUser>('User', UserSchema);
+
+export default User;

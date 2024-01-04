@@ -1,8 +1,8 @@
 import { router } from '../trpc';
-import { signupController } from '../controllers/auth/signupController';
+import { authRouter } from '../controllers/auth/_router';
 
 export const appRouter = router({
-  signup: signupController,
+  auth: authRouter,
 });
 
 export type AppRouter = typeof appRouter;
