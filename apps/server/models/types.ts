@@ -7,7 +7,7 @@ export interface IUser {
   is_verified: boolean;
   master_password?: string;
   emailVerification?: {
-    otp?: string;
+    otp?: number;
     otp_expiry?: Date;
   };
 }
