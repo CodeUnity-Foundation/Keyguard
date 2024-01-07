@@ -12,9 +12,6 @@ type SignUpProps = {
   input: AuthSchemaType;
 };
 
-/**
- * @TODO - Remove password, createdAt, updatedAt and deletedAt from response
- */
 export const signupController = async ({ input }: SignUpProps) => {
   const existingUser = await User.findOne({ email: input.email });
   if (existingUser) {
@@ -36,12 +33,14 @@ export const signupController = async ({ input }: SignUpProps) => {
   });
   const savedUser = await newUser.save();
 
-  // const user: IUser = await User.findById(savedUser._id).select('-password');
-  // if (!user) throw new TRPCError({ code: 'BAD_REQUEST', message: 'User not found!' });
+  const user = await User.findById(savedUser._id).select(
+    '-password -emailVerification -createdAt -updatedAt -deletedAt -__v',
+  );
+  if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
 
-  const token = generateJWT(savedUser._id, savedUser.email);
-  // const emailResposne = await sendOTPVarificationEmail({ email: savedUser.email, otp });
+  const token = generateJWT(user._id, user.email);
+  const emailResposne = await sendOTPVarificationEmail({ email: savedUser.email, otp });
 
-  const userData = { savedUser, token, emailResposne: 'Service stopped' };
+  const userData = { user, token, emailResposne };
   return { success: true, message: 'User created successfully', ...userData };
 };
