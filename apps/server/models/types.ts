@@ -6,8 +6,8 @@ export interface IUser {
   profile?: string;
   is_verified: boolean;
   master_password?: string;
-  emailVerification?: {
-    otp?: number;
-    otp_expiry?: Date;
-  };
+  emailVerification: {
+    otp: number;
+    otp_expiry: Date;
+  } | null;
 }

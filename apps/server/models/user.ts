@@ -13,8 +13,7 @@ const UserSchema = new mongoose.Schema(
       otp: { type: Number },
       otp_expiry: {
         type: Date,
-        default: Date.now(),
-        expires: 60 * 5, // 5 minutes
+        default: new Date().getTime() + 2 * 60000, // 2 Minutes
       },
     },
   },
