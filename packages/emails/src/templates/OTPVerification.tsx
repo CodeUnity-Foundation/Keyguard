@@ -1,10 +1,13 @@
-import React from 'react';
+type OTPVerification = {
+  name: string;
+  otp: string;
+};
 
-// otp verification template
-export const OTPVerification = ({ otp }: { otp: string }) => {
+export const OTPVerification = ({ name, otp }: OTPVerification) => {
   return (
     <div>
-      <h1>OTP Verification {otp}</h1>
+      <h2>Hello {name}</h2>
+      <p>Your verification otp is {otp}</p>
     </div>
   );
 };

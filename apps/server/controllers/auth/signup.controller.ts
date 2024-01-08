@@ -1,9 +1,6 @@
 import bcrypt from 'bcrypt';
 import { TRPCError } from '@trpc/server';
-import { sendOTPVarificationEmail } from '@repo/emails';
-
 import User from '../../models/user';
-
 import { generateJWT } from '../../utils/generateJWT';
 import { generateOTP } from '../../utils/generateOTP';
 import { AuthSchemaType } from './authSchema';
@@ -39,8 +36,7 @@ export const signupController = async ({ input }: SignUpProps) => {
   if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
 
   const token = generateJWT(user._id, user.email);
-  const emailResposne = await sendOTPVarificationEmail({ email: savedUser.email, otp });
 
-  const userData = { user, token, emailResposne };
+  const userData = { user, token };
   return { success: true, message: 'User created successfully', ...userData };
 };
