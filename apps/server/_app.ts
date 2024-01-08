@@ -4,6 +4,7 @@ import express, { Application } from 'express';
 import { appRouter } from './routes';
 import connectToDB from './db';
 import { createContext } from './trpc';
+import { PORT } from './config';
 
 const app: Application = express();
 
@@ -15,6 +16,6 @@ app.use('/api', trpcExpress.createExpressMiddleware({ router: appRouter, createC
 
 app.use(express.json());
 
-app.listen(8000, () => {
-  console.log('Server listening on port 8000');
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
