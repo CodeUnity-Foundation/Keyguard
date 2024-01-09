@@ -1,16 +1,12 @@
 import bcrypt from 'bcrypt';
 import { TRPCError } from '@trpc/server';
-import { sendOTPVarificationEmail } from '@repo/emails';
-
 import User from '../../models/user';
-import { IUser } from '../../models/types';
-
 import { generateJWT } from '../../utils/generateJWT';
 import { generateOTP } from '../../utils/generateOTP';
-import { AuthSchema } from './authSchema';
+import { AuthSchemaType } from './authSchema';
 
 type SignUpProps = {
-  input: AuthSchema;
+  input: AuthSchemaType;
 };
 
 export const signupController = async ({ input }: SignUpProps) => {
@@ -34,12 +30,13 @@ export const signupController = async ({ input }: SignUpProps) => {
   });
   const savedUser = await newUser.save();
 
-  const user: IUser = await User.findById(savedUser._id).select('-password');
-  if (!user) throw new TRPCError({ code: 'BAD_REQUEST', message: 'User not found!' });
+  const user = await User.findById(savedUser._id).select(
+    '-password -emailVerification -createdAt -updatedAt -deletedAt -__v',
+  );
+  if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
 
   const token = generateJWT(user._id, user.email);
-  const emailResposne = await sendOTPVarificationEmail({ email: user.email, otp });
 
-  const userData = { user, token, emailResposne };
+  const userData = { user, token };
   return { success: true, message: 'User created successfully', ...userData };
 };
