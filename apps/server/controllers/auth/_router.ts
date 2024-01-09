@@ -1,8 +1,8 @@
 import { publicProcedure, router } from '../../trpc';
 import { signupController } from './signup.controller';
-import { verifyOTPController } from './verifyOTP.controller';
 import { sendVerifyOTPController } from './sendVerifyOTP.controller';
 import { authSchema, otpSchema, sendVerifyOTPSchema } from './authSchema';
+import { verifyOTPController } from './verifyotp.controller';
 
 export const authRouter = router({
   signup: publicProcedure
