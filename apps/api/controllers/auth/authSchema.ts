@@ -37,14 +37,9 @@ export const otpSchema = z.object({
 
 export type OTPSchemaType = z.infer<typeof otpSchema>;
 
-export const sendVerifyOTPSchema = z.object({
-  name: z.string({ required_error: 'Name is required' }).min(2).max(100),
-  email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
-  otp: z
-    .number({ required_error: 'OTP is required', invalid_type_error: 'OTP must be a number' })
-    .refine((otp) => Number.isInteger(otp) && otp > 100000 && otp < 999999, {
-      message: 'OTP must be a 6 digit number',
-    }),
+export const sendVerifyOTPSchema = authSchema.pick({
+  name: true,
+  email: true,
 });
 
 export type SendVerifyOTPSchemaType = z.infer<typeof sendVerifyOTPSchema>;

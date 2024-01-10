@@ -5,5 +5,6 @@ dotenv.config();
 const NODE_ENV = process.env;
 
 //* Mail config
-export const EMAIL = NODE_ENV.EMAIL;
-export const EMAIL_PASSWORD = NODE_ENV.EMAIL_PASSWORD;
+export const USER = NODE_ENV.USER;
+export const PASSWORD = NODE_ENV.PASSWORD;
+export const FROM_EMAIL = NODE_ENV.FROM_EMAIL;

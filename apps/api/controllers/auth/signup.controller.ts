@@ -9,6 +9,10 @@ type SignUpProps = {
   input: AuthSchemaType;
 };
 
+/**
+ *
+ * TODO: Handle the profile image upload
+ */
 export const signupController = async ({ input }: SignUpProps) => {
   const existingUser = await User.findOne({ email: input.email });
   if (existingUser) {
@@ -26,7 +30,7 @@ export const signupController = async ({ input }: SignUpProps) => {
   const newUser = new User({
     ...input,
     password: hashedPassword,
-    emailVerification: { otp },
+    emailVerification: { otp, otp_expiry: new Date(new Date().getTime() + 120000) },
   });
   const savedUser = await newUser.save();
 

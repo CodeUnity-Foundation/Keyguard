@@ -1,20 +1,28 @@
 import nodemailer from 'nodemailer';
 import { logger } from '@vaultmaster/lib/logger';
-import { MODE } from './../../apps/server/config/index';
-import { EMAIL, EMAIL_PASSWORD } from './config';
+import { MODE } from './../../apps/api/config/index';
+import { PASSWORD, USER } from './config';
 
 const EMAIL_SUCCESS = 'Email sent successfully';
 const EMAIL_FAILED = 'Unable to send email';
 
-async function mailSender(mailerPayload: nodemailer.SendMailOptions) {
+type MailSender = {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+  responseMessage: string;
+};
+
+async function mailSender(mailerPayload: nodemailer.SendMailOptions & MailSender) {
   return new Promise((resolve, reject) => {
-    const isDevMode = MODE === 'dev';
+    const isDevMode = MODE === 'prod';
 
     const config = {
       host: isDevMode ? 'smtp.gmail.com' : 'sandbox.smtp.mailtrap.io',
       port: isDevMode ? 465 : 2525,
       secure: isDevMode,
-      auth: { user: EMAIL, pass: EMAIL_PASSWORD },
+      auth: { user: USER, pass: PASSWORD },
     };
 
     const transporter = nodemailer.createTransport(config);
@@ -24,8 +32,8 @@ async function mailSender(mailerPayload: nodemailer.SendMailOptions) {
         logger.error('Unable to send mail because =>', error);
         return reject(EMAIL_FAILED);
       } else {
-        logger.info(`Email sent: ${EMAIL_SUCCESS}`);
-        return resolve(EMAIL_SUCCESS);
+        logger.info(`Email sent: ${mailerPayload.responseMessage}`);
+        return resolve(mailerPayload.responseMessage);
       }
     });
   });
