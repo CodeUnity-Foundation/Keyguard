@@ -37,9 +37,8 @@ export const otpSchema = z.object({
 
 export type OTPSchemaType = z.infer<typeof otpSchema>;
 
-export const sendVerifyOTPSchema = authSchema.pick({
-  name: true,
+export const resentOTPSchema = authSchema.pick({
   email: true,
 });
 
-export type SendVerifyOTPSchemaType = z.infer<typeof sendVerifyOTPSchema>;
+export type SendVerifyOTPSchemaType = z.infer<typeof resentOTPSchema>;
