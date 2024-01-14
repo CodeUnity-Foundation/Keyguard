@@ -6,8 +6,10 @@ export const SIXTY = 60;
 
 export const THOUSAND = 1000;
 
-export const verifyOTPTimeLimit = (otpTime: Date, isForResendOtp = false) => {
-  const otpSendTime = otpTime.getTime(),
+export const otpExpireTime = new Date(Date.now() + TWO * SIXTY * THOUSAND); // 2 minutes from now
+
+export const verifyOTPTimeLimit = (storedOTPExpiry: Date, isForResendOtp = false) => {
+  const otpSendTime = storedOTPExpiry.getTime(),
     currentTime = new Date().getTime(),
     OTP_TIME_LIMIT = DEFAULT_OTP_TIME_LIMIT * THOUSAND,
     expiryTime = otpSendTime + OTP_TIME_LIMIT;

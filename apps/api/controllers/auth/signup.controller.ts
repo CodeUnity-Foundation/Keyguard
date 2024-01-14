@@ -1,11 +1,12 @@
 import bcrypt from 'bcrypt';
 import { TRPCError } from '@trpc/server';
-import User from '../../models/user';
+import { sendOTPVarificationEmail } from '@repo/emails';
 import { generateJWT } from '../../utils/generateJWT';
 import { generateOTP } from '../../utils/generateOTP';
+import { otpExpireTime, verifyOTPTimeLimit } from '../../utils/constant';
+import { sanatizedUser, userExisted } from '../../queries/user.query';
 import { AuthSchemaType } from './authSchema';
-import { SIXTY, THOUSAND, TWO, verifyOTPTimeLimit } from '../../utils/constant';
-import { sendOTPVarificationEmail } from '@repo/emails';
+import User from '../../models/user';
 
 type SignUpProps = {
   input: AuthSchemaType;
@@ -16,7 +17,7 @@ type SignUpProps = {
  * TODO: Handle the profile image upload
  */
 export const signupController = async ({ input }: SignUpProps) => {
-  const existingUser = await User.findOne({ email: input.email });
+  const existingUser = await userExisted({ email: input.email });
   if (existingUser) {
     throw new TRPCError({ code: 'BAD_REQUEST', message: 'User already exists!' });
   }
@@ -38,8 +39,7 @@ export const signupController = async ({ input }: SignUpProps) => {
     throw new TRPCError({ code: 'BAD_REQUEST', message: 'OTP already sent!' });
   }
 
-  const otpExpireTime = new Date(Date.now() + TWO * SIXTY * THOUSAND); // 2 minutes from now
-
+  // send otp to email
   await sendOTPVarificationEmail({
     name: input.name,
     email: input.email,
@@ -54,12 +54,16 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   await user.save();
 
-  const sanatizedUser = await User.findById(user._id).select('-password -emailVerification -__v');
-  if (!sanatizedUser) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
+  // return the user
+  const userResponse = await sanatizedUser({ email: user.email });
+  if (!userResponse) {
+    throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
+  }
 
-  const token = generateJWT(sanatizedUser._id, sanatizedUser.email);
+  const token = generateJWT(userResponse._id, userResponse.email);
 
-  const userData = { user: sanatizedUser, token };
+  const userData = { user: userResponse, token };
+
   return {
     success: true,
     message: 'Account created successfully. Check your email for OTP verification!',

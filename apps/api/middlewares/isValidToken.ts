@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { TRPCError } from '@trpc/server';
 import { middleware } from '../trpc';
-import { JWT_SECRET } from '@repo/emails/config';
+import { JWT_SECRET } from '../config';
 
 export const isValidToken = middleware(async ({ ctx, next }) => {
   const token: string = ctx.req.headers['authorization'] ?? '';
@@ -11,7 +11,6 @@ export const isValidToken = middleware(async ({ ctx, next }) => {
   }
 
   const decoded = jwt.verify(token, JWT_SECRET);
-  console.log('decoded =>', decoded);
 
   if (!decoded) {
     throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token!' });
