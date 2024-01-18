@@ -21,10 +21,18 @@ export const authSchema = z.object({
     .optional()
     .nullable(),
   is_verified: z.boolean(),
-  master_password: z.string().optional(),
+  master_password: z.string().min(6).max(25).optional(),
+  confirm_master_password: z.string().min(6).max(25).optional(),
 });
 
 export type AuthSchemaType = z.infer<typeof authSchema>;
+
+export const loginSchema = authSchema.pick({
+  email: true,
+  password: true,
+});
+
+export type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export const otpSchema = z.object({
   email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
@@ -42,3 +50,11 @@ export const resentOTPSchema = authSchema.pick({
 });
 
 export type SendVerifyOTPSchemaType = z.infer<typeof resentOTPSchema>;
+
+export const masterPasswordSchema = z.object({
+  email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
+  master_password: z.string({ required_error: 'Master password is required' }).min(6).max(25),
+  confirm_master_password: z.string({ required_error: 'Confirm master password is required' }).min(6).max(25),
+});
+
+export type MasterPasswordSchemaType = z.infer<typeof masterPasswordSchema>;

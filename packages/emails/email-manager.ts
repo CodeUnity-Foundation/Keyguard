@@ -23,3 +23,21 @@ export const sendOTPVarificationEmail = async (otpVerificationEvent: OTPVerifica
   };
   return await mailSender(mailerPayload);
 };
+
+interface PasswordConfirmationEvent {
+  name: string;
+  email: string;
+}
+
+export const sendPasswordConfirmationEmail = async (passwordConfirmationEvent: PasswordConfirmationEvent) => {
+  const mailerPayload = {
+    from: FROM_EMAIL ?? '',
+    to: passwordConfirmationEvent.email,
+    subject: 'Password confirmation!',
+    html: renderEmail('PasswordConfirmation', {
+      name: passwordConfirmationEvent.name,
+    }),
+    responseMessage: 'Password confirmation email sent successfully!',
+  };
+  return await mailSender(mailerPayload);
+};

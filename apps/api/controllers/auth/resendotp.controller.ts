@@ -4,11 +4,11 @@ import { generateOTP } from '../../utils/generateOTP';
 import { otpExpireTime, verifyOTPTimeLimit } from '../../utils/constant';
 import { checkUserVerifiedStatus, userExisted } from '../../queries/user.query';
 
-type ResendOTPInput = {
+type ResendOTPProps = {
   email: string;
 };
 
-export const resendOTPController = async ({ input }: { input: ResendOTPInput }) => {
+export const resendOTPController = async ({ input }: { input: ResendOTPProps }) => {
   const user = await userExisted({ email: input.email });
 
   if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
