@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { TRPCError } from '@trpc/server';
 import User from '../models/user';
 
@@ -28,4 +29,14 @@ export const sanatizedUser = async ({ email }: { email: string }) => {
 export const checkUserVerifiedStatus = async ({ email }: { email: string }) => {
   const user = await User.findOne({ email });
   if (user?.is_verified) throw new TRPCError({ code: 'BAD_REQUEST', message: 'User already verified!' });
+};
+
+/**
+ * Check compared password using bcrypt
+ * @param email
+ */
+export const comparePassword = async ({ password, existedPassword }: { password: string; existedPassword: string }) => {
+  const isSame = await bcrypt.compare(password, existedPassword);
+  if (!isSame) throw new TRPCError({ code: 'BAD_REQUEST', message: 'Incorrect password!' });
+  return isSame;
 };
