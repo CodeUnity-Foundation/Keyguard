@@ -2,8 +2,10 @@ import mongoose, { ConnectOptions } from 'mongoose';
 import { CLUSTER_URL, DB_NAME, DB_PASSWORD, DB_USERNAME, MODE } from '../config';
 import { logger } from '../utils/logger';
 
-if (!DB_USERNAME || !DB_PASSWORD || !CLUSTER_URL || !DB_NAME) {
-  throw new Error(`Missing environment variables for MongoDB connection`);
+if (MODE === 'prod') {
+  if (!DB_USERNAME || !DB_PASSWORD || !CLUSTER_URL || !DB_NAME) {
+    throw new Error(`Missing environment variables for MongoDB connection`);
+  }
 }
 
 const DEV_URL = `mongodb://localhost:27017/${DB_NAME}`;

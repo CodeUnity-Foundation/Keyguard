@@ -1,0 +1,35 @@
+import { TRPCError } from '@trpc/server';
+import { OTPSchemaType } from './authSchema';
+import { verifyOTPTimeLimit } from '../../utils/constant';
+import { checkUserVerifiedStatus, userExisted } from '../../queries/user.query';
+
+type VerifyOTPProps = {
+  input: OTPSchemaType;
+};
+
+export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
+  const { email, otp } = input;
+
+  const user = await userExisted({ email });
+
+  if (!user) throw new TRPCError({ code: 'BAD_REQUEST', message: 'User does not exist!' });
+
+  await checkUserVerifiedStatus({ email });
+
+  let { emailVerification } = user;
+
+  if (!emailVerification) throw new TRPCError({ code: 'NOT_FOUND', message: 'OTP not found!' });
+
+  const { otp: storedOTP, otp_expiry: storedOTPExpiry } = emailVerification;
+
+  if (verifyOTPTimeLimit(storedOTPExpiry)) throw new TRPCError({ code: 'BAD_REQUEST', message: 'OTP expired!' });
+
+  if (otp !== storedOTP) throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid OTP!' });
+
+  user.is_verified = true;
+  user.emailVerification = null;
+
+  await user.save();
+
+  return { success: true, message: 'OTP verified successfully' };
+};
