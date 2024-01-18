@@ -18,11 +18,13 @@ type SignUpProps = {
  */
 export const signupController = async ({ input }: SignUpProps) => {
   const existingUser = await userExisted({ email: input.email });
+
   if (existingUser) {
     throw new TRPCError({ code: 'BAD_REQUEST', message: 'User already exists!' });
   }
 
   const { password, confirm_password } = input;
+
   if (password !== confirm_password) {
     throw new TRPCError({ code: 'BAD_REQUEST', message: 'Passwords do not matched!' });
   }
@@ -35,6 +37,7 @@ export const signupController = async ({ input }: SignUpProps) => {
   const otp = generateOTP();
 
   const { emailVerification } = user;
+
   if (emailVerification?.otp && emailVerification.otp_expiry && verifyOTPTimeLimit(emailVerification.otp_expiry)) {
     throw new TRPCError({ code: 'BAD_REQUEST', message: 'OTP already sent!' });
   }
@@ -56,11 +59,16 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   // return the user
   const userResponse = await sanatizedUser({ email: user.email });
+
   if (!userResponse) {
     throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
   }
 
-  const token = generateJWT(userResponse._id, userResponse.email);
+  const token = generateJWT({
+    payload: { userId: userResponse._id, email: userResponse.email },
+    duration: 7,
+    durationUnit: 'days',
+  });
 
   const userData = { user: userResponse, token };
 

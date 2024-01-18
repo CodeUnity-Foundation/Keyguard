@@ -3,20 +3,28 @@ import { JWT_EXPIRES_IN } from '../constants';
 import { JWT_SECRET } from '../config';
 
 interface JWT {
-  sign(
-    payload: string | object | Buffer,
-    secretOrPrivateKey: jwt.Secret,
-    options?: SignOptions,
-  ): string;
+  sign(payload: string | object | Buffer, secretOrPrivateKey: jwt.Secret, options?: SignOptions): string;
 }
 
-export function generateJWT(userId: string, email: string): string {
-  const options: SignOptions = {
-    encoding: 'utf8',
-    algorithm: 'HS256',
-    expiresIn: JWT_EXPIRES_IN,
+interface JWTArgs {
+  payload: {
+    userId: string;
+    email: string;
   };
+  duration?: number;
+  durationUnit?: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years';
+}
+
+export function generateJWT({ payload, duration, durationUnit }: JWTArgs): string {
+  let options: SignOptions = {};
+
+  if (duration && durationUnit) {
+    options.expiresIn = `${duration}${durationUnit}`;
+  }
+
   const jwtInstance = jwt as JWT;
-  const token = jwtInstance.sign({ userId, email }, JWT_SECRET, options);
+
+  const token = jwtInstance.sign(payload, JWT_SECRET, options);
+
   return token;
 }
