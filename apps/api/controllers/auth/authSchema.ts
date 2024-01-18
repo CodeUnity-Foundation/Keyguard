@@ -23,6 +23,7 @@ export const authSchema = z.object({
   is_verified: z.boolean(),
   master_password: z.string().min(6).max(25).optional(),
   confirm_master_password: z.string().min(6).max(25).optional(),
+  is_remember: z.boolean().optional(),
 });
 
 export type AuthSchemaType = z.infer<typeof authSchema>;
@@ -30,6 +31,7 @@ export type AuthSchemaType = z.infer<typeof authSchema>;
 export const loginSchema = authSchema.pick({
   email: true,
   password: true,
+  is_remember: true,
 });
 
 export type LoginSchemaType = z.infer<typeof loginSchema>;

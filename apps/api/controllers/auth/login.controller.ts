@@ -26,7 +26,7 @@ export const loginController = async ({ input }: LoginProps) => {
 
   const accessToken = generateJWT({
     payload: { userId: user.email, email: user._id },
-    duration: 7,
+    duration: !input.is_remember ? 1 : 7,
     durationUnit: 'days',
   });
 
