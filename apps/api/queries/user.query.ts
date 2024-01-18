@@ -37,6 +37,6 @@ export const checkUserVerifiedStatus = async ({ email }: { email: string }) => {
  */
 export const comparePassword = async ({ password, existedPassword }: { password: string; existedPassword: string }) => {
   const isSame = await bcrypt.compare(password, existedPassword);
-  if (!isSame) throw new TRPCError({ code: 'BAD_REQUEST', message: 'Incorrect password!' });
+  if (!isSame) throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid credentials!' });
   return isSame;
 };

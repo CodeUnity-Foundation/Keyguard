@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { userExisted, comparePassword } from '../../queries/user.query';
-import { LoginSchemaType } from './authSchema';
 import { generateJWT } from '../../utils/generateJWT';
+import { LoginSchemaType } from './authSchema';
 
 type LoginProps = {
   input: LoginSchemaType;
@@ -11,7 +11,7 @@ export const loginController = async ({ input }: LoginProps) => {
   const user = await userExisted({ email: input.email });
 
   if (!user) {
-    throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
+    throw new TRPCError({ code: 'NOT_FOUND', message: 'Invalid credentials!' });
   }
 
   if (!user.is_verified) {
@@ -24,11 +24,11 @@ export const loginController = async ({ input }: LoginProps) => {
 
   await comparePassword({ password: input.password, existedPassword: user.password });
 
-  const accessToken = generateJWT({
+  const token = generateJWT({
     payload: { userId: user.email, email: user._id },
     duration: !input.is_remember ? 1 : 7,
     durationUnit: 'days',
   });
 
-  return { success: true, message: 'Login successfully!', accessToken };
+  return { success: true, message: 'Login successfully!', token };
 };
