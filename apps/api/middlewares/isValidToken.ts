@@ -4,6 +4,8 @@ import { middleware } from '../trpc';
 import { JWT_SECRET } from '../config';
 import User from '../models/user';
 import { UserJWTData, UserRequest } from './type';
+import { checkUserVerifiedStatus, userExisted } from '../queries/user.query';
+import { Response } from '../constants';
 
 export const isValidToken = middleware(async ({ ctx, next }) => {
   const context = ctx as unknown as UserRequest;
@@ -16,20 +18,22 @@ export const isValidToken = middleware(async ({ ctx, next }) => {
 
   authToken = authToken.replace('Bearer ', '');
 
-  const verified = Jwt.verify(authToken, JWT_SECRET) as UserJWTData;
+  const decoded = Jwt.verify(authToken, JWT_SECRET) as UserJWTData;
 
-  if (!verified) {
+  if (!decoded) {
     throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token!' });
   }
 
-  const user = await User.findOne({ email: verified.email });
+  const user = await userExisted({ email: decoded.email });
 
   if (!user) {
     throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Unauthorized access, Please login again!' });
   }
 
-  if (!user.is_verified) {
-    throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Unauthorized access, You are not verified user!' });
+  const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
+
+  if (!isUserVerified) {
+    throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_NOT_VERIFIED });
   }
 
   if (user.master_password) {

@@ -1,6 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { OTPSchemaType } from './authSchema';
-import { verifyOTPTimeLimit } from '../../utils/constant';
+import { Response, verifyOTPTimeLimit } from '../../constants';
 import { checkUserVerifiedStatus, userExisted } from '../../queries/user.query';
 
 type VerifyOTPProps = {
@@ -14,7 +14,11 @@ export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
 
   if (!user) throw new TRPCError({ code: 'BAD_REQUEST', message: 'User does not exist!' });
 
-  await checkUserVerifiedStatus({ email });
+  const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
+
+  if (isUserVerified) {
+    throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_ALREADY_VERIFIED });
+  }
 
   let { emailVerification } = user;
 

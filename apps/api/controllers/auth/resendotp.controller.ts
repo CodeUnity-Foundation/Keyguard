@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { sendOTPVarificationEmail } from '@repo/emails';
 import { generateOTP } from '../../utils/generateOTP';
-import { otpExpireTime, verifyOTPTimeLimit } from '../../utils/constant';
+import { Response, otpExpireTime, verifyOTPTimeLimit } from '../../constants';
 import { checkUserVerifiedStatus, userExisted } from '../../queries/user.query';
 
 type ResendOTPProps = {
@@ -11,9 +11,13 @@ type ResendOTPProps = {
 export const resendOTPController = async ({ input }: { input: ResendOTPProps }) => {
   const user = await userExisted({ email: input.email });
 
-  if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
+  if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: Response.USER_NOT_FOUND });
 
-  await checkUserVerifiedStatus({ email: user.email });
+  const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
+
+  if (isUserVerified) {
+    throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_ALREADY_VERIFIED });
+  }
 
   const otp = generateOTP();
 

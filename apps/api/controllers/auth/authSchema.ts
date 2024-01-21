@@ -13,7 +13,7 @@ export const authSchema = z.object({
     .object({
       otp: z
         .number({ required_error: 'OTP is required', invalid_type_error: 'OTP must be a number' })
-        .refine((otp) => Number.isInteger(otp) && otp > 100000 && otp < 999999, {
+        .refine((otp) => Number.isInteger(otp) && otp > 111111 && otp < 999999, {
           message: 'OTP must be a 6 digit number',
         }),
       otp_expiry: z.date(),

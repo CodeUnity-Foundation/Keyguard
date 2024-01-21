@@ -10,4 +10,5 @@ export interface IUser {
     otp: number;
     otp_expiry: Date;
   } | null;
+  deletedAt?: Date;
 }

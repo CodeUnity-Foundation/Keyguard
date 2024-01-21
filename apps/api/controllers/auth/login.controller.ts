@@ -1,7 +1,8 @@
 import { TRPCError } from '@trpc/server';
-import { userExisted, comparePassword } from '../../queries/user.query';
+import { userExisted, comparePassword, checkUserVerifiedStatus } from '../../queries/user.query';
 import { generateJWT } from '../../utils/generateJWT';
 import { LoginSchemaType } from './authSchema';
+import { Response } from '../../constants';
 
 type LoginProps = {
   input: LoginSchemaType;
@@ -11,15 +12,13 @@ export const loginController = async ({ input }: LoginProps) => {
   const user = await userExisted({ email: input.email });
 
   if (!user) {
-    throw new TRPCError({ code: 'NOT_FOUND', message: 'Invalid credentials!' });
+    throw new TRPCError({ code: 'NOT_FOUND', message: Response.INVALID_CREDENTIALS });
   }
 
-  if (!user.is_verified) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'Please verify the user first!' });
-  }
+  const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
 
-  if (!user.master_password) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'Master password missing!' });
+  if (!isUserVerified) {
+    throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_NOT_VERIFIED });
   }
 
   await comparePassword({ password: input.password, existedPassword: user.password });
