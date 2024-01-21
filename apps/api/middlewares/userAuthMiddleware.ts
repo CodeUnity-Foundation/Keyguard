@@ -2,12 +2,11 @@ import Jwt from 'jsonwebtoken';
 import { TRPCError } from '@trpc/server';
 import { middleware } from '../trpc';
 import { JWT_SECRET } from '../config';
-import User from '../models/user';
 import { UserJWTData, UserRequest } from './type';
 import { checkUserVerifiedStatus, userExisted } from '../queries/user.query';
 import { Response } from '../constants';
 
-export const isValidToken = middleware(async ({ ctx, next }) => {
+export const userAuthMiddleware = middleware(async ({ ctx, next }) => {
   const context = ctx as unknown as UserRequest;
 
   let authToken: string = ctx.req.headers['authorization'] ?? '';

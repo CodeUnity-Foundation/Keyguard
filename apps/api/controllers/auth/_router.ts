@@ -6,7 +6,7 @@ import { verifyOTPController } from './verifyotp.controller';
 import { resendOTPController } from './resendotp.controller';
 import { createMasterPasswordController } from './masterpassword.controller';
 
-import { isValidToken } from '../../middlewares/isValidToken';
+import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware';
 import { authSchema, loginSchema, masterPasswordSchema, otpSchema, resentOTPSchema } from './authSchema';
 
 export const authRouter = router({
@@ -20,6 +20,6 @@ export const authRouter = router({
 
   masterPassword: publicProcedure
     .input(masterPasswordSchema)
-    .use(isValidToken)
+    .use(userAuthMiddleware)
     .mutation(async ({ input }) => createMasterPasswordController({ input })),
 });
