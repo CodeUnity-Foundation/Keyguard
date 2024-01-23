@@ -1,21 +1,25 @@
 import bcrypt from 'bcrypt';
 import { TRPCError } from '@trpc/server';
 import { sendPasswordConfirmationEmail } from '@repo/emails';
-import { checkPassword, userExisted } from '../../queries/user.query';
+import { comparePassword, userExisted } from '../../queries/user.query';
 import { generateJWT } from '../../utils/generateJWT';
 import { MasterPasswordSchemaType } from './authSchema';
 import { IUser } from '../../models/types';
 import User from '../../models/user';
 import { Response } from '../../constants';
+import { TRPCContext } from '../../createContext';
 
 type MasterPasswordProps = {
   input: MasterPasswordSchemaType;
+  ctx: TRPCContext;
 };
 
-export const createMasterPasswordController = async ({ input }: MasterPasswordProps) => {
-  const { email, master_password, confirm_master_password } = input;
+export const createMasterPasswordController = async ({ input, ctx }: MasterPasswordProps) => {
+  const { master_password, confirm_master_password } = input;
 
-  checkPassword({ password: master_password, confirmPassword: confirm_master_password });
+  comparePassword({ password: master_password, confirmPassword: confirm_master_password });
+
+  const email = ctx.user?.email ?? '';
 
   const user = (await userExisted({ email })) as IUser;
 
@@ -42,6 +46,7 @@ export const createMasterPasswordController = async ({ input }: MasterPasswordPr
       },
     );
 
+    // send email to user
     sendPasswordConfirmationEmail({
       name: user.name,
       email: user.email,
