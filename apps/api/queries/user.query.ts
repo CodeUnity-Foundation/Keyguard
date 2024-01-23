@@ -36,7 +36,7 @@ export const checkUserVerifiedStatus = async ({ email }: { email: string }) => {
  * Check compared password using bcrypt
  * @param password @param existedPassword
  */
-export const comparePassword = async ({
+export const verifyPassword = async ({
   password,
   existedPassword,
 }: {
@@ -55,7 +55,7 @@ export const comparePassword = async ({
  * @param password OR @param masterPassword
  * @param confirmPassword OR @param confirmMasterPassword
  */
-export const checkPassword = ({
+export const comparePassword = ({
   password,
   confirmPassword,
 }: {

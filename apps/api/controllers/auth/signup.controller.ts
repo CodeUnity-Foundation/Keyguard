@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { sendOTPVarificationEmail } from '@repo/emails';
 import { generateJWT } from '../../utils/generateJWT';
 import { generateOTP } from '../../utils/generateOTP';
-import { checkPassword, sanatizedUser, userExisted } from '../../queries/user.query';
+import { comparePassword, sanatizedUser, userExisted } from '../../queries/user.query';
 import { AuthSchemaType } from './authSchema';
 import User from '../../models/user';
 import { Response, otpExpireTime, verifyOTPTimeLimit } from '../../constants';
@@ -25,7 +25,7 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   const { password, confirm_password } = input;
 
-  checkPassword({ password, confirmPassword: confirm_password });
+  comparePassword({ password, confirmPassword: confirm_password });
 
   const hashedPassword = await bcrypt.hash(input.password, 10);
 

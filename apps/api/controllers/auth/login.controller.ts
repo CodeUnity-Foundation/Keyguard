@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { userExisted, comparePassword, checkUserVerifiedStatus } from '../../queries/user.query';
+import { userExisted, verifyPassword, checkUserVerifiedStatus } from '../../queries/user.query';
 import { generateJWT } from '../../utils/generateJWT';
 import { LoginSchemaType } from './authSchema';
 import { Response } from '../../constants';
@@ -21,7 +21,8 @@ export const loginController = async ({ input }: LoginProps) => {
     throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_NOT_VERIFIED });
   }
 
-  await comparePassword({ password: input.password, existedPassword: user.password });
+  // verify the password
+  await verifyPassword({ password: input.password, existedPassword: user.password });
 
   const token = generateJWT({
     payload: { userId: user.email, email: user._id },
