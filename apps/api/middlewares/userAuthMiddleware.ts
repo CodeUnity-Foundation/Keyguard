@@ -7,9 +7,7 @@ import { checkUserVerifiedStatus, userExisted } from '../queries/user.query';
 import { Response } from '../constants';
 
 export const userAuthMiddleware = middleware(async ({ ctx, next }) => {
-  const context = ctx as unknown as UserRequest;
-
-  let authToken: string = ctx.req.headers['authorization'] ?? '';
+  let authToken: string = ctx.req?.headers['authorization'] ?? '';
 
   if (!authToken) {
     throw new TRPCError({ code: 'NOT_FOUND', message: 'Token not found!' });
@@ -39,7 +37,7 @@ export const userAuthMiddleware = middleware(async ({ ctx, next }) => {
     throw new TRPCError({ code: 'FORBIDDEN', message: 'Master password already exists!' });
   }
 
-  context.user = user;
+  ctx.user = user;
 
   return next();
 });
