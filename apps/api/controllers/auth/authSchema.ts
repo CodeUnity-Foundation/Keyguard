@@ -53,10 +53,15 @@ export const resentOTPSchema = authSchema.pick({
 
 export type SendVerifyOTPSchemaType = z.infer<typeof resentOTPSchema>;
 
-export const masterPasswordSchema = z.object({
-  email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
+export const createMasterPasswordSchema = z.object({
   master_password: z.string({ required_error: 'Master password is required' }).min(6).max(25),
   confirm_master_password: z.string({ required_error: 'Confirm master password is required' }).min(6).max(25),
 });
 
-export type MasterPasswordSchemaType = z.infer<typeof masterPasswordSchema>;
+export type MasterPasswordSchemaType = z.infer<typeof createMasterPasswordSchema>;
+
+export const verifyMasterPasswordSchema = z.object({
+  master_password: z.string({ required_error: 'Master password is required' }).min(6).max(25),
+});
+
+export type VerifyMasterPasswordSchemaType = z.infer<typeof verifyMasterPasswordSchema>;

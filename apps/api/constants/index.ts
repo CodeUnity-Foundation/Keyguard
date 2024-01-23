@@ -27,7 +27,7 @@ export const verifyOTPTimeLimit = (storedOTPExpiry: Date, isForResendOtp = false
 export const Response = <const>{
   USER_NOT_FOUND: 'User not found. Please check your credentials and try again.',
   USER_ALREADY_EXISTS: 'User already exists. Please choose a different username or email.',
-  INVALID_CREDENTIALS: 'Invalid credentials. Please double-check your username and password.',
+  INVALID_CREDENTIALS: 'Invalid credentials.',
   USER_ALREADY_VERIFIED: 'User already verified. No further action is needed.',
   USER_NOT_VERIFIED: 'Verify the user first before proceeding.',
   PASSWORD_NOT_MATCHED: 'Passwords do not match. Please ensure both passwords are the same.',

@@ -41,3 +41,28 @@ export const sendPasswordConfirmationEmail = async (passwordConfirmationEvent: P
   };
   return await mailSender(mailerPayload);
 };
+
+interface AccountLoginSuccessEvent {
+  name: string;
+  email: string;
+  ip: string | string[];
+  time: string;
+  browser: string;
+}
+
+export const sendAccountLoginSuccessEmail = async (accountLoginSuccessEvent: AccountLoginSuccessEvent) => {
+  const mailerPayload = {
+    from: FROM_EMAIL ?? '',
+    to: accountLoginSuccessEvent.email,
+    subject: 'Account login success!',
+    html: renderEmail('AccountLoginSuccess', {
+      name: accountLoginSuccessEvent.name,
+      email: accountLoginSuccessEvent.email,
+      ip: accountLoginSuccessEvent.ip,
+      browser: accountLoginSuccessEvent.browser,
+      time: accountLoginSuccessEvent.time,
+    }),
+    responseMessage: 'Account login success email sent successfully!',
+  };
+  return await mailSender(mailerPayload);
+};
