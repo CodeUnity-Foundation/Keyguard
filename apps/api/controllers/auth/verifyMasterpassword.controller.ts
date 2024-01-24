@@ -39,7 +39,7 @@ export const verifyMasterPasswordController = async ({ input, ctx }: VerifyMaste
   sendAccountLoginSuccessEmail({
     name: user.name,
     email: user.email,
-    ip: ctx.req?.headers['x-forwarded-for'] ?? '',
+    ip: ctx.req?.socket.remoteAddress ?? '',
     browser: ctx.req?.headers['user-agent'] ?? '',
     time: new Date().toLocaleString(),
   });
