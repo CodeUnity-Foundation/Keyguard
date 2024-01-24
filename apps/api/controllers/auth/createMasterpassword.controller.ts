@@ -28,7 +28,7 @@ export const createMasterPasswordController = async ({ input, ctx }: MasterPassw
   }
 
   const accessToken = generateJWT({
-    payload: { userId: user.email, email: user._id },
+    payload: { userId: user._id, email: user.email },
     duration: 3,
     durationUnit: 'minutes',
   });

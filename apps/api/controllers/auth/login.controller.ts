@@ -25,7 +25,7 @@ export const loginController = async ({ input }: LoginProps) => {
   await verifyPassword({ password: input.password, existedPassword: user.password });
 
   const token = generateJWT({
-    payload: { userId: user.email, email: user._id },
+    payload: { userId: user._id, email: user.email },
     duration: !input.is_remember ? 1 : 7,
     durationUnit: 'days',
   });
