@@ -33,10 +33,6 @@ export const userAuthMiddleware = middleware(async ({ ctx, next }) => {
     throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_NOT_VERIFIED });
   }
 
-  if (user.master_password) {
-    throw new TRPCError({ code: 'FORBIDDEN', message: 'Master password already exists!' });
-  }
-
   ctx.user = user;
 
   return next();

@@ -15,6 +15,7 @@ import {
   resentOTPSchema,
   verifyMasterPasswordSchema,
 } from './authSchema';
+import { existedMasterPassword } from '../../middlewares/existedMasterPassword';
 
 export const authRouter = router({
   signup: publicProcedure.input(authSchema).mutation(async ({ input }) => signupController({ input })),
@@ -28,6 +29,7 @@ export const authRouter = router({
   createMasterPassword: publicProcedure
     .input(createMasterPasswordSchema)
     .use(userAuthMiddleware)
+    .use(existedMasterPassword)
     .mutation(async ({ input, ctx }) => createMasterPasswordController({ input, ctx })),
 
   verifyMasterPassword: publicProcedure

@@ -4,7 +4,7 @@ import { IUser } from './models/types';
 type CreateContextOptions = CreateNextContextOptions;
 
 export type CreateInnerContextOptions = {
-  user?: Omit<IUser, 'password' | 'emailVerification' | 'master_password'>;
+  user?: Omit<IUser, 'password' | 'emailVerification'>;
 } & Partial<CreateContextOptions>;
 
 export async function createContextInner(opts: CreateInnerContextOptions) {
