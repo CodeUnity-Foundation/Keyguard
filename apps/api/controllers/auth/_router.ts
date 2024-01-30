@@ -7,12 +7,13 @@ import { resendOTPController } from './resendotp.controller';
 import { createMasterPasswordController } from './createMasterpassword.controller';
 import { verifyMasterPasswordController } from './verifyMasterpassword.controller';
 import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware';
+import { forgotPasswordController } from './forgotPassword.controller';
 import {
   authSchema,
   loginSchema,
   createMasterPasswordSchema,
   otpSchema,
-  resentOTPSchema,
+  emailInputSchema,
   verifyMasterPasswordSchema,
 } from './authSchema';
 import { existedMasterPassword } from '../../middlewares/existedMasterPassword';
@@ -24,7 +25,7 @@ export const authRouter = router({
 
   verifyOTP: publicProcedure.input(otpSchema).mutation(async ({ input }) => verifyOTPController({ input })),
 
-  resendOTP: publicProcedure.input(resentOTPSchema).mutation(async ({ input }) => resendOTPController({ input })),
+  resendOTP: publicProcedure.input(emailInputSchema).mutation(async ({ input }) => resendOTPController({ input })),
 
   createMasterPassword: publicProcedure
     .input(createMasterPasswordSchema)
@@ -36,4 +37,8 @@ export const authRouter = router({
     .input(verifyMasterPasswordSchema)
     .use(userAuthMiddleware)
     .mutation(async ({ input, ctx }) => verifyMasterPasswordController({ input, ctx })),
+
+  forgotPassword: publicProcedure
+    .input(emailInputSchema)
+    .mutation(async ({ input, ctx }) => forgotPasswordController({ input, ctx })),
 });

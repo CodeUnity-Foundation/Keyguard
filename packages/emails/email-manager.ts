@@ -66,3 +66,26 @@ export const sendAccountLoginSuccessEmail = async (accountLoginSuccessEvent: Acc
   };
   return await mailSender(mailerPayload);
 };
+
+interface ResetPasswordLinkEvent {
+  name: string;
+  email: string;
+  resetLink: string;
+  expire: number;
+}
+
+export const sendPasswordResetLink = async (passwordResetLinkEvent: ResetPasswordLinkEvent) => {
+  const mailerPayload = {
+    from: FROM_EMAIL ?? '',
+    to: passwordResetLinkEvent.email,
+    subject: 'Password reset!',
+    html: renderEmail('PasswordResetLink', {
+      name: passwordResetLinkEvent.name,
+      email: passwordResetLinkEvent.email,
+      resetLink: passwordResetLinkEvent.resetLink,
+      expire: passwordResetLinkEvent.expire,
+    }),
+    responseMessage: 'Password reset link sent successfully!',
+  };
+  return await mailSender(mailerPayload);
+};

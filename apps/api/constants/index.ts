@@ -31,4 +31,6 @@ export const Response = <const>{
   USER_ALREADY_VERIFIED: 'User already verified. No further action is needed.',
   USER_NOT_VERIFIED: 'Verify the user first before proceeding.',
   PASSWORD_NOT_MATCHED: 'Passwords do not match. Please ensure both passwords are the same.',
+  SOMETHING_WENT_WRONG: 'Something went wrong. Please try again.',
+  PASSWORD_RESET_EMAIL_SENT: 'Password reset email sent successfully.',
 };

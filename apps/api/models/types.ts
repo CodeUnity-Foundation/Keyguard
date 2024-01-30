@@ -1,4 +1,6 @@
-export interface IUser {
+import { Document } from 'mongodb';
+
+export interface IUser extends Document {
   _id: string;
   name: string;
   email: string;
@@ -10,5 +12,6 @@ export interface IUser {
     otp: number;
     otp_expiry: Date;
   } | null;
+  tokenExpiry?: Date;
   deletedAt?: Date;
 }
