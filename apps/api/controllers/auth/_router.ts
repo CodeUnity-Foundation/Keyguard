@@ -6,8 +6,9 @@ import { verifyOTPController } from './verifyotp.controller';
 import { resendOTPController } from './resendotp.controller';
 import { createMasterPasswordController } from './createMasterpassword.controller';
 import { verifyMasterPasswordController } from './verifyMasterpassword.controller';
-import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware';
 import { forgotPasswordController } from './forgotPassword.controller';
+import { resetPasswordController } from './resetPassword.controller';
+import { checkValidLinkForResetPassword } from './checkValidLinkForResetPassword.controller';
 import {
   authSchema,
   loginSchema,
@@ -15,8 +16,11 @@ import {
   otpSchema,
   emailInputSchema,
   verifyMasterPasswordSchema,
+  resetPasswordSchema,
 } from './authSchema';
+import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware';
 import { existedMasterPassword } from '../../middlewares/existedMasterPassword';
+import z from 'zod';
 
 export const authRouter = router({
   signup: publicProcedure.input(authSchema).mutation(async ({ input }) => signupController({ input })),
@@ -41,4 +45,10 @@ export const authRouter = router({
   forgotPassword: publicProcedure
     .input(emailInputSchema)
     .mutation(async ({ input, ctx }) => forgotPasswordController({ input, ctx })),
+
+  validLinkForResetPassword: publicProcedure.query(async ({ ctx }) => checkValidLinkForResetPassword({ ctx })),
+
+  resetPassword: publicProcedure
+    .input(resetPasswordSchema)
+    .mutation(async ({ input }) => resetPasswordController({ input })),
 });

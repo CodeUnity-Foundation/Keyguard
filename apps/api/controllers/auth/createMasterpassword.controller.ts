@@ -50,6 +50,7 @@ export const createMasterPasswordController = async ({ input, ctx }: MasterPassw
     sendPasswordConfirmationEmail({
       name: user.name,
       email: user.email,
+      type: 'create_master_password',
     });
   }
 

@@ -12,6 +12,6 @@ export interface IUser extends Document {
     otp: number;
     otp_expiry: Date;
   } | null;
-  tokenExpiry?: Date;
+  isLinkExpired: boolean;
   deletedAt?: Date;
 }

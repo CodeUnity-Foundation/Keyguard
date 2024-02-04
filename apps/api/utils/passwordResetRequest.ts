@@ -1,26 +1,26 @@
 import { sendPasswordResetLink } from '@repo/emails';
 import { IUser } from '../models/types';
+import { generateJWT } from './generateJWT';
 
 export const passwordResetRequest = async (user: IUser) => {
-  const { _id } = user;
-
-  // store the dateTime after 2 minitue
-  const tokenExpiryTime = new Date();
-  tokenExpiryTime.setMinutes(tokenExpiryTime.getMinutes() + 2);
-  user.tokenExpiry = tokenExpiryTime;
-  await user.save();
+  const resetToken = generateJWT({
+    payload: {
+      userId: user._id,
+      email: user.email,
+    },
+    duration: 2,
+    durationUnit: 'minutes',
+  });
 
   // generate password reset link
-  const passwordResetLink = `${process.env.NEXT_PUBLIC_WEBAPP_URL}/auth/forgot-password/${_id}`;
-
-  const remainingMinitues = tokenExpiryTime.getMinutes() - new Date().getMinutes();
+  const passwordResetLink = `${process.env.NEXT_PUBLIC_WEBAPP_URL}/auth/forgot-password/${resetToken}`;
 
   // send password reset link to user
   const mailResponse = await sendPasswordResetLink({
     name: user.name,
     email: user.email,
     resetLink: passwordResetLink,
-    expire: remainingMinitues,
+    expire: 2,
   });
 
   return mailResponse;

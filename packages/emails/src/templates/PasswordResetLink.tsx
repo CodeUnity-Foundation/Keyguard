@@ -5,6 +5,7 @@ type PasswordResetLink = {
   expire: number;
 };
 
+// change password, master password, forgot password, master password.
 export const PasswordResetLink = ({ name, email, resetLink, expire }: PasswordResetLink) => {
   return (
     <div>

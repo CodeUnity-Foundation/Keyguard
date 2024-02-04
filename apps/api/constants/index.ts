@@ -33,4 +33,5 @@ export const Response = <const>{
   PASSWORD_NOT_MATCHED: 'Passwords do not match. Please ensure both passwords are the same.',
   SOMETHING_WENT_WRONG: 'Something went wrong. Please try again.',
   PASSWORD_RESET_EMAIL_SENT: 'Password reset email sent successfully.',
+  RESET_LINK_EXPIRED: 'Password reset link expired. Please try again.',
 };

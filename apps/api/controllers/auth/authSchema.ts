@@ -65,3 +65,11 @@ export const verifyMasterPasswordSchema = z.object({
 });
 
 export type VerifyMasterPasswordSchemaType = z.infer<typeof verifyMasterPasswordSchema>;
+
+export const resetPasswordSchema = z.object({
+  requestToken: z.string(),
+  password: z.string({ required_error: 'Password is required' }).min(6).max(25),
+  confirm_password: z.string({ required_error: 'Confirm password is required' }).min(6).max(25),
+});
+
+export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>;

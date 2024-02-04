@@ -1,6 +1,7 @@
 import mailSender from './mailSender';
 import renderEmail from './src/renderEmail';
 import { FROM_EMAIL } from './config';
+import { ActionType } from './src/templates/PasswordConfirmation';
 
 interface OTPVerificationEvent {
   name: string;
@@ -27,6 +28,7 @@ export const sendOTPVarificationEmail = async (otpVerificationEvent: OTPVerifica
 interface PasswordConfirmationEvent {
   name: string;
   email: string;
+  type: ActionType;
 }
 
 export const sendPasswordConfirmationEmail = async (passwordConfirmationEvent: PasswordConfirmationEvent) => {
@@ -36,6 +38,7 @@ export const sendPasswordConfirmationEmail = async (passwordConfirmationEvent: P
     subject: 'Password confirmation!',
     html: renderEmail('PasswordConfirmation', {
       name: passwordConfirmationEvent.name,
+      type: passwordConfirmationEvent.type,
     }),
     responseMessage: 'Password confirmation email sent successfully!',
   };
