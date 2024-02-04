@@ -5,7 +5,7 @@ import { userExisted, verifyPassword } from '../../queries/user.query';
 import { VerifyMasterPasswordSchemaType } from './authSchema';
 import { Response } from '../../constants';
 import { generateJWT } from '../../utils/generateJWT';
-import { sendAccountLoginSuccessEmail } from '@repo/emails';
+import { sendAccountLoginSuccessEmail } from '@vaultmaster/emails';
 
 type VerifyMasterPasswordProps = {
   input: VerifyMasterPasswordSchemaType;

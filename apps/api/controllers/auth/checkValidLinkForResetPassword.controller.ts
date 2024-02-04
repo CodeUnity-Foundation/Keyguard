@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { TRPCError } from '@trpc/server';
+import { logger } from '@vaultmaster/lib/logger';
 import { TRPCContext } from '../../createContext';
 import User from '../../models/user';
 import { Response } from '../../constants';
-import { logger } from '../../utils/logger';
 import { JWT_SECRET } from '../../config';
 import { IUser } from '../../models/types';
 import { UserJWTData } from '../../@types';

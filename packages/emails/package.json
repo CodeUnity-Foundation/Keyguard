@@ -1,5 +1,5 @@
 {
-  "name": "@repo/emails",
+  "name": "@vaultmaster/emails",
   "version": "1.0.0",
   "description": "Emails for VaultMaster",
   "main": "index.js",

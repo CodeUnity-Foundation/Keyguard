@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { TRPCError } from '@trpc/server';
-import { sendOTPVarificationEmail } from '@repo/emails';
+import { sendOTPVarificationEmail } from '@vaultmaster/emails';
 import { generateJWT } from '../../utils/generateJWT';
 import { generateOTP } from '../../utils/generateOTP';
 import { comparePassword, sanatizedUser, userExisted } from '../../queries/user.query';

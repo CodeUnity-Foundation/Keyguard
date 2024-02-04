@@ -13,8 +13,8 @@
     "apps/*"
   ],
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@vaultmaster/eslint-config": "workspace:*",
+    "@vaultmaster/typescript-config": "workspace:*",
     "prettier": "^3.1.0",
     "turbo": "latest"
   },

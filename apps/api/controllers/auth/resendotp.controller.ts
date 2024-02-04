@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { sendOTPVarificationEmail } from '@repo/emails';
+import { sendOTPVarificationEmail } from '@vaultmaster/emails';
 import { generateOTP } from '../../utils/generateOTP';
 import { Response, otpExpireTime, verifyOTPTimeLimit } from '../../constants';
 import { checkUserVerifiedStatus, userExisted } from '../../queries/user.query';
