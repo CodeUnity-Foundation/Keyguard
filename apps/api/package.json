@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@repo/emails": "workspace:*",
-    "@repo/ui": "workspace:*",
+    "@vaultmaster/emails": "workspace:*",
+    "@vaultmaster/ui": "workspace:*",
     "@trpc/next": "^10.45.0",
     "@trpc/server": "^10.43.3",
     "bcrypt": "^5.1.1",

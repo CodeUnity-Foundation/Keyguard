@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { TRPCError } from '@trpc/server';
-import { sendPasswordConfirmationEmail } from '@repo/emails';
+import { sendPasswordConfirmationEmail } from '@vaultmaster/emails';
 import { comparePassword, userExisted } from '../../queries/user.query';
 import { generateJWT } from '../../utils/generateJWT';
 import { MasterPasswordSchemaType } from './authSchema';

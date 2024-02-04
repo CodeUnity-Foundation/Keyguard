@@ -7,7 +7,7 @@ import { Response } from '../../constants';
 import { JWT_SECRET } from '../../config';
 import { UserJWTData } from '../../@types';
 import User from '../../models/user';
-import { sendPasswordConfirmationEmail } from '@repo/emails';
+import { sendPasswordConfirmationEmail } from '@vaultmaster/emails';
 import { logger } from '../../utils/logger';
 
 interface ResetPassword {

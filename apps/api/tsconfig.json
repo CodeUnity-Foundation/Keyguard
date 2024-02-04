@@ -1,13 +1,13 @@
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "@vaultmaster/typescript-config/base.json",
   "compilerOptions": {
     "plugins": [],
     "outDir": "build",
-    "declarationMap":false,
+    "declarationMap": false,
     "declaration": false,
     "baseUrl": "@server",
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules","build"]
+  "exclude": ["node_modules", "build"]
 }

@@ -1,4 +1,4 @@
-import { sendPasswordResetLink } from '@repo/emails';
+import { sendPasswordResetLink } from '@vaultmaster/emails';
 import { IUser } from '../models/types';
 import { generateJWT } from './generateJWT';
 

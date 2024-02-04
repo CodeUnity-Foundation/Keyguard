@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/button';
+import { Button } from '@vaultmaster/ui/button';
 import Box from '@web/components/Box';
 import Image from 'next/image';
 
@@ -19,15 +19,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
+            By <Image src="/vercel.svg" alt="Vercel Logo" className="dark:invert" width={100} height={24} priority />
           </a>
         </div>
       </div>
@@ -90,9 +82,7 @@ export default function Home() {
               -&gt;
             </span>
           </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Explore starter templates for Next.js.</p>
         </a>
 
         <a
