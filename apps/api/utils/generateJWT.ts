@@ -1,5 +1,4 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
-import { JWT_EXPIRES_IN } from '../constants';
 import { JWT_SECRET } from '../config';
 
 interface JWT {

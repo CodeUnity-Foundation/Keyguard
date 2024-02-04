@@ -1,13 +1,9 @@
-import * as trpcExpress from '@trpc/server/adapters/express';
-import { inferAsyncReturnType, initTRPC } from '@trpc/server';
+import { initTRPC } from '@trpc/server';
+import { createContextInner } from './createContext';
 
-export const createContext = ({ req, res }: trpcExpress.CreateExpressContextOptions) => {
-  return { req, res };
-};
+export const tRPCContext = initTRPC.context<typeof createContextInner>().create();
 
-type Context = inferAsyncReturnType<typeof createContext>;
-export const t = initTRPC.context<Context>().create();
-export const router = t.router;
-export const middleware = t.middleware;
-export const mergeRouters = t.mergeRouters;
-export const publicProcedure = t.procedure;
+export const router = tRPCContext.router;
+export const middleware = tRPCContext.middleware;
+export const mergeRouters = tRPCContext.mergeRouters;
+export const publicProcedure = tRPCContext.procedure;

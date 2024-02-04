@@ -4,10 +4,23 @@ import { loginController } from './login.controller';
 import { signupController } from './signup.controller';
 import { verifyOTPController } from './verifyotp.controller';
 import { resendOTPController } from './resendotp.controller';
-import { createMasterPasswordController } from './masterpassword.controller';
-
-import { isValidToken } from '../../middlewares/isValidToken';
-import { authSchema, loginSchema, masterPasswordSchema, otpSchema, resentOTPSchema } from './authSchema';
+import { createMasterPasswordController } from './createMasterpassword.controller';
+import { verifyMasterPasswordController } from './verifyMasterpassword.controller';
+import { forgotPasswordController } from './forgotPassword.controller';
+import { resetPasswordController } from './resetPassword.controller';
+import { checkValidLinkForResetPassword } from './checkValidLinkForResetPassword.controller';
+import {
+  authSchema,
+  loginSchema,
+  createMasterPasswordSchema,
+  otpSchema,
+  emailInputSchema,
+  verifyMasterPasswordSchema,
+  resetPasswordSchema,
+} from './authSchema';
+import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware';
+import { existedMasterPassword } from '../../middlewares/existedMasterPassword';
+import z from 'zod';
 
 export const authRouter = router({
   signup: publicProcedure.input(authSchema).mutation(async ({ input }) => signupController({ input })),
@@ -16,10 +29,26 @@ export const authRouter = router({
 
   verifyOTP: publicProcedure.input(otpSchema).mutation(async ({ input }) => verifyOTPController({ input })),
 
-  resendOTP: publicProcedure.input(resentOTPSchema).mutation(async ({ input }) => resendOTPController({ input })),
+  resendOTP: publicProcedure.input(emailInputSchema).mutation(async ({ input }) => resendOTPController({ input })),
 
-  masterPassword: publicProcedure
-    .input(masterPasswordSchema)
-    .use(isValidToken)
-    .mutation(async ({ input }) => createMasterPasswordController({ input })),
+  createMasterPassword: publicProcedure
+    .input(createMasterPasswordSchema)
+    .use(userAuthMiddleware)
+    .use(existedMasterPassword)
+    .mutation(async ({ input, ctx }) => createMasterPasswordController({ input, ctx })),
+
+  verifyMasterPassword: publicProcedure
+    .input(verifyMasterPasswordSchema)
+    .use(userAuthMiddleware)
+    .mutation(async ({ input, ctx }) => verifyMasterPasswordController({ input, ctx })),
+
+  forgotPassword: publicProcedure
+    .input(emailInputSchema)
+    .mutation(async ({ input, ctx }) => forgotPasswordController({ input, ctx })),
+
+  validLinkForResetPassword: publicProcedure.query(async ({ ctx }) => checkValidLinkForResetPassword({ ctx })),
+
+  resetPassword: publicProcedure
+    .input(resetPasswordSchema)
+    .mutation(async ({ input }) => resetPasswordController({ input })),
 });

@@ -1,11 +1,37 @@
-export const OK: number = 200;
-export const CREATED: number = 201;
-export const BAD_REQUEST: number = 400;
-export const NOT_FOUND: number = 404;
-export const UNAUTHORIZED_CODE: number = 401;
-export const INTERNAL_SERVER_ERROR_CODE: number = 500;
+export const DEFAULT_OTP_TIME_LIMIT = 60;
 
-export const EMAIL_SUCCESS = 'Email sent successfully';
-export const EMAIL_FAILED = 'Unable to send email';
+export const TWO = 2;
 
-export const JWT_EXPIRES_IN = 604800000; // 7 days
+export const SIXTY = 60;
+
+export const THOUSAND = 1000;
+
+export const otpExpireTime = new Date(Date.now() + TWO * SIXTY * THOUSAND); // 2 minutes from now
+
+/**
+ * Check if otp time limit is expired or not
+ * @param storedOTPExpiry - stored otp expiry time from db
+ * @param isForResendOtp - if true then check for resend otp time limit else check for otp time limit
+ * @returns boolean
+ */
+export const verifyOTPTimeLimit = (storedOTPExpiry: Date, isForResendOtp = false): boolean => {
+  const otpSendTime = storedOTPExpiry.getTime(),
+    currentTime = new Date().getTime(),
+    OTP_TIME_LIMIT = DEFAULT_OTP_TIME_LIMIT * THOUSAND,
+    expiryTime = otpSendTime + OTP_TIME_LIMIT;
+
+  return isForResendOtp ? currentTime < expiryTime : currentTime > expiryTime;
+};
+
+// Common messages
+export const Response = <const>{
+  USER_NOT_FOUND: 'User not found. Please check your credentials and try again.',
+  USER_ALREADY_EXISTS: 'User already exists. Please choose a different username or email.',
+  INVALID_CREDENTIALS: 'Invalid credentials.',
+  USER_ALREADY_VERIFIED: 'User already verified. No further action is needed.',
+  USER_NOT_VERIFIED: 'Verify the user first before proceeding.',
+  PASSWORD_NOT_MATCHED: 'Passwords do not match. Please ensure both passwords are the same.',
+  SOMETHING_WENT_WRONG: 'Something went wrong. Please try again.',
+  PASSWORD_RESET_EMAIL_SENT: 'Password reset email sent successfully.',
+  RESET_LINK_EXPIRED: 'Password reset link expired. Please try again.',
+};

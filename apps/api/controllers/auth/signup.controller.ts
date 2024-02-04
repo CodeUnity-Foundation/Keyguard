@@ -3,10 +3,10 @@ import { TRPCError } from '@trpc/server';
 import { sendOTPVarificationEmail } from '@repo/emails';
 import { generateJWT } from '../../utils/generateJWT';
 import { generateOTP } from '../../utils/generateOTP';
-import { otpExpireTime, verifyOTPTimeLimit } from '../../utils/constant';
-import { sanatizedUser, userExisted } from '../../queries/user.query';
+import { comparePassword, sanatizedUser, userExisted } from '../../queries/user.query';
 import { AuthSchemaType } from './authSchema';
 import User from '../../models/user';
+import { Response, otpExpireTime, verifyOTPTimeLimit } from '../../constants';
 
 type SignUpProps = {
   input: AuthSchemaType;
@@ -20,29 +20,29 @@ export const signupController = async ({ input }: SignUpProps) => {
   const existingUser = await userExisted({ email: input.email });
 
   if (existingUser) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'User already exists!' });
+    throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_ALREADY_EXISTS });
   }
 
   const { password, confirm_password } = input;
 
-  if (password !== confirm_password) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'Passwords do not matched!' });
-  }
+  comparePassword({ password, confirmPassword: confirm_password });
 
   const hashedPassword = await bcrypt.hash(input.password, 10);
 
-  const user = await User.create({ ...input, password: hashedPassword });
-
-  // send otp
   const otp = generateOTP();
 
-  const { emailVerification } = user;
+  const user = await User.create({
+    ...input,
+    password: hashedPassword,
+    master_password: null,
+    emailVerification: {
+      otp: +otp,
+      otp_expiry: otpExpireTime,
+    },
+    deletedAt: null,
+  });
 
-  if (emailVerification?.otp && emailVerification.otp_expiry && verifyOTPTimeLimit(emailVerification.otp_expiry)) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'OTP already sent!' });
-  }
-
-  // send otp to email
+  // send otp
   await sendOTPVarificationEmail({
     name: input.name,
     email: input.email,
@@ -50,18 +50,11 @@ export const signupController = async ({ input }: SignUpProps) => {
     expire: '2 minutes',
   });
 
-  user.emailVerification = {
-    otp: +otp,
-    otp_expiry: otpExpireTime,
-  };
-
-  await user.save();
-
   // return the user
   const userResponse = await sanatizedUser({ email: user.email });
 
   if (!userResponse) {
-    throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found!' });
+    throw new TRPCError({ code: 'NOT_FOUND', message: Response.USER_NOT_FOUND });
   }
 
   const token = generateJWT({
