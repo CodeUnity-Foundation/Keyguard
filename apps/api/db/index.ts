@@ -1,6 +1,6 @@
-import mongoose, { ConnectOptions } from 'mongoose';
+import mongoose from 'mongoose';
+import { logger } from '@vaultmaster/lib/logger';
 import { CLUSTER_URL, DB_NAME, DB_PASSWORD, DB_USERNAME, MODE } from '../config';
-import { logger } from '../utils/logger';
 
 if (MODE === 'prod') {
   if (!DB_USERNAME || !DB_PASSWORD || !CLUSTER_URL || !DB_NAME) {

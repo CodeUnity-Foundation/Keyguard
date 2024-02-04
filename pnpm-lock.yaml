@@ -32,6 +32,9 @@ importers:
       '@vaultmaster/emails':
         specifier: workspace:*
         version: link:../../packages/emails
+      '@vaultmaster/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
       '@vaultmaster/ui':
         specifier: workspace:*
         version: link:../../packages/ui

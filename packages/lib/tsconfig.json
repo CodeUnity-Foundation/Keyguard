@@ -1,0 +1,9 @@
+{
+  "extends": "@vaultmaster/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": "@lib",
+    "jsx": "react-jsx"
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "build"]
+}

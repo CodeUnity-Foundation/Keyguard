@@ -13,6 +13,7 @@
   "dependencies": {
     "@vaultmaster/emails": "workspace:*",
     "@vaultmaster/ui": "workspace:*",
+    "@vaultmaster/lib": "workspace:*",
     "@trpc/next": "^10.45.0",
     "@trpc/server": "^10.43.3",
     "bcrypt": "^5.1.1",

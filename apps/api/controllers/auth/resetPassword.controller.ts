@@ -1,14 +1,14 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { TRPCError } from '@trpc/server';
+import { logger } from '@vaultmaster/lib/logger';
+import { sendPasswordConfirmationEmail } from '@vaultmaster/emails';
 import { ResetPasswordSchemaType } from './authSchema';
 import { comparePassword, userExisted } from '../../queries/user.query';
 import { Response } from '../../constants';
 import { JWT_SECRET } from '../../config';
 import { UserJWTData } from '../../@types';
 import User from '../../models/user';
-import { sendPasswordConfirmationEmail } from '@vaultmaster/emails';
-import { logger } from '../../utils/logger';
 
 interface ResetPassword {
   input: ResetPasswordSchemaType;
