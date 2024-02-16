@@ -1,24 +1,25 @@
 {
   "name": "@vaultmaster/ui",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
+  "sideEffects": false,
   "exports": {
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
+    ".": "./index.tsx"
   },
+  "types": "./index.tsx",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component"
   },
   "devDependencies": {
-    "@vaultmaster/eslint-config": "workspace:*",
-    "@vaultmaster/typescript-config": "workspace:*",
     "@turbo/gen": "^1.10.12",
-    "@types/node": "^20.5.2",
     "@types/eslint": "^8.44.7",
+    "@types/node": "^20.5.2",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "@vaultmaster/eslint-config": "workspace:*",
+    "@vaultmaster/lib": "workspace:*",
+    "@vaultmaster/tsconfig": "workspace:*",
     "eslint": "^8.53.0",
     "react": "^18.2.0",
     "typescript": "^5.2.2"
