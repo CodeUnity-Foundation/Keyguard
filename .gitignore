@@ -39,4 +39,4 @@ yarn-error.log*
 .DS_Store
 *.pem
 
-pnpm-lock.yaml*
+pnpm-lock.yaml
