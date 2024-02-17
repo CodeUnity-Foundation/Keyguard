@@ -10,15 +10,17 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'VaultMaster',
+  title: {
+    template: '%s | VaultMaster',
+    default: 'VaultMaster',
+  },
   description: 'Secure password manager for everyone',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head />
-      <body className={''}>{children}</body>
+      <body className={`flex h-screen font-${poppins}`}>{children}</body>
     </html>
   );
 }

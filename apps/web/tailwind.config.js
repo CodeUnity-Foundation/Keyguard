@@ -1,7 +1,8 @@
-import base from '@vaultmaster/tailwind-config/tailwind.config';
+const base = require('@vaultmaster/tailwind-config/tailwind.config');
 
 /** @type {import('tailwindcss').Config} */
 export default {
   ...base,
-  // content: [...base.content],
+  content: [...base.content],
+  plugins: [...base.plugins],
 };
