@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-// import { cn } from '@vaultmaster/lib/cn';
-// import '@vaultmaster/ui/globals.css';
-import './global.css';
+import { cn } from '@vaultmaster/lib/cn';
+import '@vaultmaster/ui/styles/global.css';
 
 const poppins = Poppins({
   subsets: ['latin'],
