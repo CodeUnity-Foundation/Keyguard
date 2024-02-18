@@ -3,11 +3,11 @@ import { Poppins } from 'next/font/google';
 import { cn } from '@vaultmaster/lib/cn';
 import '@vaultmaster/ui/styles/global.css';
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  variable: '--font-poppins',
-  weight: '200',
-});
+// const poppins = Poppins({
+//   subsets: ['latin'],
+//   variable: '--font-poppins',
+//   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+// });
 
 export const metadata: Metadata = {
   title: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`flex h-screen font-${poppins}`}>{children}</body>
+      <body className={cn(`flex h-screen`)}>{children}</body>
     </html>
   );
 }

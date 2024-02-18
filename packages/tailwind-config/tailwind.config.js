@@ -20,6 +20,11 @@ export default {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
+        'muted-200': 'hsl(var(--color-muted-200))',
+        'muted-300': 'hsl(var(--color-muted-300))',
+        'muted-400': 'hsl(var(--color-muted-400))',
+        'muted-500': 'hsl(var(--color-muted-500))',
+        'muted-600': 'hsl(var(--color-muted-600))',
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',

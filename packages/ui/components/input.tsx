@@ -12,23 +12,25 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
   return (
     <div className="mb-3">
       {props.label && (
-        <label htmlFor={props.id} className="text-[#757575] font-semibold">
-          {props.label || 'Name'}
+        <label htmlFor={props.id} className="text-muted-500 dark:text-muted-200 font-semibold">
+          {props.label}
         </label>
       )}
 
       <div
         className={cn(
-          'flex h-10 items-center mt-1 rounded-md bg-secondary pl-3 text-sm ring-offset-background focus-within:ring-1 focus-within:ring-ring',
+          'flex h-10 items-center mt-1 rounded-md border border-input text-sm ring-offset-background focus-within:ring-1 focus-within:ring-ring dark:border-muted-400',
           className,
         )}
       >
         {props.icon && (
-          <div className="bg-white h-6 w-6 rounded-md flex items-center justify-center mr-1">{props.icon}</div>
+          <div className="bg-secondary h-full w-10 rounded-md rounded-r-none flex items-center justify-center mr-1 dark:bg-muted">
+            {props.icon}
+          </div>
         )}
         <input
           type={type}
-          className="w-full p-2 bg-secondary placeholder:text-input-foreground placeholder:font-medium focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full h-full dark:text-white text-muted-600 px-2 placeholder:text-muted-300 placeholder:font-medium bg-transparent focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           ref={ref}
           {...props}
         />
