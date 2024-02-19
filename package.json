@@ -14,7 +14,7 @@
   ],
   "devDependencies": {
     "@vaultmaster/eslint-config": "workspace:*",
-    "@vaultmaster/typescript-config": "workspace:*",
+    "@vaultmaster/tsconfig": "workspace:*",
     "prettier": "^3.1.0",
     "turbo": "latest"
   },

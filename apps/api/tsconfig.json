@@ -1,5 +1,5 @@
 {
-  "extends": "@vaultmaster/typescript-config/base.json",
+  "extends": "@vaultmaster/tsconfig/base.json",
   "compilerOptions": {
     "plugins": [],
     "outDir": "build",

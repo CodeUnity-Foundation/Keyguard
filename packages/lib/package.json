@@ -1,10 +1,13 @@
 {
   "name": "@vaultmaster/lib",
   "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
   "description": "",
-  "main": "index.js",
-  "exports":{
-    "./logger":"./src/logger.ts"
+  "main": "./index.js",
+  "exports": {
+    "./logger": "./src/logger.ts",
+    "./cn": "./src/cn.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +16,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "winston": "^3.11.0"
+    "winston": "^3.11.0",
+    "tailwind-merge": "^2.2.1",
+    "clsx": "^2.1.0"
   }
 }
