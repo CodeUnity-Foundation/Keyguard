@@ -12,7 +12,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
   return (
     <div className="mb-3">
       {props.label && (
-        <label htmlFor={props.id} className="text-muted-500 dark:text-muted-200 font-semibold">
+        <label htmlFor={props.id} className="text-muted-500 dark:text-muted-200 font-normal text-sm">
           {props.label}
         </label>
       )}

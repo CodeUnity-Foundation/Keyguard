@@ -1,8 +1,8 @@
-import { Button, Input } from '@vaultmaster/ui';
 import Link from 'next/link';
 import { AiTwotoneMail } from 'react-icons/ai';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { IoKeyOutline } from 'react-icons/io5';
+import { Button, Input } from '@vaultmaster/ui';
 
 export default function SignupForm() {
   return (

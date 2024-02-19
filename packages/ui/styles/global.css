@@ -26,7 +26,7 @@
     --radius: 0.5rem;
     --color-muted-300: 203 19.1% 83.9%;
     --color-muted-400: 148 20.9% 65.1%;
-    --color-muted-500: 200 19.1% 55%;
+    --color-muted-500: 203 19.1% 60%;
     --color-muted-600: 71 19.3% 34.5%;
   }
 
@@ -53,7 +53,7 @@
     --color-muted-200: 203 4% 50%;
     --color-muted-300: 203 5% 40%;
     --color-muted-400: 148 6.9% 35.1%;
-    --color-muted-500: 100 4.6% 26.8%;
+    --color-muted-500: 203 19.1% 60%;
     --color-muted-600: 71 5.3% 14.5%;
   }
 }
