@@ -45,8 +45,8 @@ export default function SignupForm() {
 
       <div className="flex items-center justify-between my-2">
         <p className="text-muted-500 lg:text-sm text-xs font-medium dark:text-muted-200">
-          Already have an account?{' '}
-          <Link href="#" className="text-primary font-semibold">
+          Already have an account?
+          <Link href="#" className="text-primary font-semibold ml-1">
             Login
           </Link>
         </p>
