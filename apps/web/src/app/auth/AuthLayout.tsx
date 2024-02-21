@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from "next/image";
 
 interface AuthLayoutProps {
   title: string;
@@ -10,21 +10,27 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ authPageImage, logo, subtitle, title, form }: AuthLayoutProps) {
   return (
-    <main className="w-full h-screen flex items-center justify-center flex-col md:flex-row">
-      <div className="flex-1 h-full bg-secondary rounded-r-3xl hidden md:block">
-        <div className="flex flex-col w-full h-full justify-center items-center">
-          <Image src={logo} alt="VaultMaster-logo" width={50} height={50} className="absolute top-10 left-10" />
+    <main className="flex h-screen w-full flex-col items-center justify-center md:flex-row">
+      <div className="bg-secondary hidden h-full flex-1 rounded-r-3xl md:block">
+        <div className="flex h-full w-full flex-col items-center justify-center">
+          <Image
+            src={logo}
+            alt="VaultMaster-logo"
+            width={50}
+            height={50}
+            className="absolute left-10 top-10"
+          />
           <Image src={authPageImage} alt="VaultMaster" width={550} height={550} />
         </div>
       </div>
-      <div className="flex-1 h-full flex items-center justify-center">
-        <div className="flex flex-col lg:w-[60%] md:w-3/4 w-[350px] h-full justify-center">
+      <div className="flex h-full flex-1 items-center justify-center">
+        <div className="flex h-full w-[350px] flex-col justify-center md:w-3/4 lg:w-[60%]">
           <div className="mb-5">
-            <h1 className="font-medium lg:text-2xl text-xl">{title}</h1>
-            <p className="text-muted-300 lg:text-lg text-base font-medium">{subtitle}</p>
+            <h1 className="text-xl font-medium lg:text-2xl">{title}</h1>
+            <p className="text-muted-300 text-base font-medium lg:text-lg">{subtitle}</p>
           </div>
           {form}
-          <footer className="text-center text-muted-500 dark:text-muted-200 font-medium mt-10 text-sm">
+          <footer className="text-muted-500 dark:text-muted-200 mt-10 text-center text-sm font-medium">
             Powered by <span className="text-primary">CodeUnity Foundation</span>
           </footer>
         </div>

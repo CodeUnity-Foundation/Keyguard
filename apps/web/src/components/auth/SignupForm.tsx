@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import { AiTwotoneMail } from 'react-icons/ai';
-import { BsFillPersonFill } from 'react-icons/bs';
-import { IoKeyOutline } from 'react-icons/io5';
-import { Button, Input } from '@vaultmaster/ui';
+import { Button, Input } from "@vaultmaster/ui";
+import Link from "next/link";
+import { AiTwotoneMail } from "react-icons/ai";
+import { BsFillPersonFill } from "react-icons/bs";
+import { IoKeyOutline } from "react-icons/io5";
 
 export default function SignupForm() {
   return (
@@ -13,7 +13,7 @@ export default function SignupForm() {
         type="text"
         label="Name"
         placeholder="John Doe"
-        icon={<BsFillPersonFill className="h-[16px] w-[16px] text-primary" />}
+        icon={<BsFillPersonFill className="text-primary h-[16px] w-[16px]" />}
       />
 
       <Input
@@ -22,7 +22,7 @@ export default function SignupForm() {
         type="email"
         label="Email"
         placeholder="johndoe@gmail.com"
-        icon={<AiTwotoneMail className="h-[16px] w-[16px] text-primary" />}
+        icon={<AiTwotoneMail className="text-primary h-[16px] w-[16px]" />}
       />
 
       <Input
@@ -31,7 +31,7 @@ export default function SignupForm() {
         type="password"
         label="Password"
         placeholder="******"
-        icon={<IoKeyOutline className="h-[16px] w-[16px] text-primary" />}
+        icon={<IoKeyOutline className="text-primary h-[16px] w-[16px]" />}
       />
 
       <Input
@@ -40,22 +40,22 @@ export default function SignupForm() {
         type="password"
         label="Confirm password"
         placeholder="******"
-        icon={<IoKeyOutline className="h-[16px] w-[16px] text-primary" />}
+        icon={<IoKeyOutline className="text-primary h-[16px] w-[16px]" />}
       />
 
-      <div className="flex items-center justify-between my-2">
-        <p className="text-muted-500 lg:text-sm text-xs font-medium dark:text-muted-200">
+      <div className="my-2 flex items-center justify-between">
+        <p className="text-muted-500 dark:text-muted-200 text-xs font-medium lg:text-sm">
           Already have an account?
-          <Link href="#" className="text-primary font-semibold ml-1">
+          <Link href="#" className="text-primary ml-1 font-semibold">
             Login
           </Link>
         </p>
-        <Link href="#" className="text-primary lg:text-sm text-xs font-semibold">
+        <Link href="#" className="text-primary text-xs font-semibold lg:text-sm">
           Forgot password?
         </Link>
       </div>
 
-      <Button className="mt-2" size={'lg'}>
+      <Button className="mt-2" size={"lg"}>
         Next
       </Button>
     </form>

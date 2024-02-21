@@ -1,23 +1,23 @@
-import type { Metadata } from 'next';
-import Head from 'next/head';
-import { Roboto } from 'next/font/google';
-import { cn } from '@vaultmaster/lib/cn';
-import '@vaultmaster/ui/styles/global.css';
+import { cn } from "@vaultmaster/lib/cn";
+import "@vaultmaster/ui/styles/global.css";
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
+import Head from "next/head";
 
 const roboto = Roboto({
-  display: 'auto',
-  weight: ['300', '100', '400', '500', '700', '900'],
+  display: "auto",
+  weight: ["300", "100", "400", "500", "700", "900"],
 });
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | VaultMaster',
-    default: 'VaultMaster',
+    template: "%s | VaultMaster",
+    default: "VaultMaster",
   },
   icons: {
-    icon: '../assets/logo.png',
+    icon: "../assets/logo.png",
   },
-  description: 'Secure password manager for everyone',
+  description: "Secure password manager for everyone",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

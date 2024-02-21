@@ -1,20 +1,20 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Todo: Improve this validation schema
  */
 export const authSchema = z.object({
-  name: z.string({ required_error: 'Name is required' }).min(2).max(100),
-  email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
-  password: z.string({ required_error: 'Password is required' }).min(6).max(25),
-  confirm_password: z.string({ required_error: 'Confirm password is required' }).min(6).max(25),
+  name: z.string({ required_error: "Name is required" }).min(2).max(100),
+  email: z.string({ required_error: "Email is required" }).email({ message: "Invalid email" }),
+  password: z.string({ required_error: "Password is required" }).min(6).max(25),
+  confirm_password: z.string({ required_error: "Confirm password is required" }).min(6).max(25),
   profile: z.string().optional(),
   emailVerification: z
     .object({
       otp: z
-        .number({ required_error: 'OTP is required', invalid_type_error: 'OTP must be a number' })
+        .number({ required_error: "OTP is required", invalid_type_error: "OTP must be a number" })
         .refine((otp) => Number.isInteger(otp) && otp > 111111 && otp < 999999, {
-          message: 'OTP must be a 6 digit number',
+          message: "OTP must be a 6 digit number",
         }),
       otp_expiry: z.date(),
     })
@@ -37,11 +37,11 @@ export const loginSchema = authSchema.pick({
 export type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export const otpSchema = z.object({
-  email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
+  email: z.string({ required_error: "Email is required" }).email({ message: "Invalid email" }),
   otp: z
-    .number({ required_error: 'OTP is required', invalid_type_error: 'OTP must be a number' })
+    .number({ required_error: "OTP is required", invalid_type_error: "OTP must be a number" })
     .refine((otp) => Number.isInteger(otp) && otp > 100000 && otp < 999999, {
-      message: 'OTP must be a 6 digit number',
+      message: "OTP must be a 6 digit number",
     }),
 });
 
@@ -54,22 +54,22 @@ export const emailInputSchema = authSchema.pick({
 export type EmailInputSchemaType = z.infer<typeof emailInputSchema>;
 
 export const createMasterPasswordSchema = z.object({
-  master_password: z.string({ required_error: 'Master password is required' }).min(6).max(25),
-  confirm_master_password: z.string({ required_error: 'Confirm master password is required' }).min(6).max(25),
+  master_password: z.string({ required_error: "Master password is required" }).min(6).max(25),
+  confirm_master_password: z.string({ required_error: "Confirm master password is required" }).min(6).max(25),
 });
 
 export type MasterPasswordSchemaType = z.infer<typeof createMasterPasswordSchema>;
 
 export const verifyMasterPasswordSchema = z.object({
-  master_password: z.string({ required_error: 'Master password is required' }).min(6).max(25),
+  master_password: z.string({ required_error: "Master password is required" }).min(6).max(25),
 });
 
 export type VerifyMasterPasswordSchemaType = z.infer<typeof verifyMasterPasswordSchema>;
 
 export const resetPasswordSchema = z.object({
   requestToken: z.string(),
-  password: z.string({ required_error: 'Password is required' }).min(6).max(25),
-  confirm_password: z.string({ required_error: 'Confirm password is required' }).min(6).max(25),
+  password: z.string({ required_error: "Password is required" }).min(6).max(25),
+  confirm_password: z.string({ required_error: "Confirm password is required" }).min(6).max(25),
 });
 
 export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>;

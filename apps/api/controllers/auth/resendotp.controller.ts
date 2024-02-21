@@ -1,9 +1,10 @@
-import { TRPCError } from '@trpc/server';
-import { sendOTPVarificationEmail } from '@vaultmaster/emails';
-import { generateOTP } from '../../utils/generateOTP';
-import { Response, otpExpireTime, verifyOTPTimeLimit } from '../../constants';
-import { checkUserVerifiedStatus, userExisted } from '../../queries/user.query';
-import { EmailInputSchemaType } from './authSchema';
+import { TRPCError } from "@trpc/server";
+import { sendOTPVarificationEmail } from "@vaultmaster/emails";
+
+import { Response, otpExpireTime, verifyOTPTimeLimit } from "../../constants";
+import { checkUserVerifiedStatus, userExisted } from "../../queries/user.query";
+import { generateOTP } from "../../utils/generateOTP";
+import { EmailInputSchemaType } from "./authSchema";
 
 type ResendOTPProps = {
   input: EmailInputSchemaType;
@@ -12,12 +13,12 @@ type ResendOTPProps = {
 export const resendOTPController = async ({ input }: ResendOTPProps) => {
   const user = await userExisted({ email: input.email });
 
-  if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: Response.USER_NOT_FOUND });
+  if (!user) throw new TRPCError({ code: "NOT_FOUND", message: Response.USER_NOT_FOUND });
 
   const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
 
   if (isUserVerified) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_ALREADY_VERIFIED });
+    throw new TRPCError({ code: "BAD_REQUEST", message: Response.USER_ALREADY_VERIFIED });
   }
 
   const otp = generateOTP();
@@ -29,7 +30,7 @@ export const resendOTPController = async ({ input }: ResendOTPProps) => {
     emailVerification.otp_expiry &&
     verifyOTPTimeLimit(emailVerification.otp_expiry, true)
   ) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'OTP already sent!' });
+    throw new TRPCError({ code: "BAD_REQUEST", message: "OTP already sent!" });
   }
 
   user.emailVerification = {
@@ -41,10 +42,10 @@ export const resendOTPController = async ({ input }: ResendOTPProps) => {
     name: user.name,
     email: user.email,
     otp: otp,
-    expire: '2 minutes',
+    expire: "2 minutes",
   });
 
   await user.save();
 
-  return { success: true, message: 'OTP sent successfully!' };
+  return { success: true, message: "OTP sent successfully!" };
 };

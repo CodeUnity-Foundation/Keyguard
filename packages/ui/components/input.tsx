@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { PersonIcon } from '@radix-ui/react-icons';
-
-import { cn } from '@vaultmaster/lib/cn';
+import { PersonIcon } from "@radix-ui/react-icons";
+import { cn } from "@vaultmaster/lib/cn";
+import * as React from "react";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -12,25 +11,24 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
   return (
     <div className="mb-3">
       {props.label && (
-        <label htmlFor={props.id} className="text-muted-500 dark:text-muted-200 font-normal text-sm">
+        <label htmlFor={props.id} className="text-muted-500 dark:text-muted-200 text-sm font-normal">
           {props.label}
         </label>
       )}
 
       <div
         className={cn(
-          'flex h-10 items-center mt-1 rounded-md border border-input text-sm ring-offset-background focus-within:ring-1 focus-within:ring-ring dark:border-muted-400',
-          className,
-        )}
-      >
+          "border-input ring-offset-background focus-within:ring-ring dark:border-muted-400 mt-1 flex h-10 items-center rounded-md border text-sm focus-within:ring-1",
+          className
+        )}>
         {props.icon && (
-          <div className="bg-secondary h-full w-10 rounded-md rounded-r-none flex items-center justify-center mr-1 dark:bg-muted">
+          <div className="bg-secondary dark:bg-muted mr-1 flex h-full w-10 items-center justify-center rounded-md rounded-r-none">
             {props.icon}
           </div>
         )}
         <input
           type={type}
-          className="w-full h-full dark:text-white text-muted-600 px-2 placeholder:text-muted-300 placeholder:font-medium bg-transparent focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="text-muted-600 placeholder:text-muted-300 h-full w-full bg-transparent px-2 placeholder:font-medium focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
           ref={ref}
           {...props}
         />
@@ -39,6 +37,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
   );
 });
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export { Input };

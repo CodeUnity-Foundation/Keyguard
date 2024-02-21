@@ -1,8 +1,8 @@
-import { TRPCContext } from '../../createContext';
-import { EmailInputSchemaType } from './authSchema';
-import { Response } from '../../constants';
-import { userExisted } from '../../queries/user.query';
-import { passwordResetRequest } from '../../utils/passwordResetRequest';
+import { Response } from "../../constants";
+import { TRPCContext } from "../../createContext";
+import { userExisted } from "../../queries/user.query";
+import { passwordResetRequest } from "../../utils/passwordResetRequest";
+import { EmailInputSchemaType } from "./authSchema";
 
 type ForgotPassword = {
   input: EmailInputSchemaType;

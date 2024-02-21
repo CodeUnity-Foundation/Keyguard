@@ -1,5 +1,6 @@
-import jwt, { SignOptions } from 'jsonwebtoken';
-import { JWT_SECRET } from '../config';
+import jwt, { SignOptions } from "jsonwebtoken";
+
+import { JWT_SECRET } from "../config";
 
 interface JWT {
   sign(payload: string | object | Buffer, secretOrPrivateKey: jwt.Secret, options?: SignOptions): string;
@@ -11,7 +12,7 @@ interface JWTArgs {
     email: string;
   };
   duration?: number;
-  durationUnit?: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years';
+  durationUnit?: "seconds" | "minutes" | "hours" | "days" | "weeks" | "months" | "years";
 }
 
 export function generateJWT({ payload, duration, durationUnit }: JWTArgs): string {

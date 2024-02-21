@@ -1,12 +1,13 @@
-import bcrypt from 'bcrypt';
-import { TRPCError } from '@trpc/server';
-import { sendOTPVarificationEmail } from '@vaultmaster/emails';
-import { generateJWT } from '../../utils/generateJWT';
-import { generateOTP } from '../../utils/generateOTP';
-import { comparePassword, sanatizedUser, userExisted } from '../../queries/user.query';
-import { AuthSchemaType } from './authSchema';
-import User from '../../models/user';
-import { Response, otpExpireTime, verifyOTPTimeLimit } from '../../constants';
+import { TRPCError } from "@trpc/server";
+import { sendOTPVarificationEmail } from "@vaultmaster/emails";
+import bcrypt from "bcrypt";
+
+import { Response, otpExpireTime, verifyOTPTimeLimit } from "../../constants";
+import User from "../../models/user";
+import { comparePassword, sanatizedUser, userExisted } from "../../queries/user.query";
+import { generateJWT } from "../../utils/generateJWT";
+import { generateOTP } from "../../utils/generateOTP";
+import { AuthSchemaType } from "./authSchema";
 
 type SignUpProps = {
   input: AuthSchemaType;
@@ -20,7 +21,7 @@ export const signupController = async ({ input }: SignUpProps) => {
   const existingUser = await userExisted({ email: input.email });
 
   if (existingUser) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_ALREADY_EXISTS });
+    throw new TRPCError({ code: "BAD_REQUEST", message: Response.USER_ALREADY_EXISTS });
   }
 
   const { password, confirm_password } = input;
@@ -47,27 +48,27 @@ export const signupController = async ({ input }: SignUpProps) => {
     name: input.name,
     email: input.email,
     otp: otp,
-    expire: '2 minutes',
+    expire: "2 minutes",
   });
 
   // return the user
   const userResponse = await sanatizedUser({ email: user.email });
 
   if (!userResponse) {
-    throw new TRPCError({ code: 'NOT_FOUND', message: Response.USER_NOT_FOUND });
+    throw new TRPCError({ code: "NOT_FOUND", message: Response.USER_NOT_FOUND });
   }
 
   const token = generateJWT({
     payload: { userId: userResponse._id, email: userResponse.email },
     duration: 7,
-    durationUnit: 'days',
+    durationUnit: "days",
   });
 
   const userData = { user: userResponse, token };
 
   return {
     success: true,
-    message: 'Account created successfully. Check your email for OTP verification!',
+    message: "Account created successfully. Check your email for OTP verification!",
     ...userData,
   };
 };
