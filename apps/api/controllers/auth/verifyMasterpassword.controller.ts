@@ -1,11 +1,12 @@
-import { TRPCError } from '@trpc/server';
-import { TRPCContext } from '../../createContext';
-import { IUser } from '../../models/types';
-import { userExisted, verifyPassword } from '../../queries/user.query';
-import { VerifyMasterPasswordSchemaType } from './authSchema';
-import { Response } from '../../constants';
-import { generateJWT } from '../../utils/generateJWT';
-import { sendAccountLoginSuccessEmail } from '@vaultmaster/emails';
+import { TRPCError } from "@trpc/server";
+import { sendAccountLoginSuccessEmail } from "@vaultmaster/emails";
+
+import { Response } from "../../constants";
+import { TRPCContext } from "../../createContext";
+import { IUser } from "../../models/types";
+import { userExisted, verifyPassword } from "../../queries/user.query";
+import { generateJWT } from "../../utils/generateJWT";
+import { VerifyMasterPasswordSchemaType } from "./authSchema";
 
 type VerifyMasterPasswordProps = {
   input: VerifyMasterPasswordSchemaType;
@@ -16,12 +17,12 @@ type VerifyMasterPasswordProps = {
 export const verifyMasterPasswordController = async ({ input, ctx }: VerifyMasterPasswordProps) => {
   const { master_password } = input;
 
-  const email = ctx.user?.email ?? '';
+  const email = ctx.user?.email ?? "";
 
   const user = (await userExisted({ email })) as IUser;
 
   if (!user) {
-    throw new TRPCError({ code: 'NOT_FOUND', message: Response.USER_NOT_FOUND });
+    throw new TRPCError({ code: "NOT_FOUND", message: Response.USER_NOT_FOUND });
   }
 
   // verify the password
@@ -32,15 +33,15 @@ export const verifyMasterPasswordController = async ({ input, ctx }: VerifyMaste
   const accessToken = generateJWT({
     payload: { userId: user.email, email: user._id },
     duration: 3,
-    durationUnit: 'minutes',
+    durationUnit: "minutes",
   });
 
   // Send mail to user that account is logged in
   sendAccountLoginSuccessEmail({
     name: user.name,
     email: user.email,
-    ip: ctx.req?.socket.remoteAddress ?? '',
-    browser: ctx.req?.headers['user-agent'] ?? '',
+    ip: ctx.req?.socket.remoteAddress ?? "",
+    browser: ctx.req?.headers["user-agent"] ?? "",
     time: new Date().toLocaleString(),
   });
 

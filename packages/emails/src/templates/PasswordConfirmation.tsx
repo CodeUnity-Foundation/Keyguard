@@ -1,4 +1,4 @@
-export type ActionType = 'update_password' | 'create_master_password' | 'update_master_password';
+export type ActionType = "update_password" | "create_master_password" | "update_master_password";
 
 type PasswordConfirmationProps = {
   name: string;
@@ -9,11 +9,11 @@ type PasswordConfirmationProps = {
 export const PasswordConfirmation = ({ name, type }: PasswordConfirmationProps) => {
   const action = {
     update_password:
-      'Your account password has been successfully updated. This password is used for logging into your account securely. Please keep it safe and do not share it with anyone.',
+      "Your account password has been successfully updated. This password is used for logging into your account securely. Please keep it safe and do not share it with anyone.",
     create_master_password:
-      'Your master password has been set up. This password grants access to your vault, ensuring the security of your sensitive information.',
+      "Your master password has been set up. This password grants access to your vault, ensuring the security of your sensitive information.",
     update_master_password:
-      'Your master password has been updated. This password grants access to your vault, ensuring the security of your sensitive information.',
+      "Your master password has been updated. This password grants access to your vault, ensuring the security of your sensitive information.",
   };
 
   return (

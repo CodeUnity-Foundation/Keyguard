@@ -1,5 +1,6 @@
-import { initTRPC } from '@trpc/server';
-import { createContextInner } from './createContext';
+import { initTRPC } from "@trpc/server";
+
+import { createContextInner } from "./createContext";
 
 export const tRPCContext = initTRPC.context<typeof createContextInner>().create();
 

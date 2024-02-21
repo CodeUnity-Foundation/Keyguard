@@ -1,10 +1,11 @@
-import nodemailer from 'nodemailer';
-import { logger } from '@vaultmaster/lib/logger';
-import { MODE } from './../../apps/api/config/index';
-import { PASSWORD, USER } from './config';
+import { logger } from "@vaultmaster/lib/logger";
+import nodemailer from "nodemailer";
 
-const EMAIL_SUCCESS = 'Email sent successfully';
-const EMAIL_FAILED = 'Unable to send email';
+import { MODE } from "./../../apps/api/config/index";
+import { PASSWORD, USER } from "./config";
+
+const EMAIL_SUCCESS = "Email sent successfully";
+const EMAIL_FAILED = "Unable to send email";
 
 type MailSender = {
   from: string;
@@ -16,10 +17,10 @@ type MailSender = {
 
 async function mailSender(mailerPayload: nodemailer.SendMailOptions & MailSender) {
   return new Promise((resolve, reject) => {
-    const isDevMode = MODE === 'prod';
+    const isDevMode = MODE === "prod";
 
     const config = {
-      host: isDevMode ? 'smtp.gmail.com' : 'sandbox.smtp.mailtrap.io',
+      host: isDevMode ? "smtp.gmail.com" : "sandbox.smtp.mailtrap.io",
       port: isDevMode ? 465 : 2525,
       secure: isDevMode,
       auth: { user: USER, pass: PASSWORD },
@@ -29,7 +30,7 @@ async function mailSender(mailerPayload: nodemailer.SendMailOptions & MailSender
 
     transporter.sendMail(mailerPayload, (error) => {
       if (error) {
-        logger.error('Unable to send mail because =>', error);
+        logger.error("Unable to send mail because =>", error);
         return reject(EMAIL_FAILED);
       } else {
         logger.info(`Email sent: ${mailerPayload.responseMessage}`);

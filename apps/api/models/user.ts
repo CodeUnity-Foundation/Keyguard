@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
-import { IUser } from './types';
+import mongoose from "mongoose";
+
+import { IUser } from "./types";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -16,9 +17,9 @@ const UserSchema = new mongoose.Schema(
     isLinkExpired: { type: Boolean, default: false },
     deletedAt: { type: Date },
   },
-  { timestamps: true, strict: true },
+  { timestamps: true, strict: true }
 );
 
-const User = mongoose.model<IUser>('User', UserSchema);
+const User = mongoose.model<IUser>("User", UserSchema);
 
 export default User;

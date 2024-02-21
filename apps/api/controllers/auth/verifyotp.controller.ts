@@ -1,7 +1,8 @@
-import { TRPCError } from '@trpc/server';
-import { OTPSchemaType } from './authSchema';
-import { Response, verifyOTPTimeLimit } from '../../constants';
-import { checkUserVerifiedStatus, userExisted } from '../../queries/user.query';
+import { TRPCError } from "@trpc/server";
+
+import { Response, verifyOTPTimeLimit } from "../../constants";
+import { checkUserVerifiedStatus, userExisted } from "../../queries/user.query";
+import { OTPSchemaType } from "./authSchema";
 
 type VerifyOTPProps = {
   input: OTPSchemaType;
@@ -13,29 +14,29 @@ export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
   const user = await userExisted({ email });
 
   if (!user) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'User does not exist!' });
+    throw new TRPCError({ code: "BAD_REQUEST", message: "User does not exist!" });
   }
 
   const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
 
   if (isUserVerified) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: Response.USER_ALREADY_VERIFIED });
+    throw new TRPCError({ code: "BAD_REQUEST", message: Response.USER_ALREADY_VERIFIED });
   }
 
   let { emailVerification } = user;
 
   if (!emailVerification) {
-    throw new TRPCError({ code: 'NOT_FOUND', message: 'OTP not found!' });
+    throw new TRPCError({ code: "NOT_FOUND", message: "OTP not found!" });
   }
 
   const { otp: storedOTP, otp_expiry: storedOTPExpiry } = emailVerification;
 
   if (verifyOTPTimeLimit(storedOTPExpiry)) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'OTP expired!' });
+    throw new TRPCError({ code: "BAD_REQUEST", message: "OTP expired!" });
   }
 
   if (otp !== storedOTP) {
-    throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid OTP!' });
+    throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid OTP!" });
   }
 
   user.is_verified = true;
@@ -43,5 +44,5 @@ export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
 
   await user.save();
 
-  return { success: true, message: 'OTP verified successfully' };
+  return { success: true, message: "OTP verified successfully" };
 };

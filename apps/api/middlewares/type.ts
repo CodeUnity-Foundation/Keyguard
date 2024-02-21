@@ -1,4 +1,4 @@
-import { IUser } from '../models/types';
+import { IUser } from "../models/types";
 
 export interface UserJWTData {
   email: string;

@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
@@ -12,6 +12,6 @@ export const DB_NAME = NODE_ENV.DB_NAME;
 export const CLUSTER_URL = NODE_ENV.CLUSTER_URL;
 
 //* JWT config
-export const JWT_SECRET = NODE_ENV.JWT_SECRET || 'secret';
+export const JWT_SECRET = NODE_ENV.JWT_SECRET || "secret";
 
 export const MODE = NODE_ENV.MODE;

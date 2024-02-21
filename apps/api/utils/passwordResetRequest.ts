@@ -1,6 +1,7 @@
-import { sendPasswordResetLink } from '@vaultmaster/emails';
-import { IUser } from '../models/types';
-import { generateJWT } from './generateJWT';
+import { sendPasswordResetLink } from "@vaultmaster/emails";
+
+import { IUser } from "../models/types";
+import { generateJWT } from "./generateJWT";
 
 export const passwordResetRequest = async (user: IUser) => {
   const resetToken = generateJWT({
@@ -9,7 +10,7 @@ export const passwordResetRequest = async (user: IUser) => {
       email: user.email,
     },
     duration: 2,
-    durationUnit: 'minutes',
+    durationUnit: "minutes",
   });
 
   // generate password reset link
