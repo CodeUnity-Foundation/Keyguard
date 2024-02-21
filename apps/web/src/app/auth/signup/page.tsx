@@ -3,7 +3,7 @@ import logo from "@web/assets/icon.png";
 import SignupForm from "@web/components/auth/SignupForm";
 import React from "react";
 
-import AuthLayout from "../AuthLayout";
+import AuthLayout from "../auth.layout";
 
 export const metadata = {
   title: {

@@ -1,4 +1,3 @@
-import { PersonIcon } from "@radix-ui/react-icons";
 import { cn } from "@vaultmaster/lib/cn";
 import * as React from "react";
 
@@ -19,7 +18,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
       <div
         className={cn(
           "border-input ring-offset-background focus-within:ring-ring dark:border-muted-400 mt-1 flex h-10 items-center rounded-md border text-sm focus-within:ring-1",
-          className
+          className,
         )}>
         {props.icon && (
           <div className="bg-secondary dark:bg-muted mr-1 flex h-full w-10 items-center justify-center rounded-md rounded-r-none">
