@@ -1,5 +1,5 @@
 {
-  "extends": "@vaultmaster/tsconfig/base.json",
+  "extends": "@keyguard/tsconfig/base.json",
   "compilerOptions": {
     "plugins": [],
     "outDir": "build",

@@ -12,6 +12,6 @@
   "aliases": {
     "components": "src",
     "ui": "components",
-    "utils": "@vaultmaster/lib/cn"
+    "utils": "@keyguard/lib/cn"
   }
 }

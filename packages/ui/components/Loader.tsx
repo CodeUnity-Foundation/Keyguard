@@ -1,4 +1,4 @@
-import { cn } from "@vaultmaster/lib/cn";
+import { cn } from "@keyguard/lib/cn";
 import { VariantProps, cva } from "class-variance-authority";
 
 const loaderVariants = cva("h-24 w-24 animate-spin rounded-full border-8", {

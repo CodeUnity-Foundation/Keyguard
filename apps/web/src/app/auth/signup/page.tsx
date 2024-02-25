@@ -7,10 +7,10 @@ import AuthLayout from "../auth.layout";
 
 export const metadata = {
   title: {
-    template: "%s | VaultMaster",
+    template: "%s | Keyguard",
     default: "Sign up",
   },
-  description: "Create a new account to get started with VaultMaster",
+  description: "Create a new account to get started with Keyguard",
 };
 
 export default function Signup() {
@@ -20,7 +20,7 @@ export default function Signup() {
       key={"signup"}
       form={<SignupForm />}
       authPageImage={SignupImage}
-      title="Welcome to VaultMaster"
+      title="Welcome to Keyguard"
       subtitle="Sign up to get started"
     />
   );

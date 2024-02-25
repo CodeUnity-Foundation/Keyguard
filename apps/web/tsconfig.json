@@ -1,5 +1,5 @@
 {
-  "extends": "@vaultmaster/tsconfig/nextjs.json",
+  "extends": "@keyguard/tsconfig/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {

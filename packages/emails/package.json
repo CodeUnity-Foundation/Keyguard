@@ -1,10 +1,10 @@
 {
-  "name": "@vaultmaster/emails",
+  "name": "@keyguard/emails",
   "version": "1.0.0",
-  "description": "Emails for VaultMaster",
+  "description": "Emails for Keyguard",
   "main": "index.js",
   "dependencies": {
-    "@vaultmaster/lib": "workspace:*",
+    "@keyguard/lib": "workspace:*",
     "dotenv": "^16.3.1",
     "nodemailer": "^6.9.7",
     "react": "^18.2.0",

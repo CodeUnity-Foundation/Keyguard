@@ -1,4 +1,4 @@
-import { Button, Input } from "@vaultmaster/ui";
+import { Button, Input } from "@keyguard/ui";
 import { IoKeyOutline } from "react-icons/io5";
 
 export default function SetMasterForm() {

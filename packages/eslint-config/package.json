@@ -1,5 +1,5 @@
 {
-  "name": "@vaultmaster/eslint-config",
+  "name": "@keyguard/eslint-config",
   "version": "0.0.0",
   "private": true,
   "files": [

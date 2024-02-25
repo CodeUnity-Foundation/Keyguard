@@ -1,5 +1,5 @@
+import { logger } from "@keyguard/lib/logger";
 import { TRPCError } from "@trpc/server";
-import { logger } from "@vaultmaster/lib/logger";
 import jwt from "jsonwebtoken";
 
 import { UserJWTData } from "../../@types";

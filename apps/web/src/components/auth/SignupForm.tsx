@@ -1,4 +1,4 @@
-import { Button, Input } from "@vaultmaster/ui";
+import { Button, Input } from "@keyguard/ui";
 import Link from "next/link";
 import { AiTwotoneMail } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";

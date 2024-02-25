@@ -22,7 +22,7 @@ export const PasswordConfirmation = ({ name, type }: PasswordConfirmationProps) 
       <br />
       <p>{action[type]}</p>
       <p>Thank you for choosing us!</p>
-      <p>VaultMaster | CodeUnity Foundation</p>
+      <p>Keyguard | CodeUnity Foundation</p>
     </div>
   );
 };
