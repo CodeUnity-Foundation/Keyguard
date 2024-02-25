@@ -1,4 +1,4 @@
-const base = require('@vaultmaster/tailwind-config/tailwind.config');
+const base = require("@keyguard/tailwind-config/tailwind.config");
 
 /** @type {import('tailwindcss').Config} */
 export default {

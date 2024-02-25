@@ -1,5 +1,5 @@
 {
-  "name": "vaultmaster",
+  "name": "keyguard",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -13,8 +13,8 @@
     "apps/*"
   ],
   "devDependencies": {
-    "@vaultmaster/eslint-config": "workspace:*",
-    "@vaultmaster/tsconfig": "workspace:*",
+    "@keyguard/eslint-config": "workspace:*",
+    "@keyguard/tsconfig": "workspace:*",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",

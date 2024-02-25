@@ -1,5 +1,5 @@
+import { cn } from "@keyguard/lib/cn";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@vaultmaster/lib/cn";
 import { type VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
 

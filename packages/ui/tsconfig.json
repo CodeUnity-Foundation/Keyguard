@@ -1,5 +1,5 @@
 {
-  "extends": "@vaultmaster/tsconfig/react-library.json",
+  "extends": "@keyguard/tsconfig/react-library.json",
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {

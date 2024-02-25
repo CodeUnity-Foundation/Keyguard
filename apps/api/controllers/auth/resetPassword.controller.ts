@@ -1,6 +1,6 @@
+import { sendPasswordConfirmationEmail } from "@keyguard/emails";
+import { logger } from "@keyguard/lib/logger";
 import { TRPCError } from "@trpc/server";
-import { sendPasswordConfirmationEmail } from "@vaultmaster/emails";
-import { logger } from "@vaultmaster/lib/logger";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

@@ -1,5 +1,5 @@
-import { cn } from "@vaultmaster/lib/cn";
-import "@vaultmaster/ui/styles/global.css";
+import { cn } from "@keyguard/lib/cn";
+import "@keyguard/ui/styles/global.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
@@ -11,8 +11,8 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | VaultMaster",
-    default: "VaultMaster",
+    template: "%s | Keyguard",
+    default: "Keyguard",
   },
   icons: {
     icon: "../assets/logo.png",

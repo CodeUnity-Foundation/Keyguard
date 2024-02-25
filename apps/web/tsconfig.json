@@ -1,5 +1,5 @@
 {
-  "extends": "@vaultmaster/tsconfig/nextjs.json",
+  "extends": "@keyguard/tsconfig/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {
@@ -8,7 +8,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@web/*": ["./src/*"]
+      "@keyguard/web/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -1,5 +1,5 @@
+import { sendPasswordConfirmationEmail } from "@keyguard/emails";
 import { TRPCError } from "@trpc/server";
-import { sendPasswordConfirmationEmail } from "@vaultmaster/emails";
 import bcrypt from "bcrypt";
 
 import { Response } from "../../constants";

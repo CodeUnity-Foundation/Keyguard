@@ -1,4 +1,4 @@
-import { logger } from "@vaultmaster/lib/logger";
+import { logger } from "@keyguard/lib/logger";
 import nodemailer from "nodemailer";
 
 import { MODE } from "./../../apps/api/config/index";

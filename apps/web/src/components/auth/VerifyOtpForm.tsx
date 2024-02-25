@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input } from "@vaultmaster/ui";
+import { Button, Input } from "@keyguard/ui";
 import Link from "next/link";
 import OtpInput from "react-otp-input";
 

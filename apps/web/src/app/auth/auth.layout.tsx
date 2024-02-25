@@ -13,14 +13,8 @@ export default function AuthLayout({ authPageImage, logo, subtitle, title, form 
     <main className="flex h-screen w-full flex-col items-center justify-center md:flex-row">
       <div className="bg-secondary hidden h-full flex-1 rounded-r-3xl md:block">
         <div className="flex h-full w-full flex-col items-center justify-center">
-          <Image
-            src={logo}
-            alt="VaultMaster-logo"
-            width={50}
-            height={50}
-            className="absolute left-10 top-10"
-          />
-          <Image src={authPageImage} alt="VaultMaster" width={550} height={550} />
+          <Image src={logo} alt="Keyguard-logo" width={50} height={50} className="absolute left-10 top-10" />
+          <Image src={authPageImage} alt="Keyguard" width={550} height={550} />
         </div>
       </div>
       <div className="flex h-full flex-1 items-center justify-center">

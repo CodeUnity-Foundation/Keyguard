@@ -1,5 +1,5 @@
+import { sendOTPVarificationEmail } from "@keyguard/emails";
 import { TRPCError } from "@trpc/server";
-import { sendOTPVarificationEmail } from "@vaultmaster/emails";
 
 import { Response, otpExpireTime, verifyOTPTimeLimit } from "../../constants";
 import { checkUserVerifiedStatus, userExisted } from "../../queries/user.query";

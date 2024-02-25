@@ -1,5 +1,5 @@
+import { sendAccountLoginSuccessEmail } from "@keyguard/emails";
 import { TRPCError } from "@trpc/server";
-import { sendAccountLoginSuccessEmail } from "@vaultmaster/emails";
 
 import { Response } from "../../constants";
 import { TRPCContext } from "../../createContext";
