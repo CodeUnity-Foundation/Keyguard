@@ -1,6 +1,6 @@
-import SignupImage from "@web/assets/auth.svg";
-import logo from "@web/assets/icon.png";
-import SignupForm from "@web/components/auth/SignupForm";
+import SignupImage from "@keyguard/web/assets/auth.svg";
+import logo from "@keyguard/web/assets/icon.png";
+import SignupForm from "@keyguard/web/components/auth/SignupForm";
 import React from "react";
 
 import AuthLayout from "../auth.layout";

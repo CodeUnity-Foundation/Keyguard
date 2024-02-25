@@ -1,6 +1,6 @@
-import logo from "@web/assets/icon.png";
-import VerifyOtpImage from "@web/assets/otp.svg";
-import VerifyOtpForm from "@web/components/auth/VerifyOtpForm";
+import logo from "@keyguard/web/assets/icon.png";
+import VerifyOtpImage from "@keyguard/web/assets/otp.svg";
+import VerifyOtpForm from "@keyguard/web/components/auth/VerifyOtpForm";
 
 import AuthLayout from "../auth.layout";
 

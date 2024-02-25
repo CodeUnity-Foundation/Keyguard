@@ -1,6 +1,6 @@
-import logo from "@web/assets/icon.png";
-import MasterPasswordImage from "@web/assets/masterpassword.svg";
-import LoginMasterForm from "@web/components/auth/MasterPassword/LoginMasterForm";
+import logo from "@keyguard/web/assets/icon.png";
+import MasterPasswordImage from "@keyguard/web/assets/masterpassword.svg";
+import LoginMasterForm from "@keyguard/web/components/auth/MasterPassword/LoginMasterForm";
 
 import AuthLayout from "../../auth.layout";
 
