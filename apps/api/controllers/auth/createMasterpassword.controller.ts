@@ -1,4 +1,5 @@
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
+import { MasterPasswordSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
@@ -8,7 +9,6 @@ import { IUser } from "../../models/types";
 import User from "../../models/user";
 import { comparePassword, userExisted } from "../../queries/user.query";
 import { generateJWT } from "../../utils/generateJWT";
-import { MasterPasswordSchemaType } from "./authSchema";
 
 type MasterPasswordProps = {
   input: MasterPasswordSchemaType;

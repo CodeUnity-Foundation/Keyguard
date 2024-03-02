@@ -7,7 +7,8 @@
   "main": "./index.js",
   "exports": {
     "./logger": "./src/logger.ts",
-    "./cn": "./src/cn.ts"
+    "./cn": "./src/cn.ts",
+    "./validations": "./src/validations/index.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,8 +17,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "winston": "^3.11.0",
+    "clsx": "^2.1.0",
     "tailwind-merge": "^2.2.1",
-    "clsx": "^2.1.0"
+    "winston": "^3.11.0",
+    "zod": "^3.22.4"
   }
 }

@@ -4,11 +4,11 @@ import { z } from "zod";
  * Todo: Improve this validation schema
  */
 export const authSchema = z.object({
-  name: z.string({ required_error: "Name is required" }).min(2).max(100),
-  email: z.string({ required_error: "Email is required" }).email({ message: "Invalid email" }),
-  password: z.string({ required_error: "Password is required" }).min(6).max(25),
-  confirm_password: z.string({ required_error: "Confirm password is required" }).min(6).max(25),
-  profile: z.string().optional(),
+  name: z.string().trim().min(3, { message: "Minimum 3 character required" }).max(100),
+  email: z.string({ required_error: "Email is required" }).trim().email({ message: "Invalid email" }),
+  password: z.string({ required_error: "Password is required" }).trim().min(6).max(25),
+  confirm_password: z.string({ required_error: "Confirm password is required" }).trim().min(6).max(25),
+  profile: z.string().trim().optional(),
   emailVerification: z
     .object({
       otp: z
@@ -21,12 +21,21 @@ export const authSchema = z.object({
     .optional()
     .nullable(),
   is_verified: z.boolean(),
-  master_password: z.string().min(6).max(25).optional(),
-  confirm_master_password: z.string().min(6).max(25).optional(),
+  master_password: z.string().trim().min(6).max(25).optional(),
+  confirm_master_password: z.string().trim().min(6).max(25).optional(),
   is_remember: z.boolean().optional(),
 });
 
 export type AuthSchemaType = z.infer<typeof authSchema>;
+
+export const signupSchema = authSchema.pick({
+  name: true,
+  email: true,
+  password: true,
+  confirm_password: true,
+});
+
+export type SignupSchemaType = z.infer<typeof signupSchema>;
 
 export const loginSchema = authSchema.pick({
   email: true,
