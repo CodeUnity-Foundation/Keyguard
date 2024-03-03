@@ -1,8 +1,8 @@
+import { OTPSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
 import { Response, verifyOTPTimeLimit } from "../../constants";
 import { checkUserVerifiedStatus, userExisted } from "../../queries/user.query";
-import { OTPSchemaType } from "./authSchema";
 
 type VerifyOTPProps = {
   input: OTPSchemaType;

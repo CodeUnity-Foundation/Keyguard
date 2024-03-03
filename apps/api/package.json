@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "_app.ts",
+  "module": "",
   "scripts": {
     "dev": "nodemon _app.ts",
     "build": "tsc -p ."
@@ -12,8 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "@keyguard/emails": "workspace:*",
-    "@keyguard/ui": "workspace:*",
     "@keyguard/lib": "workspace:*",
+    "@keyguard/ui": "workspace:*",
     "@trpc/next": "^10.45.0",
     "@trpc/server": "^10.43.3",
     "bcrypt": "^5.1.1",
@@ -24,6 +25,7 @@
     "mongodb": "^6.2.0",
     "mongoose": "^8.0.0",
     "nodemailer": "^6.9.7",
+    "superjson": "^2.2.1",
     "winston": "^3.11.0",
     "zod": "^3.22.4"
   },

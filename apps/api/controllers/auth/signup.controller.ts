@@ -1,4 +1,5 @@
 import { sendOTPVarificationEmail } from "@keyguard/emails";
+import { AuthSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
@@ -7,7 +8,6 @@ import User from "../../models/user";
 import { comparePassword, sanatizedUser, userExisted } from "../../queries/user.query";
 import { generateJWT } from "../../utils/generateJWT";
 import { generateOTP } from "../../utils/generateOTP";
-import { AuthSchemaType } from "./authSchema";
 
 type SignUpProps = {
   input: AuthSchemaType;
@@ -67,6 +67,7 @@ export const signupController = async ({ input }: SignUpProps) => {
   const userData = { user: userResponse, token };
 
   return {
+    status: 200,
     success: true,
     message: "Account created successfully. Check your email for OTP verification!",
     ...userData,

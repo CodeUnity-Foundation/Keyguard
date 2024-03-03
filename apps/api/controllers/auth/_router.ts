@@ -1,8 +1,3 @@
-import z from "zod";
-
-import { existedMasterPassword } from "../../middlewares/existedMasterPassword";
-import { userAuthMiddleware } from "../../middlewares/userAuthMiddleware";
-import { publicProcedure, router } from "../../trpc";
 import {
   authSchema,
   createMasterPasswordSchema,
@@ -11,7 +6,11 @@ import {
   otpSchema,
   resetPasswordSchema,
   verifyMasterPasswordSchema,
-} from "./authSchema";
+} from "@keyguard/lib/validations";
+
+import { existedMasterPassword } from "../../middlewares/existedMasterPassword";
+import { userAuthMiddleware } from "../../middlewares/userAuthMiddleware";
+import { publicProcedure, router } from "../../trpc";
 import { checkValidLinkForResetPassword } from "./checkValidLinkForResetPassword.controller";
 import { createMasterPasswordController } from "./createMasterpassword.controller";
 import { forgotPasswordController } from "./forgotPassword.controller";

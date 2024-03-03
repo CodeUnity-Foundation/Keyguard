@@ -1,9 +1,9 @@
+import { LoginSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
 import { Response } from "../../constants";
 import { checkUserVerifiedStatus, userExisted, verifyPassword } from "../../queries/user.query";
 import { generateJWT } from "../../utils/generateJWT";
-import { LoginSchemaType } from "./authSchema";
 
 type LoginProps = {
   input: LoginSchemaType;

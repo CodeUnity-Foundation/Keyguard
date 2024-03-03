@@ -1,8 +1,11 @@
 import { cn } from "@keyguard/lib/cn";
+import { Toaster } from "@keyguard/ui";
 import "@keyguard/ui/styles/global.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
+
+import { TrpcProvider } from "../providers/trpc.providers";
 
 const roboto = Roboto({
   display: "auto",
@@ -26,7 +29,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Head>
         <link rel="shortcut icon" href="/assets/icon.png" sizes="any" />
       </Head>
-      <body className={cn(`flex h-screen`, roboto.className)}>{children}</body>
+      <body className={cn(`flex h-screen`, roboto.className)}>
+        <TrpcProvider>
+          {children}
+          <Toaster />
+        </TrpcProvider>
+      </body>
     </html>
   );
 }

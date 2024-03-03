@@ -28,6 +28,10 @@
     --color-muted-400: 148 20.9% 65.1%;
     --color-muted-500: 203 19.1% 60%;
     --color-muted-600: 71 19.3% 34.5%;
+    --color-success: 120 100% 43%;
+    --color-warning: 50 100% 60%;
+    --color-info: 210 100% 60%;
+    --color-error: 0 100% 60%;
   }
 
   .dark {
@@ -55,6 +59,10 @@
     --color-muted-400: 148 6.9% 35.1%;
     --color-muted-500: 203 19.1% 60%;
     --color-muted-600: 71 5.3% 14.5%;
+    --color-success: 120 100% 43%;
+    --color-warning: 50 100% 60%;
+    --color-info: 210 100% 60%;
+    --color-error: 0 100% 60%;
   }
 }
 

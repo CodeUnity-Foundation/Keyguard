@@ -1,10 +1,10 @@
 import { sendOTPVarificationEmail } from "@keyguard/emails";
+import { EmailInputSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
 import { Response, otpExpireTime, verifyOTPTimeLimit } from "../../constants";
 import { checkUserVerifiedStatus, userExisted } from "../../queries/user.query";
 import { generateOTP } from "../../utils/generateOTP";
-import { EmailInputSchemaType } from "./authSchema";
 
 type ResendOTPProps = {
   input: EmailInputSchemaType;

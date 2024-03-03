@@ -1,5 +1,6 @@
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
 import { logger } from "@keyguard/lib/logger";
+import { ResetPasswordSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -9,7 +10,6 @@ import { JWT_SECRET } from "../../config";
 import { Response } from "../../constants";
 import User from "../../models/user";
 import { comparePassword, userExisted } from "../../queries/user.query";
-import { ResetPasswordSchemaType } from "./authSchema";
 
 interface ResetPassword {
   input: ResetPasswordSchemaType;
