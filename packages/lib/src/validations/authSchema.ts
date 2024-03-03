@@ -1,13 +1,16 @@
 import { z } from "zod";
 
-/**
- * Todo: Improve this validation schema
- */
 export const authSchema = z.object({
-  name: z.string().trim().min(3, { message: "Minimum 3 character required" }).max(100),
-  email: z.string({ required_error: "Email is required" }).trim().email({ message: "Invalid email" }),
-  password: z.string({ required_error: "Password is required" }).trim().min(6).max(25),
-  confirm_password: z.string({ required_error: "Confirm password is required" }).trim().min(6).max(25),
+  name: z
+    .string()
+    .trim()
+    .nonempty({ message: "Name is required" })
+    .regex(new RegExp("^[a-zA-Z0-9 ]*$"), { message: "Special characters not allowed" })
+    .min(3, { message: "Minimum 3 characters required" })
+    .max(100),
+  email: z.string().trim().nonempty({ message: "Email is required" }).email({ message: "Invalid email" }),
+  password: z.string().trim().nonempty({ message: "Password is required" }).min(6).max(25),
+  confirm_password: z.string().trim().nonempty({ message: "Confirm password is required" }).min(6).max(25),
   profile: z.string().trim().optional(),
   emailVerification: z
     .object({
@@ -21,8 +24,20 @@ export const authSchema = z.object({
     .optional()
     .nullable(),
   is_verified: z.boolean(),
-  master_password: z.string().trim().min(6).max(25).optional(),
-  confirm_master_password: z.string().trim().min(6).max(25).optional(),
+  master_password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Master password is required" })
+    .min(6)
+    .max(25)
+    .optional(),
+  confirm_master_password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Confirm master password is required" })
+    .min(6)
+    .max(25)
+    .optional(),
   is_remember: z.boolean().optional(),
 });
 

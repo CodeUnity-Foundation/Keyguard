@@ -1,46 +1,100 @@
-import { Button, Input } from "@keyguard/ui";
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SignupSchemaType, signupSchema } from "@keyguard/lib/validations";
+import { Button, Input, Loader, useToast } from "@keyguard/ui";
+import { trpc } from "@keyguard/web/utils/trpc";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { AiTwotoneMail } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { IoKeyOutline } from "react-icons/io5";
 
+const defaultValues: SignupSchemaType = {
+  name: "",
+  email: "",
+  password: "",
+  confirm_password: "",
+};
+
 export default function SignupForm() {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const { register, handleSubmit, formState } = useForm<SignupSchemaType>({
+    defaultValues,
+    resolver: zodResolver(signupSchema),
+    mode: "all",
+  });
+
+  const { errors, isDirty, isValid } = formState;
+
+  const signupMutation = trpc.auth.signup.useMutation({
+    onSuccess(data) {
+      if (data.status === 200 && data.success) {
+        toast({
+          duration: 5000,
+          variant: "success",
+          description: data?.message,
+        });
+        router.push("/auth/verify-otp");
+      }
+    },
+    onError(error) {
+      toast({
+        duration: 5000,
+        variant: "error",
+        description: error?.message,
+      });
+    },
+  });
+
+  const onSignupSubmit = (data: SignupSchemaType) => {
+    const payload = { ...data, is_verified: false };
+    signupMutation.mutate(payload);
+  };
+
   return (
-    <form className="flex flex-col">
+    <form className="flex flex-col" onSubmit={handleSubmit(onSignupSubmit)}>
       <Input
         id="name"
-        name="name"
         type="text"
         label="Name"
+        {...register("name")}
         placeholder="John Doe"
-        icon={<BsFillPersonFill className="text-primary h-[16px] w-[16px]" />}
+        icon={BsFillPersonFill}
+        error={errors?.name?.message}
       />
 
       <Input
         id="email"
-        name="email"
         type="email"
         label="Email"
+        {...register("email")}
         placeholder="johndoe@gmail.com"
-        icon={<AiTwotoneMail className="text-primary h-[16px] w-[16px]" />}
+        icon={AiTwotoneMail}
+        error={errors?.email?.message}
       />
 
       <Input
         id="password"
-        name="password"
         type="password"
         label="Password"
         placeholder="******"
-        icon={<IoKeyOutline className="text-primary h-[16px] w-[16px]" />}
+        {...register("password")}
+        icon={IoKeyOutline}
+        error={errors?.password?.message}
       />
 
       <Input
         id="confirmPassword"
-        name="confirmPassword"
         type="password"
         label="Confirm password"
         placeholder="******"
-        icon={<IoKeyOutline className="text-primary h-[16px] w-[16px]" />}
+        {...register("confirm_password")}
+        icon={IoKeyOutline}
+        error={errors?.confirm_password?.message}
       />
 
       <div className="my-2 flex items-center justify-between">
@@ -55,8 +109,8 @@ export default function SignupForm() {
         </Link>
       </div>
 
-      <Button className="mt-2" size={"lg"}>
-        Next
+      <Button className="mt-2" size={"lg"} disabled={signupMutation.isLoading || !isDirty || !isValid}>
+        {signupMutation.isLoading ? <Loader variant={"secondary"} size={"sm"} /> : "Next"}
       </Button>
     </form>
   );
