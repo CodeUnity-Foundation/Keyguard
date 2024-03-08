@@ -34,7 +34,7 @@ export const resendOTPController = async ({ input }: ResendOTPProps) => {
   }
 
   user.emailVerification = {
-    otp: +otp,
+    otp: otp,
     otp_expiry: otpExpireTime,
   };
 
@@ -47,5 +47,5 @@ export const resendOTPController = async ({ input }: ResendOTPProps) => {
 
   await user.save();
 
-  return { success: true, message: "OTP sent successfully!" };
+  return { status: 200, success: true, message: "OTP sent successfully!" };
 };

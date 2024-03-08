@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema(
     master_password: { type: String },
     profile: { type: String },
     emailVerification: {
-      otp: { type: Number },
+      otp: { type: String },
       otp_expiry: { type: Date },
     },
     is_verified: { type: Boolean },

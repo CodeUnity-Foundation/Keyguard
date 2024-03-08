@@ -8,6 +8,7 @@ export interface InputProps
   label?: string;
   icon?: React.ElementType;
   error?: string;
+  isMessageHide?: boolean;
 }
 
 const inpulVariants = cva(
@@ -22,7 +23,7 @@ const inpulVariants = cva(
 );
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, variant, ...props }, ref) => {
+  ({ className, type, variant, isMessageHide = false, ...props }, ref) => {
     return (
       <div className="mb-3">
         {props.label && (
@@ -45,7 +46,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
         </div>
 
-        {props?.error ? <span className="text-xs text-red-500">{props?.error}</span> : null}
+        {props?.error && !isMessageHide ? <span className="text-xs text-red-500">{props?.error}</span> : null}
       </div>
     );
   }

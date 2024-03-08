@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignupSchemaType, signupSchema } from "@keyguard/lib/validations";
 import { Button, Input, Loader, useToast } from "@keyguard/ui";
+import { storeJSON } from "@keyguard/web/utils/localstorage";
 import { trpc } from "@keyguard/web/utils/trpc";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,6 +31,8 @@ export default function SignupForm() {
 
   const { errors, isDirty, isValid } = formState;
 
+  console.log({ isDirty, isValid });
+
   const signupMutation = trpc.auth.signup.useMutation({
     onSuccess(data) {
       if (data.status === 200 && data.success) {
@@ -38,6 +41,11 @@ export default function SignupForm() {
           variant: "success",
           description: data?.message,
         });
+        const loggedInUser = {
+          name: data?.user?.name,
+          email: data?.user?.email,
+        };
+        storeJSON("$stored_person_properties", loggedInUser);
         router.push("/auth/verify-otp");
       }
     },
@@ -77,25 +85,27 @@ export default function SignupForm() {
         error={errors?.email?.message}
       />
 
-      <Input
-        id="password"
-        type="password"
-        label="Password"
-        placeholder="******"
-        {...register("password")}
-        icon={IoKeyOutline}
-        error={errors?.password?.message}
-      />
+      <div className="flex items-start justify-center gap-3">
+        <Input
+          id="password"
+          type="password"
+          label="Password"
+          placeholder="******"
+          {...register("password")}
+          icon={IoKeyOutline}
+          error={errors?.password?.message}
+        />
 
-      <Input
-        id="confirmPassword"
-        type="password"
-        label="Confirm password"
-        placeholder="******"
-        {...register("confirm_password")}
-        icon={IoKeyOutline}
-        error={errors?.confirm_password?.message}
-      />
+        <Input
+          id="confirmPassword"
+          type="password"
+          label="Confirm password"
+          placeholder="******"
+          {...register("confirm_password")}
+          icon={IoKeyOutline}
+          error={errors?.confirm_password?.message}
+        />
+      </div>
 
       <div className="my-2 flex items-center justify-between">
         <p className="text-muted-500 dark:text-muted-200 text-xs font-medium lg:text-sm">

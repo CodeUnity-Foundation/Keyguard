@@ -4,6 +4,7 @@ import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
 import { Response, otpExpireTime, verifyOTPTimeLimit } from "../../constants";
+import { IUser } from "../../models/types";
 import User from "../../models/user";
 import { comparePassword, sanatizedUser, userExisted } from "../../queries/user.query";
 import { generateJWT } from "../../utils/generateJWT";
@@ -52,7 +53,7 @@ export const signupController = async ({ input }: SignUpProps) => {
   });
 
   // return the user
-  const userResponse = await sanatizedUser({ email: user.email });
+  const userResponse = (await sanatizedUser({ email: user.email })) as IUser;
 
   if (!userResponse) {
     throw new TRPCError({ code: "NOT_FOUND", message: Response.USER_NOT_FOUND });
