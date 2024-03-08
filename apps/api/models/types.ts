@@ -9,7 +9,7 @@ export interface IUser extends Document {
   is_verified: boolean;
   master_password?: string;
   emailVerification: {
-    otp: number;
+    otp: string;
     otp_expiry: Date;
   } | null;
   isLinkExpired: boolean;

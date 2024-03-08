@@ -9,7 +9,12 @@ export const authSchema = z.object({
     .min(3, { message: "Minimum 3 characters required" })
     .max(100),
   email: z.string().trim().nonempty({ message: "Email is required" }).email({ message: "Invalid email" }),
-  password: z.string().trim().nonempty({ message: "Password is required" }).min(6).max(25),
+  password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Password is required" })
+    .min(6, { message: "Minimum 6 characters required" })
+    .max(25, { message: "Maximum 25 characters required" }),
   confirm_password: z.string().trim().nonempty({ message: "Confirm password is required" }).min(6).max(25),
   profile: z.string().trim().optional(),
   emailVerification: z
@@ -61,12 +66,8 @@ export const loginSchema = authSchema.pick({
 export type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export const otpSchema = z.object({
-  email: z.string({ required_error: "Email is required" }).email({ message: "Invalid email" }),
-  otp: z
-    .number({ required_error: "OTP is required", invalid_type_error: "OTP must be a number" })
-    .refine((otp) => Number.isInteger(otp) && otp > 100000 && otp < 999999, {
-      message: "OTP must be a 6 digit number",
-    }),
+  email: z.string().email({ message: "Invalid email" }),
+  otp: z.string().trim().length(6).regex(/^\d+$/),
 });
 
 export type OTPSchemaType = z.infer<typeof otpSchema>;

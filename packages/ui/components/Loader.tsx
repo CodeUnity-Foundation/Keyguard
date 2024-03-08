@@ -4,8 +4,8 @@ import { VariantProps, cva } from "class-variance-authority";
 const loaderVariants = cva("h-24 w-24 animate-spin rounded-full border-8", {
   variants: {
     variant: {
-      default: "border-primary border-solid border-t-transparent",
-      destructive: "border-destructive border-solid border-t-transparent",
+      default: "border-primary border-2 border-solid border-t-transparent",
+      destructive: "border-destructive border-2 border-solid border-t-transparent",
       secondary: "border border-input border-2 border-solid border-t-transparent",
     },
     size: {

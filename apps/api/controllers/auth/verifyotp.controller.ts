@@ -44,5 +44,5 @@ export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
 
   await user.save();
 
-  return { success: true, message: "OTP verified successfully" };
+  return { status: 200, success: true, message: "OTP verified successfully" };
 };
