@@ -93,6 +93,13 @@ export default function VerifyOtpForm() {
       if (storedPerson) {
         const payload: OTPSchemaType = { email: storedPerson.email, ...data };
         otpMutation.mutate(payload);
+      } else {
+        toast({
+          duration: 5000,
+          variant: "error",
+          description: "Something went wrong. Please try again",
+        });
+        router.push("/auth/signup");
       }
     },
     [otpMutation]
@@ -103,6 +110,13 @@ export default function VerifyOtpForm() {
     if (storedPerson) {
       const payload = { email: storedPerson.email };
       resendOtpMutation.mutate(payload);
+    } else {
+      toast({
+        duration: 5000,
+        variant: "error",
+        description: "Something went wrong. Please try again",
+      });
+      router.push("/auth/signup");
     }
   }, [resendOtpMutation]);
 

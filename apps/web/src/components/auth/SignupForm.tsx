@@ -31,8 +31,6 @@ export default function SignupForm() {
 
   const { errors, isDirty, isValid } = formState;
 
-  console.log({ isDirty, isValid });
-
   const signupMutation = trpc.auth.signup.useMutation({
     onSuccess(data) {
       if (data.status === 200 && data.success) {
