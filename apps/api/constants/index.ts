@@ -24,14 +24,15 @@ export const verifyOTPTimeLimit = (storedOTPExpiry: Date, isForResendOtp = false
 };
 
 // Common messages
-export const Response = <const>{
-  USER_NOT_FOUND: 'User not found. Please check your credentials and try again.',
-  USER_ALREADY_EXISTS: 'User already exists. Please choose a different username or email.',
-  INVALID_CREDENTIALS: 'Invalid credentials.',
-  USER_ALREADY_VERIFIED: 'User already verified. No further action is needed.',
-  USER_NOT_VERIFIED: 'Verify the user first before proceeding.',
-  PASSWORD_NOT_MATCHED: 'Passwords do not match. Please ensure both passwords are the same.',
-  SOMETHING_WENT_WRONG: 'Something went wrong. Please try again.',
-  PASSWORD_RESET_EMAIL_SENT: 'Password reset email sent successfully.',
-  RESET_LINK_EXPIRED: 'Password reset link expired. Please try again.',
-};
+export const Response = {
+  USER_NOT_FOUND: "User not found. Please check your credentials and try again.",
+  USER_ALREADY_EXISTS: "User already exists. Please choose a different username or email.",
+  INVALID_CREDENTIALS: "Invalid credentials.",
+  USER_ALREADY_VERIFIED: "User already verified. No further action is needed.",
+  USER_NOT_VERIFIED: "Verify the user first before proceeding.",
+  PASSWORD_NOT_MATCHED: "Passwords do not match. Please ensure both passwords are the same.",
+  SOMETHING_WENT_WRONG: "Something went wrong. Please try again.",
+  PASSWORD_RESET_EMAIL_SENT: "Password reset email sent successfully.",
+  RESET_LINK_EXPIRED: "Password reset link expired. Please try again.",
+  OLD_PASSWORD_USED_AGAIN: "New password should not be same as old password.",
+} as const;

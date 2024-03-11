@@ -98,3 +98,21 @@ export const resetPasswordSchema = z.object({
 });
 
 export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>;
+
+export const changePasswordSchema = z.object({
+  current_password: z.string().trim().nonempty({ message: "Current password is required" }).min(6).max(25),
+  password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Password is required" })
+    .min(6, { message: "Minimum 6 characters required" })
+    .max(25, { message: "Maximum 25 characters required" }),
+  confirm_password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Confirm Password is required" })
+    .min(6, { message: "Minimum 6 characters required" })
+    .max(25, { message: "Maximum 25 characters required" }),
+});
+
+export type ChangePasswordSchemaType = z.infer<typeof changePasswordSchema>;
