@@ -2,7 +2,7 @@
   "name": "@keyguard/emails",
   "version": "1.0.0",
   "description": "Emails for Keyguard",
-  "main": "index.js",
+  "main": "index.ts",
   "dependencies": {
     "@keyguard/lib": "workspace:*",
     "dotenv": "^16.3.1",
