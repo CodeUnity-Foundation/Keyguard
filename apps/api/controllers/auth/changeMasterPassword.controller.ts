@@ -1,5 +1,5 @@
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
-import { ChangePasswordSchemaType } from "@keyguard/lib/validations";
+import { ChangeMasterPasswordSchema } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
@@ -9,13 +9,13 @@ import User from "../../models/user";
 import { comparePassword, userExisted } from "../../queries/user.query";
 
 interface ChangePassword {
-  input: ChangePasswordSchemaType;
+  input: ChangeMasterPasswordSchema;
   ctx: TRPCContext;
 }
 
-export const changePasswordController = async ({ input, ctx }: ChangePassword) => {
+export const changeMasterPasswordController = async ({ input, ctx }: ChangePassword) => {
   const email = ctx.user?.email ?? "";
-  const { current_password, password, confirm_password } = input;
+  const { current_master_password, new_master_password, confirm_new_master_password } = input;
 
   const user = await userExisted({ email });
 
@@ -23,23 +23,26 @@ export const changePasswordController = async ({ input, ctx }: ChangePassword) =
     throw new TRPCError({ code: "BAD_REQUEST", message: Response.USER_NOT_FOUND });
   }
 
-  const isCurrentPasswordMatched = await bcrypt.compare(current_password, user.password);
-  if (!isCurrentPasswordMatched) {
+  const isCurrentMasterPasswordMatched = await bcrypt.compare(
+    current_master_password,
+    user.master_password ?? ""
+  );
+  if (!isCurrentMasterPasswordMatched) {
     throw new TRPCError({ code: "BAD_REQUEST", message: Response.INVALID_CREDENTIALS });
   }
 
-  comparePassword({ password, confirmPassword: confirm_password });
+  comparePassword({ password: new_master_password, confirmPassword: confirm_new_master_password });
 
-  if (current_password === password) {
+  if (current_master_password === new_master_password) {
     throw new TRPCError({ code: "BAD_REQUEST", message: Response.OLD_PASSWORD_USED_AGAIN });
   }
 
-  const hashedPassword = await bcrypt.hash(input.password, 10);
+  const hashedMasterPassword = await bcrypt.hash(new_master_password, 10);
   await User.updateOne(
     { email },
     {
       $set: {
-        password: hashedPassword,
+        master_password: hashedMasterPassword,
       },
     }
   );
@@ -48,8 +51,8 @@ export const changePasswordController = async ({ input, ctx }: ChangePassword) =
   sendPasswordConfirmationEmail({
     name: user.name,
     email: user.email,
-    type: "update_password",
+    type: "update_master_password",
   });
 
-  return { status: 200, success: true, message: "Password changed successfully!" };
+  return { status: 200, success: true, message: "Master password changed successfully!" };
 };
