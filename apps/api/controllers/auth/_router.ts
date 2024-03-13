@@ -1,5 +1,7 @@
 import {
   authSchema,
+  changeMasterPasswordSchema,
+  changePasswordSchema,
   createMasterPasswordSchema,
   emailInputSchema,
   loginSchema,
@@ -11,6 +13,8 @@ import {
 import { existedMasterPassword } from "../../middlewares/existedMasterPassword";
 import { userAuthMiddleware } from "../../middlewares/userAuthMiddleware";
 import { publicProcedure, router } from "../../trpc";
+import { changeMasterPasswordController } from "./changeMasterPassword.controller";
+import { changePasswordController } from "./changePassword.controller";
 import { checkValidLinkForResetPassword } from "./checkValidLinkForResetPassword.controller";
 import { createMasterPasswordController } from "./createMasterpassword.controller";
 import { forgotPasswordController } from "./forgotPassword.controller";
@@ -54,4 +58,14 @@ export const authRouter = router({
   resetPassword: publicProcedure
     .input(resetPasswordSchema)
     .mutation(async ({ input }) => resetPasswordController({ input })),
+
+  changePassword: publicProcedure
+    .use(userAuthMiddleware)
+    .input(changePasswordSchema)
+    .mutation(async ({ input, ctx }) => changePasswordController({ input, ctx })),
+
+  changeMasterPassword: publicProcedure
+    .use(userAuthMiddleware)
+    .input(changeMasterPasswordSchema)
+    .mutation(async ({ input, ctx }) => changeMasterPasswordController({ input, ctx })),
 });
