@@ -98,3 +98,44 @@ export const resetPasswordSchema = z.object({
 });
 
 export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>;
+
+export const changePasswordSchema = z.object({
+  current_password: z.string().trim().nonempty({ message: "Current password is required" }).min(6).max(25),
+  password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Password is required" })
+    .min(6, { message: "Minimum 6 characters required" })
+    .max(25, { message: "Maximum 25 characters required" }),
+  confirm_password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Confirm Password is required" })
+    .min(6, { message: "Minimum 6 characters required" })
+    .max(25, { message: "Maximum 25 characters required" }),
+});
+
+export type ChangePasswordSchemaType = z.infer<typeof changePasswordSchema>;
+
+export const changeMasterPasswordSchema = z.object({
+  current_master_password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Current master password is required" })
+    .min(6)
+    .max(25),
+  new_master_password: z
+    .string()
+    .trim()
+    .nonempty({ message: "New master password is required" })
+    .min(6, { message: "Minimum 6 characters required" })
+    .max(25, { message: "Maximum 25 characters required" }),
+  confirm_new_master_password: z
+    .string()
+    .trim()
+    .nonempty({ message: "Confirm master password is required" })
+    .min(6, { message: "Minimum 6 characters required" })
+    .max(25, { message: "Maximum 25 characters required" }),
+});
+
+export type ChangeMasterPasswordSchema = z.infer<typeof changeMasterPasswordSchema>;
