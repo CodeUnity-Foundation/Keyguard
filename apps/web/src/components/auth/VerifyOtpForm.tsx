@@ -89,9 +89,9 @@ export default function VerifyOtpForm() {
 
   const onOtpSubmit = useCallback(
     (data: ModifiedOTPSchemaType) => {
-      const storedPerson = getJSON("$stored_person_properties");
+      const storedPerson = getJSON<OTPSchemaType>("$stored_person_properties");
       if (storedPerson) {
-        const payload: OTPSchemaType = { email: storedPerson.email, ...data };
+        const payload: OTPSchemaType = { email: storedPerson.email!, ...data };
         otpMutation.mutate(payload);
       } else {
         toast({
@@ -106,7 +106,7 @@ export default function VerifyOtpForm() {
   );
 
   const onResendOTP = useCallback(() => {
-    const storedPerson = getJSON("$stored_person_properties");
+    const storedPerson = getJSON<OTPSchemaType>("$stored_person_properties");
     if (storedPerson) {
       const payload = { email: storedPerson.email };
       resendOtpMutation.mutate(payload);
@@ -151,7 +151,7 @@ export default function VerifyOtpForm() {
           </p>
         ) : (
           <p className="text-muted-500 dark:text-muted-200 flex items-center text-xs font-medium lg:text-sm">
-            Haven't received or has it expired?
+            Haven&apos;t received or has it expired?
             {resendOtpMutation.isLoading ? (
               <Loader variant={"default"} size={"sm"} className="mx-3 my-[6px]" />
             ) : (
