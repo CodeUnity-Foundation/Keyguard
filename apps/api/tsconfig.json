@@ -5,7 +5,7 @@
     "outDir": "build",
     "declarationMap": false,
     "declaration": false,
-    "baseUrl": "@server",
+    "baseUrl": ".",
     "jsx": "react-jsx"
   },
   "include": ["**/*.ts", "**/*.tsx"],
