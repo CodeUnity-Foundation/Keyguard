@@ -15,8 +15,10 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [queryClient] = useState(newQueryClient);
 
+  // eslint-disable-next-line turbo/no-undeclared-env-vars
   const url = process.env.NEXT_PUBLIC_WEBAPP_URL
-    ? process.env.NEXT_PUBLIC_WEBAPP_URL
+    ? // eslint-disable-next-line turbo/no-undeclared-env-vars
+      process.env.NEXT_PUBLIC_WEBAPP_URL
     : "http://localhost:3000/api/";
 
   const [trpcClient] = useState(() =>

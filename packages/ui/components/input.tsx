@@ -6,7 +6,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inpulVariants> {
   label?: string;
-  icon?: React.ElementType;
+  icon?: React.ReactNode;
   error?: string;
   isMessageHide?: boolean;
 }
@@ -35,7 +35,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className={cn(inpulVariants(props.error ? { variant: "error" } : { variant }), className)}>
           {props.icon && (
             <div className="bg-secondary dark:bg-muted mr-1 flex h-full w-10 items-center justify-center rounded-md rounded-r-none">
-              <props.icon className={`${props.error ? "text-error" : "text-primary"} h-[16px] w-[16px]`} />
+              <span className={`${props.error ? "text-error" : "text-primary"} h-[16px] w-[16px]`}>
+                {props.icon}
+              </span>
             </div>
           )}
           <input
