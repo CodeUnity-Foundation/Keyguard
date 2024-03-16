@@ -31,8 +31,6 @@ export default function SignupForm() {
 
   const { errors, isDirty, isValid } = formState;
 
-  console.log({ isDirty, isValid });
-
   const signupMutation = trpc.auth.signup.useMutation({
     onSuccess(data) {
       if (data.status === 200 && data.success) {
@@ -71,7 +69,7 @@ export default function SignupForm() {
         label="Name"
         {...register("name")}
         placeholder="John Doe"
-        icon={BsFillPersonFill}
+        icon={<BsFillPersonFill />}
         error={errors?.name?.message}
       />
 
@@ -81,7 +79,7 @@ export default function SignupForm() {
         label="Email"
         {...register("email")}
         placeholder="johndoe@gmail.com"
-        icon={AiTwotoneMail}
+        icon={<AiTwotoneMail />}
         error={errors?.email?.message}
       />
 
@@ -92,7 +90,7 @@ export default function SignupForm() {
           label="Password"
           placeholder="******"
           {...register("password")}
-          icon={IoKeyOutline}
+          icon={<IoKeyOutline />}
           error={errors?.password?.message}
         />
 
@@ -102,7 +100,7 @@ export default function SignupForm() {
           label="Confirm password"
           placeholder="******"
           {...register("confirm_password")}
-          icon={IoKeyOutline}
+          icon={<IoKeyOutline />}
           error={errors?.confirm_password?.message}
         />
       </div>

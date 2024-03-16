@@ -10,6 +10,7 @@ import { TrpcProvider } from "../providers/trpc.providers";
 const roboto = Roboto({
   display: "auto",
   weight: ["300", "100", "400", "500", "700", "900"],
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {

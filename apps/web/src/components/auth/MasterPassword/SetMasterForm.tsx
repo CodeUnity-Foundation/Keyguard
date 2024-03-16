@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Input } from "@keyguard/ui";
 import { IoKeyOutline } from "react-icons/io5";
 
@@ -5,21 +7,23 @@ export default function SetMasterForm() {
   return (
     <form className="flex flex-col">
       <Input
-        id="password"
-        name="password"
+        id="master_password"
+        name="master_password"
         type="password"
         label="Master Password"
         placeholder="******"
-        icon={<IoKeyOutline className="text-primary h-[16px] w-[16px]" />}
+        icon={<IoKeyOutline />}
+        autoComplete="off"
       />
 
       <Input
-        id="password"
-        name="password"
+        id="confirm_master_password"
+        name="confirm_master_password"
         type="password"
         label="Confirm Master Password"
         placeholder="******"
-        icon={<IoKeyOutline className="text-primary h-[16px] w-[16px]" />}
+        icon={<IoKeyOutline />}
+        autoComplete="off"
       />
 
       <Button className="mt-2" size={"lg"}>

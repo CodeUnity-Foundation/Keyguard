@@ -1,11 +1,12 @@
 {
-  "name": "server",
+  "name": "@keyguard/api",
   "version": "1.0.0",
   "description": "",
   "main": "_app.ts",
   "module": "",
   "scripts": {
     "dev": "nodemon _app.ts",
+    "lint": "eslint . --max-warnings 0",
     "build": "tsc -p ."
   },
   "keywords": [],
@@ -30,6 +31,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@keyguard/tsconfig": "workspace:*",
+    "@keyguard/eslint-config": "workspace:*",
+    "eslint": "^8.53.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.16",
     "@types/express": "^4.17.21",
