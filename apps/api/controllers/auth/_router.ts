@@ -1,5 +1,4 @@
 import {
-  authSchema,
   changeMasterPasswordSchema,
   changePasswordSchema,
   createMasterPasswordSchema,
@@ -7,6 +6,7 @@ import {
   loginSchema,
   otpSchema,
   resetPasswordSchema,
+  signupSchema,
   verifyMasterPasswordSchema,
 } from "@keyguard/lib/validations";
 
@@ -26,7 +26,7 @@ import { verifyMasterPasswordController } from "./verifyMasterpassword.controlle
 import { verifyOTPController } from "./verifyotp.controller";
 
 export const authRouter = router({
-  signup: publicProcedure.input(authSchema).mutation(async ({ input }) => signupController({ input })),
+  signup: publicProcedure.input(signupSchema).mutation(async ({ input }) => signupController({ input })),
 
   login: publicProcedure.input(loginSchema).mutation(async ({ input }) => loginController({ input })),
 

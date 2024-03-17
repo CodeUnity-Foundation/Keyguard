@@ -1,54 +1,27 @@
 import { z } from "zod";
 
-export const authSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .nonempty({ message: "Name is required" })
+import { passwordValidation, stringValidation } from "./common";
+
+export const rootAuthSchema = z.object({
+  name: stringValidation("Name is required")
     .regex(new RegExp("^[a-zA-Z0-9 ]*$"), { message: "Special characters not allowed" })
     .min(3, { message: "Minimum 3 characters required" })
     .max(100),
-  email: z.string().trim().nonempty({ message: "Email is required" }).email({ message: "Invalid email" }),
-  password: z
-    .string()
-    .trim()
-    .nonempty({ message: "Password is required" })
-    .min(6, { message: "Minimum 6 characters required" })
-    .max(25, { message: "Maximum 25 characters required" }),
-  confirm_password: z.string().trim().nonempty({ message: "Confirm password is required" }).min(6).max(25),
-  profile: z.string().trim().optional(),
-  emailVerification: z
-    .object({
-      otp: z
-        .number({ required_error: "OTP is required", invalid_type_error: "OTP must be a number" })
-        .refine((otp) => Number.isInteger(otp) && otp > 111111 && otp < 999999, {
-          message: "OTP must be a 6 digit number",
-        }),
-      otp_expiry: z.date(),
-    })
-    .optional()
-    .nullable(),
-  is_verified: z.boolean(),
-  master_password: z
-    .string()
-    .trim()
-    .nonempty({ message: "Master password is required" })
-    .min(6)
-    .max(25)
-    .optional(),
-  confirm_master_password: z
-    .string()
-    .trim()
-    .nonempty({ message: "Confirm master password is required" })
-    .min(6)
-    .max(25)
-    .optional(),
-  is_remember: z.boolean().optional(),
+  email: stringValidation("Email is required").email({ message: "Invalid email" }),
+  password: passwordValidation("Password is required"),
+  current_password: passwordValidation("Current password is required"),
+  confirm_password: passwordValidation("Confirm password is required"),
+  profile: stringValidation().optional(),
+  otp: stringValidation().length(6).regex(/^\d+$/),
+  is_verified: z.boolean().default(false),
+  master_password: passwordValidation("Master password is required"),
+  current_master_password: passwordValidation("Current master password is required"),
+  confirm_master_password: passwordValidation("Confirm master password is required"),
+  is_remember: z.boolean(),
+  requestToken: stringValidation("Request token is required"),
 });
 
-export type AuthSchemaType = z.infer<typeof authSchema>;
-
-export const signupSchema = authSchema.pick({
+export const signupSchema = rootAuthSchema.pick({
   name: true,
   email: true,
   password: true,
@@ -57,7 +30,7 @@ export const signupSchema = authSchema.pick({
 
 export type SignupSchemaType = z.infer<typeof signupSchema>;
 
-export const loginSchema = authSchema.pick({
+export const loginSchema = rootAuthSchema.pick({
   email: true,
   password: true,
   is_remember: true,
@@ -65,77 +38,52 @@ export const loginSchema = authSchema.pick({
 
 export type LoginSchemaType = z.infer<typeof loginSchema>;
 
-export const otpSchema = z.object({
-  email: z.string().email({ message: "Invalid email" }),
-  otp: z.string().trim().length(6).regex(/^\d+$/),
+export const otpSchema = rootAuthSchema.pick({
+  email: true,
+  otp: true,
 });
 
 export type OTPSchemaType = z.infer<typeof otpSchema>;
 
-export const emailInputSchema = authSchema.pick({
+export const emailInputSchema = rootAuthSchema.pick({
   email: true,
 });
 
 export type EmailInputSchemaType = z.infer<typeof emailInputSchema>;
 
-export const createMasterPasswordSchema = z.object({
-  master_password: z.string({ required_error: "Master password is required" }).min(6).max(25),
-  confirm_master_password: z.string({ required_error: "Confirm master password is required" }).min(6).max(25),
+export const createMasterPasswordSchema = rootAuthSchema.pick({
+  master_password: true,
+  confirm_master_password: true,
 });
 
 export type MasterPasswordSchemaType = z.infer<typeof createMasterPasswordSchema>;
 
-export const verifyMasterPasswordSchema = z.object({
-  master_password: z.string({ required_error: "Master password is required" }).min(6).max(25),
+export const verifyMasterPasswordSchema = rootAuthSchema.pick({
+  master_password: true,
 });
 
 export type VerifyMasterPasswordSchemaType = z.infer<typeof verifyMasterPasswordSchema>;
 
-export const resetPasswordSchema = z.object({
-  requestToken: z.string(),
-  password: z.string({ required_error: "Password is required" }).min(6).max(25),
-  confirm_password: z.string({ required_error: "Confirm password is required" }).min(6).max(25),
+export const resetPasswordSchema = rootAuthSchema.pick({
+  requestToken: true,
+  password: true,
+  confirm_password: true,
 });
 
 export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>;
 
-export const changePasswordSchema = z.object({
-  current_password: z.string().trim().nonempty({ message: "Current password is required" }).min(6).max(25),
-  password: z
-    .string()
-    .trim()
-    .nonempty({ message: "Password is required" })
-    .min(6, { message: "Minimum 6 characters required" })
-    .max(25, { message: "Maximum 25 characters required" }),
-  confirm_password: z
-    .string()
-    .trim()
-    .nonempty({ message: "Confirm Password is required" })
-    .min(6, { message: "Minimum 6 characters required" })
-    .max(25, { message: "Maximum 25 characters required" }),
+export const changePasswordSchema = rootAuthSchema.pick({
+  current_password: true,
+  password: true,
+  confirm_password: true,
 });
 
 export type ChangePasswordSchemaType = z.infer<typeof changePasswordSchema>;
 
-export const changeMasterPasswordSchema = z.object({
-  current_master_password: z
-    .string()
-    .trim()
-    .nonempty({ message: "Current master password is required" })
-    .min(6)
-    .max(25),
-  new_master_password: z
-    .string()
-    .trim()
-    .nonempty({ message: "New master password is required" })
-    .min(6, { message: "Minimum 6 characters required" })
-    .max(25, { message: "Maximum 25 characters required" }),
-  confirm_new_master_password: z
-    .string()
-    .trim()
-    .nonempty({ message: "Confirm master password is required" })
-    .min(6, { message: "Minimum 6 characters required" })
-    .max(25, { message: "Maximum 25 characters required" }),
+export const changeMasterPasswordSchema = rootAuthSchema.pick({
+  current_master_password: true,
+  master_password: true,
+  confirm_master_password: true,
 });
 
 export type ChangeMasterPasswordSchema = z.infer<typeof changeMasterPasswordSchema>;

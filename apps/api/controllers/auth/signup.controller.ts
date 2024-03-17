@@ -1,9 +1,9 @@
 import { sendOTPVarificationEmail } from "@keyguard/emails";
-import { AuthSchemaType } from "@keyguard/lib/validations";
+import { SignupSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
-import { Response, otpExpireTime, verifyOTPTimeLimit } from "../../constants";
+import { Response, otpExpireTime } from "../../constants";
 import { IUser } from "../../models/types";
 import User from "../../models/user";
 import { comparePassword, sanatizedUser, userExisted } from "../../queries/user.query";
@@ -11,7 +11,7 @@ import { generateJWT } from "../../utils/generateJWT";
 import { generateOTP } from "../../utils/generateOTP";
 
 type SignUpProps = {
-  input: AuthSchemaType;
+  input: SignupSchemaType;
 };
 
 /**
