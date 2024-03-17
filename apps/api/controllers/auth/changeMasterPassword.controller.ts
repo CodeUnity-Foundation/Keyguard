@@ -15,7 +15,7 @@ interface ChangePassword {
 
 export const changeMasterPasswordController = async ({ input, ctx }: ChangePassword) => {
   const email = ctx.user?.email ?? "";
-  const { current_master_password, new_master_password, confirm_new_master_password } = input;
+  const { current_master_password, master_password, confirm_master_password } = input;
 
   const user = await userExisted({ email });
 
@@ -31,13 +31,13 @@ export const changeMasterPasswordController = async ({ input, ctx }: ChangePassw
     throw new TRPCError({ code: "BAD_REQUEST", message: Response.INVALID_CREDENTIALS });
   }
 
-  comparePassword({ password: new_master_password, confirmPassword: confirm_new_master_password });
+  comparePassword({ password: master_password, confirmPassword: confirm_master_password });
 
-  if (current_master_password === new_master_password) {
+  if (current_master_password === master_password) {
     throw new TRPCError({ code: "BAD_REQUEST", message: Response.OLD_PASSWORD_USED_AGAIN });
   }
 
-  const hashedMasterPassword = await bcrypt.hash(new_master_password, 10);
+  const hashedMasterPassword = await bcrypt.hash(master_password, 10);
   await User.updateOne(
     { email },
     {
