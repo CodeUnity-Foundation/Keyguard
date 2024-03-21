@@ -1,6 +1,6 @@
 import { cn } from "@keyguard/lib/cn";
 import { VariantProps, cva } from "class-variance-authority";
-import * as React from "react";
+import { forwardRef } from "react";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
@@ -22,7 +22,7 @@ const inpulVariants = cva(
   }
 );
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, variant, isMessageHide = false, ...props }, ref) => {
     return (
       <div className="mb-3">

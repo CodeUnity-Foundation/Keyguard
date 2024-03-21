@@ -1,4 +1,6 @@
-import * as React from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 import type { ToastActionElement, ToastProps } from "../components/toast";
 
@@ -35,7 +37,7 @@ type Action =
     }
   | {
       type: ActionType["UPDATE_TOAST"];
-      toast: Partial<ToasterToast>;
+      toast: ToasterToast;
     }
   | {
       type: ActionType["DISMISS_TOAST"];
@@ -50,6 +52,7 @@ interface State {
   toasts: ToasterToast[];
 }
 
+// eslint-disable-next-line no-undef
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 const addToRemoveQueue = (toastId: string) => {
@@ -121,6 +124,7 @@ export const reducer = (state: State, action: Action): State => {
   }
 };
 
+// eslint-disable-next-line no-unused-vars
 const listeners: Array<(state: State) => void> = [];
 
 let memoryState: State = { toasts: [] };
@@ -132,6 +136,7 @@ function dispatch(action: Action) {
   });
 }
 
+// eslint-disable-next-line no-undef
 type Toast = Omit<ToasterToast, "id">;
 
 function toast({ ...props }: Toast) {
@@ -164,9 +169,9 @@ function toast({ ...props }: Toast) {
 }
 
 function useToast() {
-  const [state, setState] = React.useState<State>(memoryState);
+  const [state, setState] = useState<State>(memoryState);
 
-  React.useEffect(() => {
+  useEffect(() => {
     listeners.push(setState);
     return () => {
       const index = listeners.indexOf(setState);
