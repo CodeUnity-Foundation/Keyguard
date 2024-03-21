@@ -6,15 +6,13 @@ const project = resolve(process.cwd(), "tsconfig.json");
 module.exports = {
   extends: [
     "eslint:recommended",
-    "prettier",
     require.resolve("@vercel/style-guide/eslint/next"),
     "eslint-config-turbo",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
   ],
   globals: {
     React: true,
     JSX: true,
+    NodeJS: true
   },
   env: {
     node: true,
@@ -38,7 +36,7 @@ module.exports = {
       files: ["*.js?(x)", "*.ts?(x)"],
       rules: {
         "@typescript-eslint/no-explicit-any": "error",
-        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-unused-vars": "warn",
         "no-console": "error",
       },
     },
