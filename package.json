@@ -3,10 +3,10 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
+    "dev": "turbo dev --parallel",
     "lint": "turbo lint --parallel --no-cache",
     "type-check": "turbo type-check",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\" --cache"
   },
   "workspaces": [
     "packages/*",
