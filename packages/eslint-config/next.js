@@ -10,7 +10,6 @@ module.exports = {
     "eslint-config-turbo",
   ],
   globals: {
-    React: true,
     JSX: true,
     NodeJS: true
   },
