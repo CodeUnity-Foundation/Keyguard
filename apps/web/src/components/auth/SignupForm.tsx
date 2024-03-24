@@ -108,7 +108,7 @@ export default function SignupForm() {
       <div className="my-2 flex items-center justify-between">
         <p className="text-muted-500 dark:text-muted-200 text-xs font-medium lg:text-sm">
           Already have an account?
-          <Link href="#" className="text-primary ml-1 font-semibold">
+          <Link href="/auth/login" className="text-primary ml-1 font-semibold">
             Login
           </Link>
         </p>
