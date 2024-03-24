@@ -31,5 +31,5 @@ export const loginController = async ({ input }: LoginProps) => {
     durationUnit: "days",
   });
 
-  return { success: true, message: "Login successfully!", token };
+  return { status: 200, success: true, message: "Login successfully!", token };
 };
