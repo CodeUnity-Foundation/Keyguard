@@ -6,7 +6,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint --parallel --no-cache",
     "type-check": "turbo type-check",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\" --cache"
   },
   "workspaces": [
     "packages/*",
