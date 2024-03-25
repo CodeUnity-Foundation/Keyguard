@@ -4,9 +4,9 @@
   "private": true,
   "sideEffects": false,
   "description": "",
-  "main": "./index.js",
+  "main": "./index.ts",
   "exports": {
-    ".": "./index.js",
+    ".": "./index.ts",
     "./validations": "./src/validations/index.ts"
   },
   "scripts": {
