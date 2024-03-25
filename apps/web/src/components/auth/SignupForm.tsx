@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { encrypt } from "@keyguard/lib";
 import { SignupSchemaType, signupSchema } from "@keyguard/lib/validations";
 import { Button, Input, Loader, useToast } from "@keyguard/ui";
+import { LOCAL_STORAGE_ENC_DEC_SECRET } from "@keyguard/web/utils/envvariables";
 import { storeJSON } from "@keyguard/web/utils/localstorage";
 import { trpc } from "@keyguard/web/utils/trpc";
 import { setCookie } from "cookies-next";
@@ -20,6 +21,8 @@ const defaultValues: SignupSchemaType = {
   password: "",
   confirm_password: "",
 };
+
+type SignedUserType = Pick<SignupSchemaType, "name" | "email">;
 
 export default function SignupForm() {
   const router = useRouter();
@@ -41,11 +44,13 @@ export default function SignupForm() {
           variant: "success",
           description: data?.message,
         });
-        const loggedInUser = {
+        const signedUser: SignedUserType = {
           name: data?.user?.name,
           email: data?.user?.email,
         };
-        storeJSON("$stored_person_properties", loggedInUser);
+        const encryptedData = encrypt<SignedUserType>(signedUser, LOCAL_STORAGE_ENC_DEC_SECRET);
+        storeJSON("$stored_person_properties", encryptedData);
+        setCookie("keyguard_auth_token", data?.token);
         router.push("/auth/verify-otp");
       }
     },

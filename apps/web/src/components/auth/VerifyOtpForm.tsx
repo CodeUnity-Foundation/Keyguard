@@ -1,8 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { EncryprtedData, decrypt } from "@keyguard/lib";
 import { OTPSchemaType, otpSchema } from "@keyguard/lib/validations";
 import { Button, Input, Loader, useToast } from "@keyguard/ui";
+import { LOCAL_STORAGE_ENC_DEC_SECRET } from "@keyguard/web/utils/envvariables";
 import { getJSON } from "@keyguard/web/utils/localstorage";
 import { trpc } from "@keyguard/web/utils/trpc";
 import { useRouter } from "next/navigation";
@@ -89,9 +91,10 @@ export default function VerifyOtpForm() {
 
   const onOtpSubmit = useCallback(
     (data: ModifiedOTPSchemaType) => {
-      const storedPerson = getJSON<OTPSchemaType>("$stored_person_properties");
+      const storedPerson = getJSON<EncryprtedData>("$stored_person_properties");
       if (storedPerson) {
-        const payload: OTPSchemaType = { email: storedPerson.email!, ...data };
+        const decryptedData = decrypt<OTPSchemaType>(storedPerson, LOCAL_STORAGE_ENC_DEC_SECRET);
+        const payload: OTPSchemaType = { email: decryptedData.email, ...data };
         otpMutation.mutate(payload);
       } else {
         toast({
