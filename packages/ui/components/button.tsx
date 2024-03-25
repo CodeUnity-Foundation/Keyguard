@@ -1,4 +1,4 @@
-import { cn } from "@keyguard/lib/cn";
+import { cn } from "@keyguard/lib";
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
 import { forwardRef } from "react";

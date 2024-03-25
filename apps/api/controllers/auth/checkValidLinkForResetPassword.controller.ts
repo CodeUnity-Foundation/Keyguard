@@ -1,4 +1,4 @@
-import { logger } from "@keyguard/lib/logger";
+import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import jwt from "jsonwebtoken";
 

@@ -1,5 +1,5 @@
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
-import { logger } from "@keyguard/lib/logger";
+import { logger } from "@keyguard/lib";
 import { ResetPasswordSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";

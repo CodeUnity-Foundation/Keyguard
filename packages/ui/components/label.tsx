@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@keyguard/lib/cn";
+import { cn } from "@keyguard/lib";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { type VariantProps, cva } from "class-variance-authority";
 import * as React from "react";

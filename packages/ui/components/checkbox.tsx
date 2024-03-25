@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@keyguard/lib/cn";
+import { cn } from "@keyguard/lib";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import * as React from "react";

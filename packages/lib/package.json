@@ -4,10 +4,9 @@
   "private": true,
   "sideEffects": false,
   "description": "",
-  "main": "./index.js",
+  "main": "./index.ts",
   "exports": {
-    "./logger": "./src/logger.ts",
-    "./cn": "./src/cn.ts",
+    ".": "./index.ts",
     "./validations": "./src/validations/index.ts"
   },
   "scripts": {

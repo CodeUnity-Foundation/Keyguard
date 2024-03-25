@@ -1,4 +1,4 @@
-import { cn } from "@keyguard/lib/cn";
+import { cn } from "@keyguard/lib";
 import { Toaster } from "@keyguard/ui";
 import "@keyguard/ui/styles/global.css";
 import type { Metadata } from "next";

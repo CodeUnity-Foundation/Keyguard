@@ -1,4 +1,4 @@
-import { logger } from "@keyguard/lib/logger";
+import { logger } from "@keyguard/lib";
 import mongoose from "mongoose";
 
 import { CLUSTER_URL, DB_NAME, DB_PASSWORD, DB_USERNAME, MODE } from "../config";
