@@ -109,9 +109,10 @@ export default function VerifyOtpForm() {
   );
 
   const onResendOTP = useCallback(() => {
-    const storedPerson = getJSON<OTPSchemaType>("$stored_person_properties");
+    const storedPerson = getJSON<EncryprtedData>("$stored_person_properties");
     if (storedPerson) {
-      const payload = { email: storedPerson.email };
+      const decryptedData = decrypt<OTPSchemaType>(storedPerson, LOCAL_STORAGE_ENC_DEC_SECRET);
+      const payload = { email: decryptedData.email };
       resendOtpMutation.mutate(payload);
     } else {
       toast({
