@@ -7,6 +7,7 @@ module.exports = {
   extends: ["eslint:recommended", "prettier", "eslint-config-turbo", "next"],
   plugins: ["@typescript-eslint"],
   globals: {
+    React: true,
     JSX: true,
   },
   env: {
