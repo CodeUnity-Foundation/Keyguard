@@ -6,8 +6,7 @@
   "description": "",
   "main": "./index.js",
   "exports": {
-    "./logger": "./src/logger.ts",
-    "./cn": "./src/cn.ts",
+    ".": "./index.js",
     "./validations": "./src/validations/index.ts"
   },
   "scripts": {

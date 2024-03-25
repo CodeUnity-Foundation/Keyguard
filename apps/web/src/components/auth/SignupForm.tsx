@@ -1,10 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { encrypt } from "@keyguard/lib";
 import { SignupSchemaType, signupSchema } from "@keyguard/lib/validations";
 import { Button, Input, Loader, useToast } from "@keyguard/ui";
 import { storeJSON } from "@keyguard/web/utils/localstorage";
 import { trpc } from "@keyguard/web/utils/trpc";
+import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
