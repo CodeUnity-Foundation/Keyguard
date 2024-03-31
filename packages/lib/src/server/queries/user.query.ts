@@ -1,8 +1,8 @@
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
-import { Response } from "../constants";
-import User from "../models/user";
+// import { Response } from "../constants";
+import { User } from "../models";
 
 /**
  * Check if the user already exists
@@ -46,7 +46,7 @@ export const verifyPassword = async ({
 }): Promise<boolean> => {
   const isSame = await bcrypt.compare(password, existedPassword);
   if (!isSame) {
-    throw new TRPCError({ code: "BAD_REQUEST", message: Response.INVALID_CREDENTIALS });
+    throw new TRPCError({ code: "BAD_REQUEST", message: "Response.INVALID_CREDENTIALS" });
   }
   return isSame;
 };
@@ -64,7 +64,7 @@ export const comparePassword = ({
   confirmPassword: string;
 }): boolean => {
   if (password !== confirmPassword) {
-    throw new TRPCError({ code: "BAD_REQUEST", message: Response.PASSWORD_NOT_MATCHED });
+    throw new TRPCError({ code: "BAD_REQUEST", message: "Response.PASSWORD_NOT_MATCHED" });
   }
   return true;
 };

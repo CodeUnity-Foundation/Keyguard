@@ -1,12 +1,11 @@
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
+import { User, comparePassword, userExisted } from "@keyguard/lib/server";
 import { ChangePasswordSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
 import { Response } from "../../constants";
 import type { TRPCContext } from "../../createContext";
-import User from "../../models/user";
-import { comparePassword, userExisted } from "../../queries/user.query";
 
 interface ChangePassword {
   input: ChangePasswordSchemaType;

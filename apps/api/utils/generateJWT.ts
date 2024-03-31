@@ -3,7 +3,8 @@ import jwt, { SignOptions } from "jsonwebtoken";
 import { JWT_SECRET } from "../config";
 
 interface JWT {
-  sign(payload: string | object | Buffer, secretOrPrivateKey: jwt.Secret, options?: SignOptions): string;
+  // eslint-disable-next-line no-unused-vars
+  sign: (payload: string | object | Buffer, secretOrPrivateKey: jwt.Secret, options?: SignOptions) => string;
 }
 
 interface JWTArgs {
@@ -16,7 +17,7 @@ interface JWTArgs {
 }
 
 export function generateJWT({ payload, duration, durationUnit }: JWTArgs): string {
-  let options: SignOptions = {};
+  const options: SignOptions = {};
 
   if (duration && durationUnit) {
     options.expiresIn = `${duration}${durationUnit}`;

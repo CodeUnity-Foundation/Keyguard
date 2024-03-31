@@ -1,13 +1,11 @@
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
+import { IUser, User, comparePassword, userExisted } from "@keyguard/lib/server";
 import { MasterPasswordSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
 import { Response } from "../../constants";
 import { TRPCContext } from "../../createContext";
-import { IUser } from "../../models/types";
-import User from "../../models/user";
-import { comparePassword, userExisted } from "../../queries/user.query";
 import { generateJWT } from "../../utils/generateJWT";
 
 type MasterPasswordProps = {

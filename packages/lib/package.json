@@ -5,9 +5,11 @@
   "sideEffects": false,
   "description": "",
   "main": "./index.ts",
+  "types": "./index.ts",
   "exports": {
     ".": "./index.ts",
-    "./validations": "./src/validations/index.ts"
+    "./validations": "./src/validations/index.ts",
+    "./server": "./src/server/index.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,9 +18,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@trpc/server": "^10.43.3",
+    "bcrypt": "^5.1.1",
     "clsx": "^2.1.0",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.2.0",
     "tailwind-merge": "^2.2.1",
     "winston": "^3.11.0",
     "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2"
   }
 }

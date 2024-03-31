@@ -1,8 +1,8 @@
+import { checkUserVerifiedStatus, userExisted, verifyPassword } from "@keyguard/lib/server";
 import { LoginSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
 import { Response } from "../../constants";
-import { checkUserVerifiedStatus, userExisted, verifyPassword } from "../../queries/user.query";
 import { generateJWT } from "../../utils/generateJWT";
 
 type LoginProps = {

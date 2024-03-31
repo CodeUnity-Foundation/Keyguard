@@ -1,12 +1,10 @@
 import { sendOTPVarificationEmail } from "@keyguard/emails";
+import { IUser, User, comparePassword, sanatizedUser, userExisted } from "@keyguard/lib/server";
 import { SignupSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
 import { Response, otpExpireTime } from "../../constants";
-import { IUser } from "../../models/types";
-import User from "../../models/user";
-import { comparePassword, sanatizedUser, userExisted } from "../../queries/user.query";
 import { generateJWT } from "../../utils/generateJWT";
 import { generateOTP } from "../../utils/generateOTP";
 
@@ -45,12 +43,12 @@ export const signupController = async ({ input }: SignUpProps) => {
   });
 
   // send otp
-  await sendOTPVarificationEmail({
-    name: input.name,
-    email: input.email,
-    otp: otp,
-    expire: "2 minutes",
-  });
+  // await sendOTPVarificationEmail({
+  //   name: input.name,
+  //   email: input.email,
+  //   otp: otp,
+  //   expire: "2 minutes",
+  // });
 
   // return the user
   const userResponse = (await sanatizedUser({ email: user.email })) as IUser;

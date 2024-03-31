@@ -24,5 +24,6 @@ app.use(
 app.use(express.json());
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server listening on port ${PORT}`);
 });
