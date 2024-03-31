@@ -43,12 +43,12 @@ export const signupController = async ({ input }: SignUpProps) => {
   });
 
   // send otp
-  // await sendOTPVarificationEmail({
-  //   name: input.name,
-  //   email: input.email,
-  //   otp: otp,
-  //   expire: "2 minutes",
-  // });
+  await sendOTPVarificationEmail({
+    name: input.name,
+    email: input.email,
+    otp: otp,
+    expire: "2 minutes",
+  });
 
   // return the user
   const userResponse = (await sanatizedUser({ email: user.email })) as IUser;
