@@ -1,11 +1,12 @@
 import { cn } from "@keyguard/lib";
-import { Toaster } from "@keyguard/ui";
 import "@keyguard/ui/styles/global.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 
 import { TrpcProvider } from "../providers/trpc.providers";
+import { ToastDuration } from "../utils/constant";
 
 const roboto = Roboto({
   display: "auto",
@@ -33,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={cn(`flex h-screen`, roboto.className)}>
         <TrpcProvider>
           {children}
-          <Toaster />
+          <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: ToastDuration }} />
         </TrpcProvider>
       </body>
     </html>

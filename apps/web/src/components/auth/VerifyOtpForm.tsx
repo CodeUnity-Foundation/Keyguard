@@ -3,13 +3,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EncryprtedData, decrypt } from "@keyguard/lib";
 import { OTPSchemaType, otpSchema } from "@keyguard/lib/validations";
-import { Button, Input, Loader, useToast } from "@keyguard/ui";
+import { Button, Input, Loader } from "@keyguard/ui";
 import { LOCAL_STORAGE_ENC_DEC_SECRET } from "@keyguard/web/utils/envvariables";
 import { getJSON } from "@keyguard/web/utils/localstorage";
 import { trpc } from "@keyguard/web/utils/trpc";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import OtpInput from "react-otp-input";
 
 type ModifiedOTPSchemaType = Pick<OTPSchemaType, "otp">;
@@ -22,7 +23,6 @@ const defaultValues: ModifiedOTPSchemaType = {
 
 export default function VerifyOtpForm() {
   const router = useRouter();
-  const { toast } = useToast();
   const [resendOTPTimer, setResendOTPTimer] = useState<number>(0);
 
   const { handleSubmit, formState, control, watch } = useForm<ModifiedOTPSchemaType>({
@@ -36,46 +36,26 @@ export default function VerifyOtpForm() {
   const otpMutation = trpc.auth.verifyOTP.useMutation({
     onSuccess(data) {
       if (data.status === 200 && data.success) {
-        toast({
-          duration: 5000,
-          variant: "success",
-          description: data?.message,
-        });
+        toast.success(data?.message);
         router.push("/auth/set-master");
       }
     },
     onError(error) {
-      toast({
-        duration: 5000,
-        variant: "error",
-        description: error?.message,
-      });
+      toast.error(error?.message);
     },
   });
 
   const resendOtpMutation = trpc.auth.resendOTP.useMutation({
     onSuccess(data) {
       if (data.status === 200 && data.success) {
-        toast({
-          duration: 5000,
-          variant: "success",
-          description: data?.message,
-        }),
-          setResendOTPTimer(60);
+        toast.success(data?.message);
+        setResendOTPTimer(60);
       } else {
-        toast({
-          duration: 5000,
-          variant: "error",
-          description: data?.message,
-        });
+        toast.error(data?.message);
       }
     },
     onError(error) {
-      toast({
-        duration: 5000,
-        variant: "error",
-        description: error?.message,
-      });
+      toast.error(error?.message);
     },
   });
 
@@ -97,11 +77,7 @@ export default function VerifyOtpForm() {
         const payload: OTPSchemaType = { email: decryptedData.email, ...data };
         otpMutation.mutate(payload);
       } else {
-        toast({
-          duration: 5000,
-          variant: "error",
-          description: "Something went wrong. Please try again",
-        });
+        toast.error("Something went wrong. Please try again");
         router.push("/auth/signup");
       }
     },
@@ -115,11 +91,7 @@ export default function VerifyOtpForm() {
       const payload = { email: decryptedData.email };
       resendOtpMutation.mutate(payload);
     } else {
-      toast({
-        duration: 5000,
-        variant: "error",
-        description: "Something went wrong. Please try again",
-      });
+      toast.error("Something went wrong. Please try again");
       router.push("/auth/signup");
     }
   }, [resendOtpMutation]);

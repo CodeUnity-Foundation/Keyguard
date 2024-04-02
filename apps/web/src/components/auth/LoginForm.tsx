@@ -2,12 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchemaType, loginSchema } from "@keyguard/lib/validations";
-import { Button, Checkbox, Input, Label, Loader, useToast } from "@keyguard/ui";
+import { Button, Checkbox, Input, Label, Loader } from "@keyguard/ui";
 import { trpc } from "@keyguard/web/utils/trpc";
 import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { AiTwotoneMail } from "react-icons/ai";
 import { IoKeyOutline } from "react-icons/io5";
 
@@ -19,7 +20,6 @@ const defaultValues: LoginSchemaType = {
 
 export default function LoginForm() {
   const router = useRouter();
-  const { toast } = useToast();
 
   const { register, handleSubmit, formState, watch, setValue } = useForm<LoginSchemaType>({
     defaultValues,
@@ -32,21 +32,13 @@ export default function LoginForm() {
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess(data) {
       if (data.status === 200 && data.success) {
-        toast({
-          duration: 5000,
-          variant: "success",
-          description: data?.message,
-        });
+        toast.success(data?.message);
         setCookie("keyguard_auth_token", data.token);
         router.push("/login-master");
       }
     },
     onError(error) {
-      toast({
-        duration: 5000,
-        variant: "error",
-        description: error?.message,
-      });
+      toast.error(error?.message);
     },
   });
 

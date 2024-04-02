@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { encrypt } from "@keyguard/lib";
 import { SignupSchemaType, signupSchema } from "@keyguard/lib/validations";
-import { Button, Input, Loader, useToast } from "@keyguard/ui";
+import { Button, Input, Loader } from "@keyguard/ui";
 import { LOCAL_STORAGE_ENC_DEC_SECRET } from "@keyguard/web/utils/envvariables";
 import { storeJSON } from "@keyguard/web/utils/localstorage";
 import { trpc } from "@keyguard/web/utils/trpc";
@@ -11,6 +11,7 @@ import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { AiTwotoneMail } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { IoKeyOutline } from "react-icons/io5";
@@ -26,7 +27,6 @@ type SignedUserType = Pick<SignupSchemaType, "name" | "email">;
 
 export default function SignupForm() {
   const router = useRouter();
-  const { toast } = useToast();
 
   const { register, handleSubmit, formState } = useForm<SignupSchemaType>({
     defaultValues,
@@ -39,11 +39,7 @@ export default function SignupForm() {
   const signupMutation = trpc.auth.signup.useMutation({
     onSuccess(data) {
       if (data.status === 200 && data.success) {
-        toast({
-          duration: 5000,
-          variant: "success",
-          description: data?.message,
-        });
+        toast.success(data?.message);
         const signedUser: SignedUserType = {
           name: data?.user?.name,
           email: data?.user?.email,
@@ -55,11 +51,7 @@ export default function SignupForm() {
       }
     },
     onError(error) {
-      toast({
-        duration: 5000,
-        variant: "error",
-        description: error?.message,
-      });
+      toast.error(error?.message);
     },
   });
 
