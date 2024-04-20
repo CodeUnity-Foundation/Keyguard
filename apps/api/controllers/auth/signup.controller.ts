@@ -1,10 +1,11 @@
 import { sendOTPVarificationEmail } from "@keyguard/emails";
+import { addDateTime } from "@keyguard/lib";
 import { IUser, User, comparePassword, sanatizedUser, userExisted } from "@keyguard/lib/server";
 import { SignupSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
-import { Response, otpExpireTime } from "../../constants";
+import { Response, TWO } from "../../constants";
 import { generateJWT } from "../../utils/generateJWT";
 import { generateOTP } from "../../utils/generateOTP";
 
@@ -37,7 +38,7 @@ export const signupController = async ({ input }: SignUpProps) => {
     master_password: null,
     emailVerification: {
       otp: +otp,
-      otp_expiry: otpExpireTime,
+      otp_expiry: addDateTime(TWO, "minutes"),
     },
     deletedAt: null,
   });

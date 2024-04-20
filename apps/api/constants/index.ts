@@ -1,12 +1,8 @@
-export const DEFAULT_OTP_TIME_LIMIT = 60;
-
 export const TWO = 2;
 
 export const SIXTY = 60;
 
 export const THOUSAND = 1000;
-
-export const otpExpireTime = new Date(Date.now() + TWO * SIXTY * THOUSAND); // 2 minutes from now
 
 /**
  * Check if otp time limit is expired or not
@@ -14,10 +10,10 @@ export const otpExpireTime = new Date(Date.now() + TWO * SIXTY * THOUSAND); // 2
  * @param isForResendOtp - if true then check for resend otp time limit else check for otp time limit
  * @returns boolean
  */
-export const verifyOTPTimeLimit = (storedOTPExpiry: Date, isForResendOtp = false): boolean => {
+export const checkOTPExpire = (storedOTPExpiry: Date, isForResendOtp = false): boolean => {
   const otpSendTime = storedOTPExpiry.getTime(),
     currentTime = new Date().getTime(),
-    OTP_TIME_LIMIT = DEFAULT_OTP_TIME_LIMIT * THOUSAND,
+    OTP_TIME_LIMIT = THOUSAND,
     expiryTime = otpSendTime + OTP_TIME_LIMIT;
 
   return isForResendOtp ? currentTime < expiryTime : currentTime > expiryTime;

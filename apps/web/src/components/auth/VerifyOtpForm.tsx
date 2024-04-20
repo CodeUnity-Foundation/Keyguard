@@ -49,7 +49,7 @@ export default function VerifyOtpForm() {
     onSuccess(data) {
       if (data.status === 200 && data.success) {
         toast.success(data?.message);
-        setResendOTPTimer(60);
+        setResendOTPTimer(120);
       } else {
         toast.error(data?.message);
       }

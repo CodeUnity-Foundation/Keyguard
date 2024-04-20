@@ -2,7 +2,7 @@ import { checkUserVerifiedStatus, userExisted } from "@keyguard/lib/server";
 import { OTPSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
-import { Response, verifyOTPTimeLimit } from "../../constants";
+import { Response, checkOTPExpire } from "../../constants";
 
 type VerifyOTPProps = {
   input: OTPSchemaType;
@@ -31,7 +31,7 @@ export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
 
   const { otp: storedOTP, otp_expiry: storedOTPExpiry } = emailVerification;
 
-  if (verifyOTPTimeLimit(storedOTPExpiry)) {
+  if (checkOTPExpire(storedOTPExpiry)) {
     throw new TRPCError({ code: "BAD_REQUEST", message: "OTP expired!" });
   }
 

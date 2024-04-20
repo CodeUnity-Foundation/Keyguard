@@ -1,9 +1,10 @@
 import { sendOTPVarificationEmail } from "@keyguard/emails";
+import { addDateTime } from "@keyguard/lib";
 import { checkUserVerifiedStatus, userExisted } from "@keyguard/lib/server";
 import { EmailInputSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
-import { Response, otpExpireTime, verifyOTPTimeLimit } from "../../constants";
+import { Response, TWO, checkOTPExpire } from "../../constants";
 import { generateOTP } from "../../utils/generateOTP";
 
 type ResendOTPProps = {
@@ -28,14 +29,14 @@ export const resendOTPController = async ({ input }: ResendOTPProps) => {
   if (
     emailVerification?.otp &&
     emailVerification.otp_expiry &&
-    verifyOTPTimeLimit(emailVerification.otp_expiry, true)
+    checkOTPExpire(emailVerification.otp_expiry, true)
   ) {
     throw new TRPCError({ code: "BAD_REQUEST", message: "OTP already sent!" });
   }
 
   user.emailVerification = {
     otp: otp,
-    otp_expiry: otpExpireTime,
+    otp_expiry: addDateTime(TWO, "minutes") as unknown as Date,
   };
 
   await sendOTPVarificationEmail({
