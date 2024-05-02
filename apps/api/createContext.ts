@@ -1,4 +1,4 @@
-import { IUser } from "@keyguard/lib/server";
+import { IUser } from "@keyguard/database";
 import { CreateNextContextOptions } from "@trpc/server/adapters/next";
 
 type CreateContextOptions = CreateNextContextOptions;

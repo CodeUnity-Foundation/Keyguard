@@ -1,5 +1,5 @@
-import { checkUserVerifiedStatus, userExisted } from "@keyguard/lib/server";
-import { OTPSchemaType } from "@keyguard/lib/validations";
+import { checkUserVerifiedStatus, userExisted } from "@keyguard/database";
+import { OTPSchemaType } from "@keyguard/database/zod";
 import { TRPCError } from "@trpc/server";
 
 import { Response, checkOTPExpire } from "../../constants";

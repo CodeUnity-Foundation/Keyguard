@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SignupSchemaType, signupSchema } from "@keyguard/database/zod";
 import { encrypt } from "@keyguard/lib";
-import { SignupSchemaType, signupSchema } from "@keyguard/lib/validations";
 import { Button, Input, Loader } from "@keyguard/ui";
 import { LOCAL_STORAGE_ENC_DEC_SECRET } from "@keyguard/web/utils/envvariables";
 import { storeJSON } from "@keyguard/web/utils/localstorage";

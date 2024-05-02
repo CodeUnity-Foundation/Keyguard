@@ -1,6 +1,6 @@
+import { User, comparePassword, userExisted } from "@keyguard/database";
+import { ChangePasswordSchemaType } from "@keyguard/database/zod";
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
-import { User, comparePassword, userExisted } from "@keyguard/lib/server";
-import { ChangePasswordSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 

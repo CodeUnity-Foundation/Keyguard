@@ -1,5 +1,5 @@
-import { userExisted } from "@keyguard/lib/server";
-import { EmailInputSchemaType } from "@keyguard/lib/validations";
+import { userExisted } from "@keyguard/database";
+import { EmailInputSchemaType } from "@keyguard/database/zod";
 
 import { Response } from "../../constants";
 import { TRPCContext } from "../../createContext";

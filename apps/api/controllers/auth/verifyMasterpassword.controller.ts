@@ -1,6 +1,6 @@
+import { IUser, userExisted, verifyPassword } from "@keyguard/database";
+import { VerifyMasterPasswordSchemaType } from "@keyguard/database/zod";
 import { sendAccountLoginSuccessEmail } from "@keyguard/emails";
-import { IUser, userExisted, verifyPassword } from "@keyguard/lib/server";
-import { VerifyMasterPasswordSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
 import { Response } from "../../constants";

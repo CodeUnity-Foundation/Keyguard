@@ -1,7 +1,8 @@
 import { logger } from "@keyguard/lib";
 import mongoose from "mongoose";
 
-import { CLUSTER_URL, DB_NAME, DB_PASSWORD, DB_USERNAME, MODE } from "../config";
+import { CLUSTER_URL, DB_NAME, DB_PASSWORD, DB_USERNAME, MODE } from "./config";
+import { User } from "./models";
 
 if (MODE === "prod") {
   if (!DB_USERNAME || !DB_PASSWORD || !CLUSTER_URL || !DB_NAME) {
@@ -15,10 +16,14 @@ const PROD_URL = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${CLUSTER_URL}/${D
 
 const MONGODB_URI = MODE === "prod" ? PROD_URL : DEV_URL;
 
+let isConnected = false;
 async function connectToDB() {
+  if (isConnected) return;
+
   try {
     await mongoose.connect(MONGODB_URI);
     logger.info("⚡️[DB]: Connected successfully!");
+    isConnected = true;
   } catch (error) {
     logger.error(`❌[DB]: Could not connect. Here is the error: ${error as string}`);
     process.exit();
@@ -26,3 +31,9 @@ async function connectToDB() {
 }
 
 export default connectToDB;
+
+connectToDB();
+
+export const mongoclient = {
+  user: User,
+} as const;

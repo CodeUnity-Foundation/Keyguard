@@ -1,5 +1,5 @@
-import { checkUserVerifiedStatus, userExisted, verifyPassword } from "@keyguard/lib/server";
-import { LoginSchemaType } from "@keyguard/lib/validations";
+import { checkUserVerifiedStatus, userExisted, verifyPassword } from "@keyguard/database";
+import { LoginSchemaType } from "@keyguard/database/zod";
 import { TRPCError } from "@trpc/server";
 
 import { Response } from "../../constants";

@@ -1,6 +1,5 @@
+import { JWT_SECRET } from "@keyguard/database";
 import jwt, { SignOptions } from "jsonwebtoken";
-
-import { JWT_SECRET } from "../config";
 
 interface JWT {
   // eslint-disable-next-line no-unused-vars

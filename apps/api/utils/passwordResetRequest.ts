@@ -1,5 +1,5 @@
+import { IUser } from "@keyguard/database";
 import { sendPasswordResetLink } from "@keyguard/emails";
-import { IUser } from "@keyguard/lib/server";
 
 import { generateJWT } from "./generateJWT";
 

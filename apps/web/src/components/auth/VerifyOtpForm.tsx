@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { OTPSchemaType, otpSchema } from "@keyguard/database/zod";
 import { EncryprtedData, decrypt } from "@keyguard/lib";
-import { OTPSchemaType, otpSchema } from "@keyguard/lib/validations";
 import { Button, Input, Loader } from "@keyguard/ui";
 import { LOCAL_STORAGE_ENC_DEC_SECRET } from "@keyguard/web/utils/envvariables";
 import { getJSON } from "@keyguard/web/utils/localstorage";

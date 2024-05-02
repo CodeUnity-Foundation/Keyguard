@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchemaType, loginSchema } from "@keyguard/lib/validations";
+import { LoginSchemaType, loginSchema } from "@keyguard/database/zod";
 import { Button, Checkbox, Input, Label, Loader } from "@keyguard/ui";
 import { trpc } from "@keyguard/web/utils/trpc";
 import { setCookie } from "cookies-next";
@@ -13,15 +13,15 @@ import { AiTwotoneMail } from "react-icons/ai";
 import { IoKeyOutline } from "react-icons/io5";
 
 const defaultValues: LoginSchemaType = {
-  email: "",
-  password: "",
+  email: "rajpatel@gmail.com",
+  password: "123456",
   is_remember: false,
 };
 
 export default function LoginForm() {
   const router = useRouter();
 
-  const { register, handleSubmit, formState, watch, setValue } = useForm<LoginSchemaType>({
+  const { register, handleSubmit, formState, watch, setValue, getValues } = useForm<LoginSchemaType>({
     defaultValues,
     resolver: zodResolver(loginSchema),
     mode: "all",
@@ -34,7 +34,8 @@ export default function LoginForm() {
       if (data.status === 200 && data.success) {
         toast.success(data?.message);
         setCookie("keyguard_auth_token", data.token);
-        router.push("/login-master");
+        setCookie("email", getValues("email"));
+        router.push("/auth/login-master");
       }
     },
     onError(error) {
@@ -93,7 +94,7 @@ export default function LoginForm() {
         </Link>
       </div>
 
-      <Button className="mt-2" size={"lg"} disabled={loginMutation.isLoading || !isDirty || !isValid}>
+      <Button className="mt-2" size={"lg"} disabled={loginMutation.isLoading || isDirty || !isValid}>
         {loginMutation.isLoading ? <Loader variant={"secondary"} size={"sm"} /> : "Next"}
       </Button>
     </form>

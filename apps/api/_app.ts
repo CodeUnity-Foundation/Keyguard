@@ -1,15 +1,12 @@
+import { PORT } from "@keyguard/database";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import express, { Application } from "express";
 
-import { PORT } from "./config";
 import { TRPCContext, createContextInner } from "./createContext";
-import connectToDB from "./db";
 import { appRouter } from "./routes";
 
 const app: Application = express();
-
-connectToDB();
 
 app.use(cors());
 

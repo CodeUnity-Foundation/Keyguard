@@ -8,7 +8,7 @@ import {
   resetPasswordSchema,
   signupSchema,
   verifyMasterPasswordSchema,
-} from "@keyguard/lib/validations";
+} from "@keyguard/database/zod";
 
 import { existedMasterPassword } from "../../middlewares/existedMasterPassword";
 import { userAuthMiddleware } from "../../middlewares/userAuthMiddleware";

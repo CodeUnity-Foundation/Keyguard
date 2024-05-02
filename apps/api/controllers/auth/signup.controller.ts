@@ -1,7 +1,7 @@
+import { IUser, comparePassword, mongoclient, sanatizedUser, userExisted } from "@keyguard/database";
+import { SignupSchemaType } from "@keyguard/database/zod";
 import { sendOTPVarificationEmail } from "@keyguard/emails";
 import { addDateTime } from "@keyguard/lib";
-import { IUser, User, comparePassword, sanatizedUser, userExisted } from "@keyguard/lib/server";
-import { SignupSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
@@ -32,7 +32,7 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   const otp = generateOTP();
 
-  const user = await User.create({
+  const user = await mongoclient.user.create({
     ...input,
     password: hashedPassword,
     master_password: null,

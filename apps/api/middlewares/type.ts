@@ -1,4 +1,4 @@
-import { IUser } from "@keyguard/lib/server";
+import { IUser } from "@keyguard/database";
 
 export interface UserJWTData {
   email: string;

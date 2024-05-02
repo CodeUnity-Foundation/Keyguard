@@ -1,7 +1,7 @@
+import { checkUserVerifiedStatus, userExisted } from "@keyguard/database";
+import { EmailInputSchemaType } from "@keyguard/database/zod";
 import { sendOTPVarificationEmail } from "@keyguard/emails";
 import { addDateTime } from "@keyguard/lib";
-import { checkUserVerifiedStatus, userExisted } from "@keyguard/lib/server";
-import { EmailInputSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
 import { Response, TWO, checkOTPExpire } from "../../constants";

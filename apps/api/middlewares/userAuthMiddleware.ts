@@ -1,8 +1,7 @@
-import { checkUserVerifiedStatus, userExisted } from "@keyguard/lib/server";
+import { JWT_SECRET, checkUserVerifiedStatus, userExisted } from "@keyguard/database";
 import { TRPCError } from "@trpc/server";
 import Jwt from "jsonwebtoken";
 
-import { JWT_SECRET } from "../config";
 import { Response } from "../constants";
 import { middleware } from "../trpc";
 import { UserJWTData } from "./type";
