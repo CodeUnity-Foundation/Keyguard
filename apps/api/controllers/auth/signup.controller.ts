@@ -1,4 +1,4 @@
-import { IUser, comparePassword, mongoclient, sanatizedUser, userExisted } from "@keyguard/database";
+import { IUser, User, comparePassword, sanatizedUser, userExisted } from "@keyguard/database";
 import { SignupSchemaType } from "@keyguard/database/zod";
 import { sendOTPVarificationEmail } from "@keyguard/emails";
 import { addDateTime } from "@keyguard/lib";
@@ -32,7 +32,7 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   const otp = generateOTP();
 
-  const user = await mongoclient.user.create({
+  const user = await User.create({
     ...input,
     password: hashedPassword,
     master_password: null,

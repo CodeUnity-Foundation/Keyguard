@@ -1,4 +1,4 @@
-import { IUser, JWT_SECRET, mongoclient } from "@keyguard/database";
+import { IUser, JWT_SECRET, User } from "@keyguard/database";
 import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import jwt from "jsonwebtoken";
@@ -31,7 +31,7 @@ export const checkValidLinkForResetPassword = async ({ ctx }: ValidLinkForResetP
     throw new TRPCError({ code: "FORBIDDEN", message: Response.RESET_LINK_EXPIRED });
   }
 
-  const user = (await mongoclient.user.findOne({ email: decoded.email, _id: decoded.userId })) as IUser;
+  const user = (await User.findOne({ email: decoded.email, _id: decoded.userId })) as IUser;
 
   if (!user) {
     throw new TRPCError({ code: "FORBIDDEN", message: Response.RESET_LINK_EXPIRED });

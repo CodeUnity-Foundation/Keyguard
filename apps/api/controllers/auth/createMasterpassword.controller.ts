@@ -1,4 +1,4 @@
-import { IUser, comparePassword, mongoclient, userExisted } from "@keyguard/database";
+import { IUser, User, comparePassword, userExisted } from "@keyguard/database";
 import { MasterPasswordSchemaType } from "@keyguard/database/zod";
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
 import { TRPCError } from "@trpc/server";
@@ -36,7 +36,7 @@ export const createMasterPasswordController = async ({ input, ctx }: MasterPassw
   if (!user.master_password && master_password) {
     const hashedPassword = await bcrypt.hash(master_password, 10);
 
-    await mongoclient.user.updateOne(
+    await User.updateOne(
       { _id: user._id },
       {
         $set: {

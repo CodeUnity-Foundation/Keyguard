@@ -2,7 +2,6 @@ import { logger } from "@keyguard/lib";
 import mongoose from "mongoose";
 
 import { CLUSTER_URL, DB_NAME, DB_PASSWORD, DB_USERNAME, MODE } from "./config";
-import { User } from "./models";
 
 if (MODE === "prod") {
   if (!DB_USERNAME || !DB_PASSWORD || !CLUSTER_URL || !DB_NAME) {
@@ -16,24 +15,40 @@ const PROD_URL = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${CLUSTER_URL}/${D
 
 const MONGODB_URI = MODE === "prod" ? PROD_URL : DEV_URL;
 
-let isConnected = false;
-async function connectToDB() {
-  if (isConnected) return;
-
-  try {
-    await mongoose.connect(MONGODB_URI);
-    logger.info("⚡️[DB]: Connected successfully!");
-    isConnected = true;
-  } catch (error) {
-    logger.error(`❌[DB]: Could not connect. Here is the error: ${error as string}`);
-    process.exit();
-  }
+declare global {
+  var mongoose: any;
 }
 
-export default connectToDB;
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+export const connectToDB = async () => {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose;
+    });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+    logger.info("⚡️[DB]: Connected successfully!");
+  } catch (error) {
+    logger.error(`❌[DB]: Could not connect. Here is the error: ${error as string}`);
+    cached.promise = null;
+    throw error;
+  }
+
+  return cached.conn;
+};
 
 connectToDB();
-
-export const mongoclient = {
-  user: User,
-} as const;
