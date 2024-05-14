@@ -1,4 +1,10 @@
-import { checkUserVerifiedStatus, userExisted, verifyPassword } from "@keyguard/database";
+import {
+  IUser,
+  checkUserVerifiedStatus,
+  sanatizedUser,
+  userExisted,
+  verifyPassword,
+} from "@keyguard/database";
 import { LoginSchemaType } from "@keyguard/database/zod";
 import { TRPCError } from "@trpc/server";
 
@@ -16,20 +22,22 @@ export const loginController = async ({ input }: LoginProps) => {
     throw new TRPCError({ code: "NOT_FOUND", message: Response.INVALID_CREDENTIALS });
   }
 
-  const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
-
-  if (!isUserVerified) {
-    throw new TRPCError({ code: "BAD_REQUEST", message: Response.USER_NOT_VERIFIED });
-  }
-
-  // verify the password
-  await verifyPassword({ password: input.password, existedPassword: user.password });
-
   const token = generateJWT({
     payload: { userId: user._id, email: user.email },
     duration: !input.is_remember ? 1 : 7,
     durationUnit: "days",
   });
 
-  return { status: 200, success: true, message: "Login successfully!", token };
+  const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
+
+  const userResponse = (await sanatizedUser({ email: user.email })) as IUser;
+
+  if (!isUserVerified) {
+    return { status: 302, success: true, message: Response.USER_NOT_VERIFIED, token, user: userResponse };
+  }
+
+  // verify the password
+  await verifyPassword({ password: input.password, existedPassword: user.password });
+
+  return { status: 200, success: true, message: "Login successfully!", token, user: userResponse };
 };

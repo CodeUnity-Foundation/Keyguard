@@ -20,7 +20,7 @@ export const userExisted = async ({ email }: { email: string }) => {
  * @returns sanatized user
  */
 export const sanatizedUser = async ({ email }: { email: string }) => {
-  const user = await User.findOne({ email }).select("-password -emailVerification -__v");
+  const user = await User.findOne({ email }).select("-password -emailVerification -master_password -__v ");
   return user;
 };
 

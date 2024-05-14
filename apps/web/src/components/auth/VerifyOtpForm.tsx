@@ -78,7 +78,7 @@ export default function VerifyOtpForm() {
         otpMutation.mutate(payload);
       } else {
         toast.error("Something went wrong. Please try again");
-        router.push("/auth/signup");
+        router.push("/auth/login");
       }
     },
     [otpMutation]
