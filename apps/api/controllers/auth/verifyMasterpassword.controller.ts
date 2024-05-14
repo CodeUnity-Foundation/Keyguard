@@ -1,11 +1,10 @@
+import { IUser, userExisted, verifyPassword } from "@keyguard/database";
+import { VerifyMasterPasswordSchemaType } from "@keyguard/database/zod";
 import { sendAccountLoginSuccessEmail } from "@keyguard/emails";
-import { VerifyMasterPasswordSchemaType } from "@keyguard/lib/validations";
 import { TRPCError } from "@trpc/server";
 
 import { Response } from "../../constants";
 import { TRPCContext } from "../../createContext";
-import { IUser } from "../../models/types";
-import { userExisted, verifyPassword } from "../../queries/user.query";
 import { generateJWT } from "../../utils/generateJWT";
 
 type VerifyMasterPasswordProps = {

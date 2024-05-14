@@ -1,25 +1,31 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchemaType, loginSchema } from "@keyguard/lib/validations";
-import { Button, Checkbox, Input, Label, Loader, useToast } from "@keyguard/ui";
+import { LoginSchemaType, SignupSchemaType, loginSchema } from "@keyguard/database/zod";
+import { encrypt } from "@keyguard/lib";
+import { Button, Checkbox, Input, Label, Loader } from "@keyguard/ui";
+import { LOCAL_STORAGE_ENC_DEC_SECRET } from "@keyguard/web/utils/envvariables";
+import { storeJSON } from "@keyguard/web/utils/localstorage";
 import { trpc } from "@keyguard/web/utils/trpc";
 import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { AiTwotoneMail } from "react-icons/ai";
+import { FcInfo } from "react-icons/fc";
 import { IoKeyOutline } from "react-icons/io5";
 
 const defaultValues: LoginSchemaType = {
-  email: "",
-  password: "",
+  email: "rajpatel@gmail.com",
+  password: "123456",
   is_remember: false,
 };
 
+type SignedUserType = Pick<SignupSchemaType, "name" | "email">;
+
 export default function LoginForm() {
   const router = useRouter();
-  const { toast } = useToast();
 
   const { register, handleSubmit, formState, watch, setValue } = useForm<LoginSchemaType>({
     defaultValues,
@@ -31,22 +37,24 @@ export default function LoginForm() {
 
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess(data) {
+      const signedUser: SignedUserType = {
+        name: data?.user?.name,
+        email: data?.user?.email,
+      };
+      const encryptedData = encrypt<SignedUserType>(signedUser, LOCAL_STORAGE_ENC_DEC_SECRET);
+      storeJSON("$stored_person_properties", encryptedData);
+      setCookie("keyguard_auth_token", data.token);
+
       if (data.status === 200 && data.success) {
-        toast({
-          duration: 5000,
-          variant: "success",
-          description: data?.message,
-        });
-        setCookie("keyguard_auth_token", data.token);
-        router.push("/login-master");
+        toast.success(data?.message);
+        router.push("/auth/login-master");
+      } else {
+        toast(data.message, { icon: <FcInfo /> });
+        router.push("/auth/verify-otp");
       }
     },
     onError(error) {
-      toast({
-        duration: 5000,
-        variant: "error",
-        description: error?.message,
-      });
+      toast.error(error?.message);
     },
   });
 
@@ -101,7 +109,7 @@ export default function LoginForm() {
         </Link>
       </div>
 
-      <Button className="mt-2" size={"lg"} disabled={loginMutation.isLoading || !isDirty || !isValid}>
+      <Button className="mt-2" size={"lg"} disabled={loginMutation.isLoading || isDirty || !isValid}>
         {loginMutation.isLoading ? <Loader variant={"secondary"} size={"sm"} /> : "Next"}
       </Button>
     </form>

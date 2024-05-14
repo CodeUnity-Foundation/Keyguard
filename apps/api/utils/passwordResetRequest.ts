@@ -1,6 +1,6 @@
+import { IUser } from "@keyguard/database";
 import { sendPasswordResetLink } from "@keyguard/emails";
 
-import { IUser } from "../models/types";
 import { generateJWT } from "./generateJWT";
 
 export const passwordResetRequest = async (user: IUser) => {

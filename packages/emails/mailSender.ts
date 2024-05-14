@@ -1,7 +1,7 @@
+import { MODE } from "@keyguard/database";
 import { logger } from "@keyguard/lib";
 import nodemailer from "nodemailer";
 
-import { MODE } from "./../../apps/api/config/index";
 import { PASSWORD, USER } from "./config";
 
 const EMAIL_SUCCESS = "Email sent successfully";

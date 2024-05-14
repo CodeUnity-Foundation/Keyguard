@@ -1,8 +1,8 @@
-import { OTPSchemaType } from "@keyguard/lib/validations";
+import { checkUserVerifiedStatus, userExisted } from "@keyguard/database";
+import { OTPSchemaType } from "@keyguard/database/zod";
 import { TRPCError } from "@trpc/server";
 
-import { Response, verifyOTPTimeLimit } from "../../constants";
-import { checkUserVerifiedStatus, userExisted } from "../../queries/user.query";
+import { Response, checkOTPExpire } from "../../constants";
 
 type VerifyOTPProps = {
   input: OTPSchemaType;
@@ -23,15 +23,15 @@ export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
     throw new TRPCError({ code: "BAD_REQUEST", message: Response.USER_ALREADY_VERIFIED });
   }
 
-  let { emailVerification } = user;
+  const { emailVerification } = user;
 
   if (!emailVerification) {
-    throw new TRPCError({ code: "NOT_FOUND", message: "OTP not found!" });
+    throw new TRPCError({ code: "BAD_REQUEST", message: "OTP not found!" });
   }
 
   const { otp: storedOTP, otp_expiry: storedOTPExpiry } = emailVerification;
 
-  if (verifyOTPTimeLimit(storedOTPExpiry)) {
+  if (checkOTPExpire(storedOTPExpiry)) {
     throw new TRPCError({ code: "BAD_REQUEST", message: "OTP expired!" });
   }
 

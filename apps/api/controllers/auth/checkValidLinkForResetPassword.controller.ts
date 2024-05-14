@@ -1,13 +1,11 @@
+import { IUser, JWT_SECRET, User } from "@keyguard/database";
 import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import jwt from "jsonwebtoken";
 
 import { UserJWTData } from "../../@types";
-import { JWT_SECRET } from "../../config";
 import { Response } from "../../constants";
 import { TRPCContext } from "../../createContext";
-import { IUser } from "../../models/types";
-import User from "../../models/user";
 
 interface ValidLinkForResetPassword {
   ctx: TRPCContext;

@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpLink } from "@trpc/client";
 import React, { useState } from "react";
 
+import { BACKEND_URL } from "../utils/envvariables";
 import { trpc } from "../utils/trpc";
 
 export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
@@ -15,11 +16,7 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [queryClient] = useState(newQueryClient);
 
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
-  const url = process.env.NEXT_PUBLIC_WEBAPP_URL
-    ? // eslint-disable-next-line turbo/no-undeclared-env-vars
-      process.env.NEXT_PUBLIC_WEBAPP_URL
-    : "http://localhost:3000/api/";
+  const url = BACKEND_URL;
 
   const [trpcClient] = useState(() =>
     trpc.createClient({

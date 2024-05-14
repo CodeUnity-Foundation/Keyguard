@@ -1,8 +1,8 @@
-import { EmailInputSchemaType } from "@keyguard/lib/validations";
+import { userExisted } from "@keyguard/database";
+import { EmailInputSchemaType } from "@keyguard/database/zod";
 
 import { Response } from "../../constants";
 import { TRPCContext } from "../../createContext";
-import { userExisted } from "../../queries/user.query";
 import { passwordResetRequest } from "../../utils/passwordResetRequest";
 
 type ForgotPassword = {

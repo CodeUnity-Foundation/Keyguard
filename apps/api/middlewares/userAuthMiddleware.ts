@@ -1,11 +1,10 @@
+import { JWT_SECRET, checkUserVerifiedStatus, userExisted } from "@keyguard/database";
 import { TRPCError } from "@trpc/server";
 import Jwt from "jsonwebtoken";
 
-import { JWT_SECRET } from "../config";
 import { Response } from "../constants";
-import { checkUserVerifiedStatus, userExisted } from "../queries/user.query";
 import { middleware } from "../trpc";
-import { UserJWTData, UserRequest } from "./type";
+import { UserJWTData } from "./type";
 
 export const userAuthMiddleware = middleware(async ({ ctx, next }) => {
   let authToken: string = ctx.req?.headers["authorization"] ?? "";

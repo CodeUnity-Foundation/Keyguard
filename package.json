@@ -2,9 +2,9 @@
   "name": "keyguard",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint --parallel --no-cache",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint --parallel --no-cache",
     "type-check": "turbo type-check",
     "format": "prettier --write \"**/*.{ts,tsx,md}\" --cache"
   },
