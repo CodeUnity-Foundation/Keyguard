@@ -3,6 +3,7 @@ import "@keyguard/ui/styles/global.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 
 import { TrpcProvider } from "../providers/trpc.providers";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </Head>
       <body className={cn(`flex h-screen`, roboto.className)}>
         <TrpcProvider>
+          <NextTopLoader color="#FF9E00" />
           {children}
           <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: ToastDuration }} />
         </TrpcProvider>
