@@ -13,19 +13,13 @@ export async function middleware(request: NextRequest) {
     pathname !== "/auth/signup" &&
     pathname !== "/auth/verify-otp"
   ) {
-    console.log("enter into login redirect 1");
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
   // Don't check for public routes.
   if (pathname === "/auth/login" || pathname === "/auth/signup") {
-    console.log("enter into login redirect 2");
     return;
   }
-
-  // if (pathname !== "/auth/login" && pathname !== "/auth/signup" && pathname !== "/auth/verify-otp") {
-  //   return NextResponse.redirect(new URL("/auth/login", request.url));
-  // }
 
   let user: IUser | null = null;
   try {
@@ -41,20 +35,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
-  console.log({ user });
-
   if (!user && pathname !== "/auth/login") {
-    console.log("enter into login redirect 3");
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
   if (!user?.is_verified && pathname !== "/auth/verify-otp") {
-    console.log("user is not verified");
     return NextResponse.redirect(new URL("/auth/verify-otp", request.url));
   }
 
   if (user?.is_verified && !user?.master_password && pathname !== "/auth/set-master") {
-    console.log("user is not set master password");
     return NextResponse.redirect(new URL("/auth/set-master", request.url));
   }
 
@@ -66,5 +55,3 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/auth/:path*"],
 };
-
-// remove token and localstorage when user redirect to auth/login page.

@@ -1,13 +1,10 @@
 import { IUser, User, comparePassword, sanatizedUser, userExisted } from "@keyguard/database";
 import { SignupSchemaType } from "@keyguard/database/zod";
-import { sendOTPVarificationEmail } from "@keyguard/emails";
-import { addDateTime } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
-import { Response, TWO } from "../../constants";
+import { Response } from "../../constants";
 import { generateJWT } from "../../utils/generateJWT";
-import { generateOTP } from "../../utils/generateOTP";
 
 type SignUpProps = {
   input: SignupSchemaType;
@@ -30,25 +27,11 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   const hashedPassword = await bcrypt.hash(input.password, 10);
 
-  const otp = generateOTP();
-
   const user = await User.create({
     ...input,
     password: hashedPassword,
     master_password: null,
-    emailVerification: {
-      otp: +otp,
-      otp_expiry: addDateTime(TWO, "minutes"),
-    },
     deletedAt: null,
-  });
-
-  // send otp
-  await sendOTPVarificationEmail({
-    name: input.name,
-    email: input.email,
-    otp: otp,
-    expire: "2 minutes",
   });
 
   // return the user

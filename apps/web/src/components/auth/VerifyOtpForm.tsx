@@ -69,6 +69,10 @@ export default function VerifyOtpForm() {
     return () => clearInterval(interval);
   }, [resendOTPTimer]);
 
+  useEffect(() => {
+    onResendOTP();
+  }, []);
+
   const onOtpSubmit = useCallback(
     (data: ModifiedOTPSchemaType) => {
       const storedPerson = getJSON<EncryprtedData>("$stored_person_properties");
@@ -92,7 +96,7 @@ export default function VerifyOtpForm() {
       resendOtpMutation.mutate(payload);
     } else {
       toast.error("Something went wrong. Please try again");
-      router.push("/auth/signup");
+      router.push("/auth/login");
     }
   }, [resendOtpMutation]);
 
@@ -126,7 +130,7 @@ export default function VerifyOtpForm() {
             Resend in {resendOTPTimer} seconds
           </p>
         ) : (
-          <p className="text-muted-500 dark:text-muted-200 flex items-center text-xs font-medium lg:text-sm">
+          <span className="text-muted-500 dark:text-muted-200 flex items-center text-xs font-medium lg:text-sm">
             Haven&apos;t received or has it expired?
             {resendOtpMutation.isLoading ? (
               <Loader variant={"default"} size={"sm"} className="mx-3 my-[6px]" />
@@ -135,7 +139,7 @@ export default function VerifyOtpForm() {
                 Resend OTP
               </Button>
             )}
-          </p>
+          </span>
         )}
       </div>
 
