@@ -1,19 +1,25 @@
-import Image, { StaticImageData } from "next/image";
+import logo from "@keyguard/web/assets/keyguard.svg";
+import Image from "next/image";
 
 interface AuthLayoutProps {
   title: string;
   subtitle: string;
   authPageImage: string;
-  logo: StaticImageData;
   form: React.ReactNode;
 }
 
-export default function AuthLayout({ authPageImage, logo, subtitle, title, form }: AuthLayoutProps) {
+export default function AuthLayout({ authPageImage, subtitle, title, form }: AuthLayoutProps) {
   return (
     <main className="flex h-screen w-full flex-col items-center justify-center md:flex-row">
-      <div className="bg-secondary hidden h-full flex-1 rounded-r-3xl md:block">
+      <div className="bg-primary hidden h-full flex-1 rounded-r-3xl md:block">
         <div className="flex h-full w-full flex-col items-center justify-center">
-          <Image src={logo} alt="Keyguard-logo" width={50} height={50} className="absolute left-10 top-10" />
+          <Image
+            src={logo}
+            alt="Keyguard-logo"
+            width={150}
+            height={150}
+            className="absolute left-10 top-10"
+          />
           <Image src={authPageImage} alt="Keyguard" width={550} height={550} />
         </div>
       </div>

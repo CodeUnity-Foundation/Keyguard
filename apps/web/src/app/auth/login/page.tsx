@@ -1,5 +1,4 @@
 import LoginImage from "@keyguard/web/assets/auth.svg";
-import logo from "@keyguard/web/assets/icon.png";
 import LoginForm from "@keyguard/web/components/auth/LoginForm";
 import React from "react";
 
@@ -16,7 +15,6 @@ export const metadata = {
 export default function Signup() {
   return (
     <AuthLayout
-      logo={logo}
       key={"login"}
       form={<LoginForm />}
       authPageImage={LoginImage}
