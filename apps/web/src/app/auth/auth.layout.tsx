@@ -16,8 +16,8 @@ export default function AuthLayout({ authPageImage, subtitle, title, form }: Aut
           <Image
             src={logo}
             alt="Keyguard-logo"
-            width={150}
-            height={150}
+            width={170}
+            height={170}
             className="absolute left-10 top-10"
           />
           <Image src={authPageImage} alt="Keyguard" width={550} height={550} />
@@ -27,7 +27,7 @@ export default function AuthLayout({ authPageImage, subtitle, title, form }: Aut
         <div className="flex h-full w-[350px] flex-col justify-center md:w-3/4 lg:w-[60%]">
           <div className="mb-5">
             <h1 className="text-xl font-medium lg:text-2xl">{title}</h1>
-            <p className="text-muted-300 text-base font-medium lg:text-lg">{subtitle}</p>
+            <p className="text-muted-300 text-orange text-base font-medium lg:text-lg">{subtitle}</p>
           </div>
           {form}
           <footer className="text-muted-500 dark:text-muted-200 mt-10 text-center text-sm font-medium">

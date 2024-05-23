@@ -70,7 +70,7 @@ export default function VerifyOtpForm() {
   }, [resendOTPTimer]);
 
   useEffect(() => {
-    onResendOTP();
+    // onResendOTP();
   }, []);
 
   const onOtpSubmit = useCallback(

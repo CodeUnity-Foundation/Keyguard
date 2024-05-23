@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </Head>
       <body className={cn(`flex h-screen`, roboto.className)}>
         <TrpcProvider>
-          <NextTopLoader color="#FF9E00" />
+          <NextTopLoader color="#FF725E" />
           {children}
           <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: ToastDuration }} />
         </TrpcProvider>
