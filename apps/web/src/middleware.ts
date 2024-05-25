@@ -47,7 +47,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/set-master", request.url));
   }
 
-  NextResponse.redirect(new URL("/auth/login-master", request.url));
+  if (user?.is_verified && user?.master_password && pathname !== "/auth/login-master") {
+    return NextResponse.redirect(new URL("/auth/login-master", request.url));
+  }
 
   return NextResponse.next();
 }
