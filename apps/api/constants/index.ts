@@ -31,4 +31,5 @@ export const Response = {
   PASSWORD_RESET_EMAIL_SENT: "Password reset email sent successfully.",
   RESET_LINK_EXPIRED: "Password reset link expired. Please try again.",
   OLD_PASSWORD_USED_AGAIN: "New password should not be same as old password.",
+  UNAUTHORIZED: "Unauthorized access. Please login again.",
 } as const;

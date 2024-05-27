@@ -1,4 +1,3 @@
-import { JWT_SECRET } from "@keyguard/database";
 import jwt, { SignOptions } from "jsonwebtoken";
 
 interface JWT {
@@ -11,20 +10,18 @@ interface JWTArgs {
     userId: string;
     email: string;
   };
-  duration?: number;
-  durationUnit?: "seconds" | "minutes" | "hours" | "days" | "weeks" | "months" | "years";
+  secret: string;
+  duration: string;
 }
 
-export function generateJWT({ payload, duration, durationUnit }: JWTArgs): string {
-  const options: SignOptions = {};
-
-  if (duration && durationUnit) {
-    options.expiresIn = `${duration}${durationUnit}`;
-  }
+export function generateJWT({ payload, duration, secret }: JWTArgs): string {
+  const options: SignOptions = {
+    expiresIn: duration,
+  };
 
   const jwtInstance = jwt as JWT;
 
-  const token = jwtInstance.sign(payload, JWT_SECRET, options);
+  const token = jwtInstance.sign(payload, secret, options);
 
   return token;
 }

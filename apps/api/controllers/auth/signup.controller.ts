@@ -43,9 +43,25 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   const token = generateJWT({
     payload: { userId: userResponse._id, email: userResponse.email },
-    duration: 7,
-    durationUnit: "days",
+    secret: process.env.JWT_SECRET!,
+    duration: process.env.JWT_EXPIRES_IN!,
   });
+
+  const refreshToken = generateJWT({
+    payload: { userId: user._id, email: user.email },
+    secret: process.env.REFRESH_TOKEN_SECRET!,
+    duration: process.env.REFRESH_TOKEN_EXPIRES_IN!,
+  });
+
+  // case should handle, if the query fails
+  await User.updateOne(
+    { _id: user._id },
+    {
+      $set: {
+        refreshToken,
+      },
+    }
+  );
 
   const userData = { user: userResponse, token };
 

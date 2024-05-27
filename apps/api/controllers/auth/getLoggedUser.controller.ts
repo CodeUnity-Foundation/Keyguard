@@ -1,4 +1,4 @@
-import { IUser, JWT_SECRET, sanatizedUser } from "@keyguard/database";
+import { IUser, sanatizedUser } from "@keyguard/database";
 import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import { UserJWTData } from "@types";
@@ -18,7 +18,7 @@ export const getLoggedUser = async ({ ctx }: LoggedUser) => {
   let decoded: UserJWTData | null = null;
 
   try {
-    decoded = jwt.verify(token, JWT_SECRET) as UserJWTData;
+    decoded = jwt.verify(token, process.env.JWT_SECRET!) as UserJWTData;
   } catch (error) {
     logger.error("Invalid token! =>", error);
     throw new TRPCError({ code: "BAD_REQUEST" });

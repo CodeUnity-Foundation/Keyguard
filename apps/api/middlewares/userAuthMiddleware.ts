@@ -1,4 +1,5 @@
-import { JWT_SECRET, checkUserVerifiedStatus, userExisted } from "@keyguard/database";
+import { checkUserVerifiedStatus, userExisted } from "@keyguard/database";
+import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import Jwt from "jsonwebtoken";
 
@@ -15,16 +16,18 @@ export const userAuthMiddleware = middleware(async ({ ctx, next }) => {
 
   authToken = authToken.replace("Bearer ", "");
 
-  const decoded = Jwt.verify(authToken, JWT_SECRET) as UserJWTData;
-
-  if (!decoded) {
-    throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid token!" });
+  let decoded: UserJWTData;
+  try {
+    decoded = Jwt.verify(authToken, process.env.JWT_SECRET!) as UserJWTData;
+  } catch (error) {
+    logger.error("Invalid token from userAuthMiddleWare! =>", error);
+    throw new TRPCError({ code: "UNAUTHORIZED", message: Response.UNAUTHORIZED });
   }
 
   const user = await userExisted({ email: decoded.email });
 
   if (!user) {
-    throw new TRPCError({ code: "UNAUTHORIZED", message: "Unauthorized access, Please login again!" });
+    throw new TRPCError({ code: "UNAUTHORIZED", message: Response.UNAUTHORIZED });
   }
 
   const isUserVerified = await checkUserVerifiedStatus({ email: user.email });

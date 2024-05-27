@@ -9,8 +9,8 @@ export const passwordResetRequest = async (user: IUser) => {
       userId: user._id,
       email: user.email,
     },
-    duration: 2,
-    durationUnit: "minutes",
+    secret: process.env.VALID_LINK_TOKEN_SECRET!,
+    duration: process.env.VALID_LINK_TOKEN_EXPIRES_IN!,
   });
 
   // generate password reset link

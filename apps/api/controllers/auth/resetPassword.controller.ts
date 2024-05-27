@@ -1,4 +1,4 @@
-import { JWT_SECRET, User, comparePassword, userExisted } from "@keyguard/database";
+import { User, comparePassword, userExisted } from "@keyguard/database";
 import { ResetPasswordSchemaType } from "@keyguard/database/zod";
 import { sendPasswordConfirmationEmail } from "@keyguard/emails";
 import { logger } from "@keyguard/lib";
@@ -17,7 +17,7 @@ export const resetPasswordController = async ({ input }: ResetPassword) => {
   let decode: UserJWTData | null = null;
 
   try {
-    decode = jwt.verify(input.requestToken, JWT_SECRET) as UserJWTData;
+    decode = jwt.verify(input.requestToken, process.env.VALID_LINK_TOKEN_SECRET!) as UserJWTData;
   } catch (error) {
     logger.error("Error in resetPasswordController: ", error);
     throw new TRPCError({ code: "FORBIDDEN", message: Response.RESET_LINK_EXPIRED });

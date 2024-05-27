@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema(
     },
     is_verified: { type: Boolean },
     isLinkExpired: { type: Boolean, default: false },
+    refreshToken: { type: String },
     deletedAt: { type: Date },
   },
   { timestamps: true, strict: true }
