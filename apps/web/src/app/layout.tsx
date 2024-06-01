@@ -6,6 +6,7 @@ import Head from "next/head";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 
+import { ThemeProvider } from "../providers/theme.provider";
 import { TrpcProvider } from "../providers/trpc.providers";
 import { ToastDuration } from "../utils/constant";
 
@@ -28,15 +29,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <Head>
         <link rel="shortcut icon" href="/assets/icon.png" sizes="any" />
       </Head>
       <body className={cn(`flex h-screen`, roboto.className)}>
         <TrpcProvider>
-          <NextTopLoader color="#FF725E" />
-          {children}
-          <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: ToastDuration }} />
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <NextTopLoader color="#FF725E" />
+            {children}
+            <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: ToastDuration }} />
+          </ThemeProvider>
         </TrpcProvider>
       </body>
     </html>
