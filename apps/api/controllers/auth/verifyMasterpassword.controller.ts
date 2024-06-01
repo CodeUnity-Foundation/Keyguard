@@ -31,8 +31,8 @@ export const verifyMasterPasswordController = async ({ input, ctx }: VerifyMaste
 
   const accessToken = generateJWT({
     payload: { userId: user.email, email: user._id },
-    duration: 3,
-    durationUnit: "minutes",
+    secret: process.env.ACCESS_TOKEN_SECRET!,
+    duration: process.env.ACCESS_TOKEN_EXPIRES_IN!,
   });
 
   // Send mail to user that account is logged in
@@ -44,5 +44,10 @@ export const verifyMasterPasswordController = async ({ input, ctx }: VerifyMaste
     time: new Date().toLocaleString(),
   });
 
-  return { success: true, message: `Welcome back, ${user.name}. Good to see you again.`, accessToken };
+  return {
+    status: 200,
+    success: true,
+    message: `Welcome back, ${user.name}. Good to see you again.`,
+    accessToken,
+  };
 };

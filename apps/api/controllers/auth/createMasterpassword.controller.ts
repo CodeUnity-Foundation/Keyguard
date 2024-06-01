@@ -28,8 +28,8 @@ export const createMasterPasswordController = async ({ input, ctx }: MasterPassw
 
   const accessToken = generateJWT({
     payload: { userId: user._id, email: user.email },
-    duration: 3,
-    durationUnit: "minutes",
+    secret: process.env.ACCESS_TOKEN_SECRET!,
+    duration: process.env.ACCESS_TOKEN_EXPIRES_IN!,
   });
 
   // first time user set the master password
@@ -53,5 +53,10 @@ export const createMasterPasswordController = async ({ input, ctx }: MasterPassw
     });
   }
 
-  return { success: true, message: "Master password set successfully!", accessToken };
+  return {
+    status: 200,
+    success: true,
+    message: `Master password set successfully. Welcome ${user.name}`,
+    accessToken,
+  };
 };

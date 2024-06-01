@@ -1,13 +1,10 @@
 import { IUser, User, comparePassword, sanatizedUser, userExisted } from "@keyguard/database";
 import { SignupSchemaType } from "@keyguard/database/zod";
-import { sendOTPVarificationEmail } from "@keyguard/emails";
-import { addDateTime } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
-import { Response, TWO } from "../../constants";
+import { Response } from "../../constants";
 import { generateJWT } from "../../utils/generateJWT";
-import { generateOTP } from "../../utils/generateOTP";
 
 type SignUpProps = {
   input: SignupSchemaType;
@@ -30,25 +27,11 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   const hashedPassword = await bcrypt.hash(input.password, 10);
 
-  const otp = generateOTP();
-
   const user = await User.create({
     ...input,
     password: hashedPassword,
     master_password: null,
-    emailVerification: {
-      otp: +otp,
-      otp_expiry: addDateTime(TWO, "minutes"),
-    },
     deletedAt: null,
-  });
-
-  // send otp
-  await sendOTPVarificationEmail({
-    name: input.name,
-    email: input.email,
-    otp: otp,
-    expire: "2 minutes",
   });
 
   // return the user
@@ -60,9 +43,25 @@ export const signupController = async ({ input }: SignUpProps) => {
 
   const token = generateJWT({
     payload: { userId: userResponse._id, email: userResponse.email },
-    duration: 7,
-    durationUnit: "days",
+    secret: process.env.JWT_SECRET!,
+    duration: process.env.JWT_EXPIRES_IN!,
   });
+
+  const refreshToken = generateJWT({
+    payload: { userId: user._id, email: user.email },
+    secret: process.env.REFRESH_TOKEN_SECRET!,
+    duration: process.env.REFRESH_TOKEN_EXPIRES_IN!,
+  });
+
+  // case should handle, if the query fails
+  await User.updateOne(
+    { _id: user._id },
+    {
+      $set: {
+        refreshToken,
+      },
+    }
+  );
 
   const userData = { user: userResponse, token };
 

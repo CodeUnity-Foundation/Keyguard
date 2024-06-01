@@ -1,4 +1,4 @@
-import { IUser, JWT_SECRET, User } from "@keyguard/database";
+import { IUser, User } from "@keyguard/database";
 import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import jwt from "jsonwebtoken";
@@ -21,7 +21,7 @@ export const checkValidLinkForResetPassword = async ({ ctx }: ValidLinkForResetP
   let decoded: UserJWTData | null = null;
 
   try {
-    decoded = jwt.verify(token, JWT_SECRET) as UserJWTData;
+    decoded = jwt.verify(token, process.env.VALID_LINK_TOKEN_SECRET!) as UserJWTData;
   } catch (error) {
     logger.error("Invalid token! =>", error);
     throw new TRPCError({ code: "FORBIDDEN", message: Response.RESET_LINK_EXPIRED });

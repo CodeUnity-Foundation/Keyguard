@@ -113,6 +113,12 @@ importers:
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+      next-themes:
+        specifier: ^0.3.0
+        version: 0.3.0(react-dom@18.2.0)(react@18.2.0)
+      nextjs-toploader:
+        specifier: ^1.6.12
+        version: 1.6.12(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18
         version: 18.2.0
@@ -148,7 +154,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tsconfig
       "@types/node":
-        specifier: ^20.9.0
+        specifier: ^20
         version: 20.11.20
       "@types/react":
         specifier: ^18
@@ -156,9 +162,6 @@ importers:
       "@types/react-dom":
         specifier: ^18
         version: 18.2.19
-      ts-node:
-        specifier: ^10.9.1
-        version: 10.9.2(@types/node@20.11.20)(typescript@5.3.3)
 
   packages/database:
     dependencies:
@@ -6893,6 +6896,19 @@ packages:
     engines: { node: ">= 0.4.0" }
     dev: true
 
+  /next-themes@0.3.0(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-/QHIrsYpd6Kfk7xakK4svpDI5mmXP0gfvCoJdGpZQ2TOrQZmsW0QxjaiLn8wbIKjtm4BTSqLoix4lxYYOnLJ/w==,
+      }
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18
+      react-dom: ^16.8 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /next@14.0.4(react-dom@18.2.0)(react@18.2.0):
     resolution:
       {
@@ -6934,6 +6950,23 @@ packages:
     transitivePeerDependencies:
       - "@babel/core"
       - babel-plugin-macros
+    dev: false
+
+  /nextjs-toploader@1.6.12(next@14.0.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-nbun5lvVjlKnxLQlahzZ55nELVEduqoEXT03KCHnsEYJnFpI/3BaIzpMyq/v8C7UGU2NfxQmjq6ldZ310rsDqA==,
+      }
+    peerDependencies:
+      next: ">= 6.0.0"
+      react: ">= 16.0.0"
+      react-dom: ">= 16.0.0"
+    dependencies:
+      next: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+      nprogress: 0.2.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /no-case@2.3.2:
@@ -7091,6 +7124,13 @@ packages:
       console-control-strings: 1.1.0
       gauge: 3.0.2
       set-blocking: 2.0.0
+    dev: false
+
+  /nprogress@0.2.0:
+    resolution:
+      {
+        integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==,
+      }
     dev: false
 
   /object-assign@4.1.1:
@@ -7749,7 +7789,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: true
 
   /proxy-addr@2.0.7:
     resolution:
@@ -7911,7 +7950,6 @@ packages:
       {
         integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==,
       }
-    dev: true
 
   /react-otp-input@3.1.1(react-dom@18.2.0)(react@18.2.0):
     resolution:

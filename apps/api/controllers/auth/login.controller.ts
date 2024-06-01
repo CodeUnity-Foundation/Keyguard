@@ -1,5 +1,6 @@
 import {
   IUser,
+  User,
   checkUserVerifiedStatus,
   sanatizedUser,
   userExisted,
@@ -24,8 +25,14 @@ export const loginController = async ({ input }: LoginProps) => {
 
   const token = generateJWT({
     payload: { userId: user._id, email: user.email },
-    duration: !input.is_remember ? 1 : 7,
-    durationUnit: "days",
+    secret: process.env.JWT_SECRET!,
+    duration: !input.is_remember ? "1d" : process.env.JWT_EXPIRES_IN!,
+  });
+
+  const refreshToken = generateJWT({
+    payload: { userId: user._id, email: user.email },
+    secret: process.env.REFRESH_TOKEN_SECRET!,
+    duration: process.env.REFRESH_TOKEN_EXPIRES_IN!,
   });
 
   const isUserVerified = await checkUserVerifiedStatus({ email: user.email });
@@ -38,6 +45,15 @@ export const loginController = async ({ input }: LoginProps) => {
 
   // verify the password
   await verifyPassword({ password: input.password, existedPassword: user.password });
+
+  await User.updateOne(
+    { _id: user._id },
+    {
+      $set: {
+        refreshToken,
+      },
+    }
+  );
 
   return { status: 200, success: true, message: "Login successfully!", token, user: userResponse };
 };

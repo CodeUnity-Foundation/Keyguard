@@ -20,6 +20,7 @@ import { createMasterPasswordController } from "./createMasterpassword.controlle
 import { forgotPasswordController } from "./forgotPassword.controller";
 import { getLoggedUser } from "./getLoggedUser.controller";
 import { loginController } from "./login.controller";
+import { generateRefreshToken } from "./refreshToken.controller";
 import { resendOTPController } from "./resendotp.controller";
 import { resetPasswordController } from "./resetPassword.controller";
 import { signupController } from "./signup.controller";
@@ -71,4 +72,8 @@ export const authRouter = router({
     .mutation(async ({ input, ctx }) => changeMasterPasswordController({ input, ctx })),
 
   getLoggedUser: publicProcedure.query(async ({ ctx }) => getLoggedUser({ ctx })),
+
+  refreshToken: publicProcedure
+    .use(userAuthMiddleware)
+    .mutation(async ({ ctx }) => generateRefreshToken({ ctx })),
 });

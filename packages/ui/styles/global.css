@@ -32,6 +32,7 @@
     --color-warning: 50 100% 60%;
     --color-info: 210 100% 60%;
     --color-error: 0 100% 60%;
+    --orange: 7, 100%, 68%;
   }
 
   .dark {
@@ -63,6 +64,7 @@
     --color-warning: 50 100% 60%;
     --color-info: 210 100% 60%;
     --color-error: 0 100% 60%;
+    --orange: 7, 100%, 68%;
   }
 }
 

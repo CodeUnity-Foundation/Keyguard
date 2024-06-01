@@ -14,6 +14,11 @@ connectToDB();
 
 app.use(express.json());
 
+// helth check route
+app.get("/", (req, res) => {
+  res.send("OK");
+});
+
 app.use(
   "/api",
   trpcExpress.createExpressMiddleware({

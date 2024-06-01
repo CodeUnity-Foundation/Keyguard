@@ -1,4 +1,3 @@
-import logo from "@keyguard/web/assets/icon.png";
 import MasterPasswordImage from "@keyguard/web/assets/masterpassword.svg";
 import LoginMasterForm from "@keyguard/web/components/auth/MasterPassword/LoginMasterForm";
 
@@ -7,7 +6,6 @@ import AuthLayout from "../../auth.layout";
 export default function MasterPassword() {
   return (
     <AuthLayout
-      logo={logo}
       key={"login-master-password"}
       form={<LoginMasterForm />}
       authPageImage={MasterPasswordImage}

@@ -1,4 +1,3 @@
-import logo from "@keyguard/web/assets/icon.png";
 import VerifyOtpImage from "@keyguard/web/assets/otp.svg";
 import VerifyOtpForm from "@keyguard/web/components/auth/VerifyOtpForm";
 
@@ -15,7 +14,6 @@ export const metadata = {
 export default function VerifyOtp() {
   return (
     <AuthLayout
-      logo={logo}
       key={"verifyotp"}
       form={<VerifyOtpForm />}
       authPageImage={VerifyOtpImage}

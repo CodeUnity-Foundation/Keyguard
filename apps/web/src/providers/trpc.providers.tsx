@@ -2,6 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpLink } from "@trpc/client";
+import { getCookie } from "cookies-next";
 import React, { useState } from "react";
 
 import { BACKEND_URL } from "../utils/envvariables";
@@ -20,7 +21,16 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [trpcClient] = useState(() =>
     trpc.createClient({
-      links: [httpLink({ url })],
+      links: [
+        httpLink({
+          url,
+          async headers() {
+            return {
+              Authorization: `${getCookie("keyguard_auth_token")}`,
+            };
+          },
+        }),
+      ],
     })
   );
 
