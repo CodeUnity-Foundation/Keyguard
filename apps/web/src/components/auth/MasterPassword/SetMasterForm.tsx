@@ -7,7 +7,6 @@ import { trpc } from "@keyguard/web/utils/trpc";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { IoKeyOutline } from "react-icons/io5";
 
 const defaultValues: MasterPasswordSchemaType = {
   master_password: "",
@@ -50,7 +49,6 @@ export default function SetMasterForm() {
         label="Master Password"
         placeholder="******"
         {...register("master_password")}
-        icon={<IoKeyOutline />}
         autoComplete="off"
         error={errors?.master_password?.message}
       />
@@ -61,7 +59,6 @@ export default function SetMasterForm() {
         label="Confirm Master Password"
         placeholder="******"
         {...register("confirm_master_password")}
-        icon={<IoKeyOutline />}
         autoComplete="off"
         error={errors?.confirm_master_password?.message}
       />

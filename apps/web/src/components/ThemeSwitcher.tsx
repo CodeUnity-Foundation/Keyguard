@@ -2,10 +2,15 @@
 
 import { ThemeSwitch } from "@keyguard/ui";
 import { useTheme } from "next-themes";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export const ThemeSwitcher = () => {
   const { systemTheme, theme, setTheme } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const currentTheme = useMemo(() => {
     return theme === "system" ? systemTheme : theme;
@@ -18,6 +23,10 @@ export const ThemeSwitcher = () => {
       setTheme("dark");
     }
   }, [currentTheme]);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return <ThemeSwitch mode={currentTheme || "dark"} setMode={changeMode} />;
 };
