@@ -11,7 +11,7 @@ export const userAuthMiddleware = middleware(async ({ ctx, next }) => {
   let authToken: string = ctx.req?.headers["authorization"] ?? "";
 
   if (!authToken) {
-    throw new TRPCError({ code: "NOT_FOUND", message: "Token not found!" });
+    throw new TRPCError({ code: "UNAUTHORIZED", message: Response.UNAUTHORIZED });
   }
 
   authToken = authToken.replace("Bearer ", "");

@@ -6,6 +6,7 @@ import Head from "next/head";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 
+import AuthTokenHandler from "../components/auth/AuthTokenHandler";
 import { ThemeProvider } from "../providers/theme.provider";
 import { TrpcProvider } from "../providers/trpc.providers";
 import { ToastDuration } from "../utils/constant";
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <TrpcProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <NextTopLoader color="#FF725E" />
-            {children}
+            <AuthTokenHandler>{children}</AuthTokenHandler>
             <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: ToastDuration }} />
           </ThemeProvider>
         </TrpcProvider>
