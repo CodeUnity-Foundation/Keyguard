@@ -1,9 +1,11 @@
-import Logo from "@keyguard/web/assets/keyguard.svg";
+import blackLogo from "@keyguard/web/assets/logo/black.svg";
+import whiteLogo from "@keyguard/web/assets/logo/white.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { RiMenu2Fill } from "react-icons/ri";
 
 import ClickOutside from "../ClickOutside";
+import { menuItems } from "./menuItems";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -14,12 +16,27 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   return (
     <ClickOutside onClick={() => setSidebarOpen(false)}>
       <aside
-        className={`z-9999 dark:bg-boxdark absolute left-0 top-0 flex h-screen w-[260px] flex-col overflow-y-hidden bg-white dark:bg-[#030614] duration-300 ease-linear lg:static lg:translate-x-0 ${
+        className={`dark:bg-boxdark absolute left-0 top-0 z-50 flex h-screen w-[260px] flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 dark:bg-[#030614] ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}>
-        <div className="py-5.5 lg:py-6.5 flex items-center justify-between gap-2 px-6 py-4 min-h-20">
+        <div className="py-5.5 lg:py-6.5 flex min-h-20 items-center justify-between gap-2 px-6 py-4">
           <Link href="/dashboard" className="block">
-            <Image width={130} height={32} src={Logo} alt="Logo" priority />
+            <Image
+              width={150}
+              height={32}
+              src={whiteLogo}
+              alt="Logo"
+              className="hidden dark:block"
+              priority
+            />
+            <Image
+              width={150}
+              height={32}
+              src={blackLogo}
+              alt="Logo"
+              className="block dark:hidden"
+              priority
+            />
           </Link>
 
           <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-controls="sidebar" className="block">
@@ -28,21 +45,24 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         </div>
 
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
-          <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
-            {[].map((group, groupIndex) => (
-              <div key={groupIndex}>
-                <h3 className="text-bodydark2 mb-4 ml-4 text-sm font-semibold">{group}</h3>
-
-                {/* <ul className="mb-6 flex flex-col gap-1.5">
-                  {[].map((menuItem, menuIndex) => (
-                    <SidebarItem
-                      key={menuIndex}
-                      item={menuItem}
-                      pageName={pageName}
-                      setPageName={setPageName}
-                    />
-                  ))}
-                </ul> */}
+          <nav className="px-4 py-4 lg:px-6">
+            {menuItems.map((menu, index) => (
+              <div key={menu.id}>
+                <h2 className="text-orange text-xs font-bold uppercase">{menu.name}</h2>
+                {menu.menuItems.map((menuItem) => (
+                  <Link
+                    key={menuItem.id}
+                    href={menuItem.href}
+                    className="hover:bg-lightBlue dark:hover:text-primary text-muted dark:text-muted-foreground rounded-lg my-3 flex cursor-pointer items-center gap-2 px-3 py-2">
+                    <menuItem.icon size={20} />
+                    <span key={menuItem.id} className="text-sm">
+                      {menuItem.name}
+                    </span>
+                  </Link>
+                ))}
+                <div
+                  className={`bg-muted-300 mb-5 h-[0.5px] w-full ${index === menuItems.length - 1 ? "hidden" : ""}`}
+                />
               </div>
             ))}
           </nav>

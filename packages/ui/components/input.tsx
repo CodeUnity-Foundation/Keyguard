@@ -39,7 +39,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             `bg-muted-300 dark:bg-muted-500 border-gray-300 dark:border-gray-600 ${props.error ? "border-red-500 dark:border-red-500" : ""}`
           )}>
           {props.icon && (
-            <div className="bg-muted-400 dark:bg-muted-300 mr-1 flex h-full w-10 items-center justify-center rounded-md rounded-r-none">
+            <div
+              className={cn(
+                className,
+                "bg-muted-400 flex h-full w-10 items-center justify-center rounded-md rounded-r-none"
+              )}>
               <span
                 className={`${props.error ? "text-error" : "text-primary dark:text-white"} h-[16px] w-[16px]`}>
                 {props.icon}
@@ -48,7 +52,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           <input
             type={type}
-            className="placeholder:text-muted-500 dark:placeholder:text-muted-600 h-full w-full bg-transparent px-2 text-black placeholder:font-medium focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
+            className={cn(
+              className,
+              "placeholder:text-muted-500 dark:placeholder:text-muted-600 h-full w-full bg-transparent px-2 text-black placeholder:font-medium focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
+            )}
             ref={ref}
             {...props}
           />

@@ -6,6 +6,7 @@ import Header from "./Header";
 
 export default function DefaultLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <>
       <div className="flex h-screen overflow-hidden w-full">
