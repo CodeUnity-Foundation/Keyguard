@@ -16,7 +16,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
       <div className="flex min-h-20 w-full flex-grow items-center justify-between p-4">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-controls="sidebar" className="block">
-            <RiMenu2Fill size={22} className="text-lightBlue hover:text-primary" />
+            <RiMenu2Fill size={22} className="text-primary hover:text-primary" />
           </button>
           <Link className="block flex-shrink-0 lg:hidden" href="/">
             <Image width={40} height={40} src={Logo} alt="Logo" />
@@ -30,7 +30,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
             name="search"
             placeholder="Search"
             className="w-64 max-w-80 dark:bg-[#030614]"
-            icon={<BiSearch className="text-lightBlue" />}
+            icon={<BiSearch className="text-primary" />}
           />
         </div>
       </div>

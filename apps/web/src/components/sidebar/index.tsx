@@ -1,7 +1,10 @@
+"use client";
+
 import blackLogo from "@keyguard/web/assets/logo/black.svg";
 import whiteLogo from "@keyguard/web/assets/logo/white.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { RiMenu2Fill } from "react-icons/ri";
 
 import ClickOutside from "../ClickOutside";
@@ -13,6 +16,8 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
+  const pathName = usePathname();
+
   return (
     <ClickOutside onClick={() => setSidebarOpen(false)}>
       <aside
@@ -40,7 +45,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
           </Link>
 
           <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-controls="sidebar" className="block">
-            <RiMenu2Fill size={22} className="text-lightBlue hover:text-primary" />
+            <RiMenu2Fill size={22} className="text-primary hover:text-primary" />
           </button>
         </div>
 
@@ -53,7 +58,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
                   <Link
                     key={menuItem.id}
                     href={menuItem.href}
-                    className="hover:bg-lightBlue dark:hover:text-primary text-muted dark:text-muted-foreground rounded-lg my-3 flex cursor-pointer items-center gap-2 px-3 py-2">
+                    className={`${pathName.includes(menuItem.href) ? "bg-lightBlue text-primary" : "text-muted-foreground"} hover:bg-lightBlue hover:text-primary my-3 flex cursor-pointer items-center gap-2 rounded-lg px-3 py-3`}>
                     <menuItem.icon size={20} />
                     <span key={menuItem.id} className="text-sm">
                       {menuItem.name}

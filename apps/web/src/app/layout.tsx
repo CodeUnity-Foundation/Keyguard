@@ -22,9 +22,14 @@ export const metadata: Metadata = {
     template: "%s | Keyguard",
     default: "Keyguard",
   },
-  icons: {
-    icon: "../assets/logo.png",
-  },
+  icons: [
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      url: "/favicon.png",
+    },
+  ],
   description: "Secure password manager for everyone",
 };
 
@@ -32,7 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <Head>
-        <link rel="shortcut icon" href="/assets/icon.png" sizes="any" />
+        <meta name="description" content="Keyguard - Secure password manager for everyone" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <body className={cn(`flex h-screen`, roboto.className)}>
         <TrpcProvider>

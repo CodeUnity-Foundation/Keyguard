@@ -1,6 +1,6 @@
 import { Button } from "@keyguard/ui";
 import authBG from "@keyguard/web/assets/auth-bg.webp";
-import logo from "@keyguard/web/assets/keyguard.svg";
+import logo from "@keyguard/web/assets/logo/white.svg";
 import { ThemeSwitcher } from "@keyguard/web/components/ThemeSwitcher";
 import Image from "next/image";
 import { FaCirclePlay } from "react-icons/fa6";
