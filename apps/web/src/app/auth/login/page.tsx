@@ -1,4 +1,3 @@
-import LoginImage from "@keyguard/web/assets/auth.svg";
 import LoginForm from "@keyguard/web/components/auth/LoginForm";
 import React from "react";
 
@@ -17,7 +16,6 @@ export default function Signup() {
     <AuthLayout
       key={"login"}
       form={<LoginForm />}
-      authPageImage={LoginImage}
       title="Welcome back"
       subtitle="Login to continue with Keyguard"
     />

@@ -12,9 +12,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { AiTwotoneMail } from "react-icons/ai";
-import { BsFillPersonFill } from "react-icons/bs";
-import { IoKeyOutline } from "react-icons/io5";
 
 const defaultValues: SignupSchemaType = {
   name: "",
@@ -68,7 +65,6 @@ export default function SignupForm() {
         label="Name"
         {...register("name")}
         placeholder="John Doe"
-        icon={<BsFillPersonFill />}
         error={errors?.name?.message}
       />
 
@@ -78,7 +74,6 @@ export default function SignupForm() {
         label="Email"
         {...register("email")}
         placeholder="johndoe@gmail.com"
-        icon={<AiTwotoneMail />}
         error={errors?.email?.message}
       />
 
@@ -89,7 +84,6 @@ export default function SignupForm() {
           label="Password"
           placeholder="******"
           {...register("password")}
-          icon={<IoKeyOutline />}
           error={errors?.password?.message}
         />
 
@@ -99,13 +93,12 @@ export default function SignupForm() {
           label="Confirm password"
           placeholder="******"
           {...register("confirm_password")}
-          icon={<IoKeyOutline />}
           error={errors?.confirm_password?.message}
         />
       </div>
 
       <div className="my-2 flex items-center justify-between">
-        <p className="text-muted-500 dark:text-muted-200 text-xs font-medium lg:text-sm">
+        <p className="text-xs font-medium text-black lg:text-sm dark:text-white">
           Already have an account?
           <Link href="/auth/login" className="text-primary ml-1 font-semibold">
             Login

@@ -1,4 +1,3 @@
-import VerifyOtpImage from "@keyguard/web/assets/otp.svg";
 import VerifyOtpForm from "@keyguard/web/components/auth/VerifyOtpForm";
 
 import AuthLayout from "../auth.layout";
@@ -16,7 +15,6 @@ export default function VerifyOtp() {
     <AuthLayout
       key={"verifyotp"}
       form={<VerifyOtpForm />}
-      authPageImage={VerifyOtpImage}
       title="User verification"
       subtitle="Enter the OTP sent to your email and verify your account"
     />

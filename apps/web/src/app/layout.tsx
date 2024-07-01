@@ -6,6 +6,7 @@ import Head from "next/head";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 
+import AuthTokenHandler from "../components/auth/AuthTokenHandler";
 import { ThemeProvider } from "../providers/theme.provider";
 import { TrpcProvider } from "../providers/trpc.providers";
 import { ToastDuration } from "../utils/constant";
@@ -21,9 +22,14 @@ export const metadata: Metadata = {
     template: "%s | Keyguard",
     default: "Keyguard",
   },
-  icons: {
-    icon: "../assets/logo.png",
-  },
+  icons: [
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      url: "/favicon.png",
+    },
+  ],
   description: "Secure password manager for everyone",
 };
 
@@ -31,13 +37,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <Head>
-        <link rel="shortcut icon" href="/assets/icon.png" sizes="any" />
+        <meta name="description" content="Keyguard - Secure password manager for everyone" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <body className={cn(`flex h-screen`, roboto.className)}>
         <TrpcProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <NextTopLoader color="#FF725E" />
-            {children}
+            <AuthTokenHandler>{children}</AuthTokenHandler>
             <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: ToastDuration }} />
           </ThemeProvider>
         </TrpcProvider>

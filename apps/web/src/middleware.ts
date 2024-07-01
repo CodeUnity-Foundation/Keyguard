@@ -5,6 +5,7 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   const token = request.cookies.get("keyguard_auth_token")?.value;
+  const accessToken = request.cookies.get("access_token")?.value;
 
   // Redirect to login page if user is not authenticated.
   if (
@@ -47,7 +48,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/set-master", request.url));
   }
 
-  if (user?.is_verified && user?.master_password && pathname !== "/auth/login-master") {
+  if (user?.is_verified && user?.master_password && pathname !== "/auth/login-master" && !accessToken) {
     return NextResponse.redirect(new URL("/auth/login-master", request.url));
   }
 
@@ -55,5 +56,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/auth/:path*"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

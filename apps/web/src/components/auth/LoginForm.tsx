@@ -12,9 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { AiTwotoneMail } from "react-icons/ai";
 import { FcInfo } from "react-icons/fc";
-import { IoKeyOutline } from "react-icons/io5";
 
 const defaultValues: LoginSchemaType = {
   email: "rajpatel@gmail.com",
@@ -70,7 +68,6 @@ export default function LoginForm() {
         label="Email"
         {...register("email")}
         placeholder="johndoe@gmail.com"
-        icon={<AiTwotoneMail />}
         error={errors?.email?.message}
       />
 
@@ -80,7 +77,6 @@ export default function LoginForm() {
         label="Password"
         placeholder="******"
         {...register("password")}
-        icon={<IoKeyOutline />}
         error={errors?.password?.message}
       />
 
@@ -98,7 +94,7 @@ export default function LoginForm() {
       </div>
 
       <div className="my-2 flex items-center justify-between">
-        <p className="text-muted-500 dark:text-muted-200 text-xs font-medium lg:text-sm">
+        <p className="text-xs font-medium text-black lg:text-sm dark:text-white">
           Don't' have an account?
           <Link href="/auth/signup" className="text-primary ml-1 font-semibold">
             Sign Up
