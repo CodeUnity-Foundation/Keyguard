@@ -52,28 +52,26 @@ export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
               <ThemeSwitcher />
             </div>
 
-            <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar className="mb-3 cursor-pointer">
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-muted-300 dark:bg-muted-400" />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                  </DropdownMenuGroup>
-                  <Link href="https://github.com/CodeUnity-Foundation/Keyguard" target="_blank">
-                    <DropdownMenuItem>GitHub</DropdownMenuItem>
-                  </Link>
-                  <DropdownMenuSeparator className="bg-muted-300 dark:bg-muted-400" />
-                  <DropdownMenuItem>Log out</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="mb-3 cursor-pointer">
+                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 mr-3 mt-2">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-muted-300 dark:bg-muted-400" />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                </DropdownMenuGroup>
+                <Link href="https://github.com/CodeUnity-Foundation/Keyguard" target="_blank">
+                  <DropdownMenuItem>GitHub</DropdownMenuItem>
+                </Link>
+                <DropdownMenuSeparator className="bg-muted-300 dark:bg-muted-400" />
+                <DropdownMenuItem>Log out</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
