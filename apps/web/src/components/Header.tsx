@@ -26,7 +26,7 @@ interface HeaderProps {
 
 export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
   return (
-    <header className={`sticky top-0 flex min-h-20 w-full bg-white dark:bg-[#030614] ${sidebarOpen ? "z-40" : "z-50"}`}>
+    <header className={`sticky top-0 flex min-h-20 w-full bg-white dark:bg-[#0D1B2A] ${sidebarOpen ? "z-40" : "z-50"}`}>
       <div className="flex min-h-20 w-full flex-grow items-center justify-between p-4">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-controls="sidebar" className="block">
@@ -43,7 +43,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
             type="text"
             name="search"
             placeholder="Search"
-            className="w-64 max-w-80 dark:bg-[#030614]"
+            className="w-64 max-w-80 dark:bg-[#0D1B2A]"
             icon={<BiSearch className="text-primary" />}
           />
 

@@ -21,7 +21,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   return (
     <ClickOutside onClick={() => setSidebarOpen(false)}>
       <aside
-        className={`dark:bg-boxdark absolute left-0 top-0 z-50 flex h-screen w-[260px] flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 dark:bg-[#030614] ${
+        className={`dark:bg-boxdark absolute left-0 top-0 z-50 flex h-screen w-[260px] flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 dark:bg-[#0D1B2A] ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}>
         <div className="py-5.5 lg:py-6.5 flex min-h-20 items-center justify-between gap-2 px-6 py-4">

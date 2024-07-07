@@ -6,12 +6,14 @@ import { CiFolderOn } from "react-icons/ci";
 import { MdFavoriteBorder } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 
+import ComponentHeader from "../ComponentHeader";
 import PieChart from "../PieChart";
 
 export default function MainDashboard() {
   return (
     <div className="flex w-full flex-col">
-      <p className="text-3xl font-bold">Hi, Welcome back 🙏</p>
+      <p className="text-2xl font-bold"></p>
+      <ComponentHeader headerText={"Hi, Welcome back 🙏"} />
       <div className="my-7 grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader>
@@ -88,10 +90,3 @@ export default function MainDashboard() {
     </div>
   );
 }
-
-// total password
-// total faviorites password
-// total folders
-// total categories
-// number of strong, medium and weak password
-// Last, changed master password time

@@ -14,8 +14,8 @@ export const menuItems = [
     id: "passwords",
     name: "Passwords",
     menuItems: [
-      { id: "all-passwords", name: "All Passwords", href: "/all-passwords", icon: RiLockPasswordLine },
-      { id: "favorites", name: "Favorites", href: "/favorites", icon: MdFavoriteBorder },
+      { id: "all-passwords", name: "All Passwords", href: "/passwords/all-passwords", icon: RiLockPasswordLine },
+      { id: "favorites", name: "Favorites", href: "/passwords/favorites", icon: MdFavoriteBorder },
     ],
   },
   {
