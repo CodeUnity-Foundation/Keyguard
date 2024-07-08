@@ -7,7 +7,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 
 import ComponentHeader from "../ComponentHeader";
-import PieChart from "../PieChart";
+import { PieChartComponent } from "../PieChart";
 
 export default function MainDashboard() {
   return (
@@ -71,7 +71,7 @@ export default function MainDashboard() {
           </CardHeader>
           <CardContent>
             <div className="flex w-full flex-col items-center justify-between">
-              <PieChart />
+              <PieChartComponent />
             </div>
           </CardContent>
         </Card>
@@ -82,7 +82,7 @@ export default function MainDashboard() {
           </CardHeader>
           <CardContent>
             <div className="flex w-full flex-col items-center justify-between">
-              <PieChart />
+              <PieChartComponent />
             </div>
           </CardContent>
         </Card>

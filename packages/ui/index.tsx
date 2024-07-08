@@ -9,3 +9,4 @@ export { Avatar, AvatarImage, AvatarFallback } from "./components/avatar";
 export * from "./components/dropdown";
 export * from "./components/card";
 export * from "./components/breadcrumb";
+export * from "./components/chart";
