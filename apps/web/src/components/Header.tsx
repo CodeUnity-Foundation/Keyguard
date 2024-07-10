@@ -26,7 +26,8 @@ interface HeaderProps {
 
 export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
   return (
-    <header className={`sticky top-0 flex min-h-20 w-full bg-white dark:bg-[#0D1B2A] ${sidebarOpen ? "z-40" : "z-50"}`}>
+    <header
+      className={`sticky top-0 flex min-h-20 w-full bg-white dark:bg-[#0D1B2A] ${sidebarOpen ? "z-40" : "z-50"}`}>
       <div className="flex min-h-20 w-full flex-grow items-center justify-between p-4">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-controls="sidebar" className="block">
@@ -59,16 +60,16 @@ export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 mr-3 mt-2">
+              <DropdownMenuContent className="mr-3 mt-2 w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-muted-300 dark:bg-muted-400" />
+                <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <Link href="https://github.com/CodeUnity-Foundation/Keyguard" target="_blank">
                   <DropdownMenuItem>GitHub</DropdownMenuItem>
                 </Link>
-                <DropdownMenuSeparator className="bg-muted-300 dark:bg-muted-400" />
+                <DropdownMenuSeparator />
                 <DropdownMenuItem>Log out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -3,7 +3,7 @@
 import { cn } from "@keyguard/lib";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, DotFilledIcon } from "@radix-ui/react-icons";
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, HTMLAttributes } from "react";
+import { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, forwardRef } from "react";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -80,7 +80,7 @@ const DropdownMenuItem = forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "focus:bg-muted-300 dark:focus:bg-muted-400 cursor-pointer text-black dark:text-white relative flex select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "focus:bg-muted-300 dark:focus:bg-muted-400 relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm text-black outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:text-white",
       inset && "pl-8",
       className
     )}
@@ -152,7 +152,7 @@ const DropdownMenuSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn("bg-muted -mx-1 my-1 h-px", className)}
+    className={cn("bg-muted-300 dark:bg-muted-400 -mx-1 my-1 h-px", className)}
     {...props}
   />
 ));

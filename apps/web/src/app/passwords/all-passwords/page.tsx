@@ -8,3 +8,15 @@ export default function AllPasswords() {
     </DefaultLayout>
   );
 }
+
+// password page list data for table
+// search and filter - (filter with strength and category)
+
+// 1. name
+// 2. username
+// 3. category
+// 4. Strength
+// 5. Actions
+  // 1. edit
+  // 2. delete
+  // 3. redirect link
