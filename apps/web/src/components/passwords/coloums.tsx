@@ -2,7 +2,6 @@
 
 import {
   Badge,
-  Checkbox,
   DataTableColumnHeader,
   DataTableRowActions,
   labels,
@@ -21,25 +20,10 @@ type Task = {
 
 export const columns: ColumnDef<Task>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
+    accessorKey: "id",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="No." />,
+    cell: ({ row }) => <div className="w-[80px]">{Number(row.id) + 1}</div>,
     enableSorting: false,
-    enableHiding: false,
   },
   {
     accessorKey: "id",

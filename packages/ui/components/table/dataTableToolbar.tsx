@@ -1,9 +1,17 @@
 "use client";
 
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { Cross2Icon, LayoutIcon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 
 import { Button } from "../button";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../dropdown";
 import { Input } from "../input";
 import { priorities, statuses } from "./data";
 import { DataTableFacetedFilter } from "./dataTableFacetedFilter";
@@ -13,12 +21,18 @@ interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
 
+type LayoutType = "list" | "grid" | "table";
+
 export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
+  const handleLayoutChange = (layout: LayoutType) => {
+    localStorage.setItem("tableLayout", layout);
+  };
+
   return (
     <div className="mt-5 flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
+      <div className="flex items-center space-x-2">
         <Input
           placeholder="Filter tasks..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -44,8 +58,30 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
           )}
         </div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 flex items-center justify-center gap-2">
         <DataTableViewOptions table={table} />
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant={"ghost"} className="gap-1">
+              <LayoutIcon className="h-4 w-4" />
+              Layout
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-[150px]">
+            <DropdownMenuLabel>Change layout</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {(["table", "grid", "list"] as LayoutType[]).map((layout: LayoutType) => (
+              <DropdownMenuCheckboxItem
+                key={layout}
+                className="capitalize"
+                checked={localStorage.getItem("tableLayout") === layout}
+                onCheckedChange={() => handleLayoutChange(layout)}>
+                {layout}
+              </DropdownMenuCheckboxItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );
