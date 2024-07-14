@@ -31,6 +31,7 @@ export default {
         info: "hsl(var(--color-info))",
         error: "hsl(var(--color-error))",
         orange: "hsl(var(--orange))",
+        lightBlue: "hsl(var(--light-blue))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

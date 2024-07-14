@@ -7,7 +7,6 @@ import { trpc } from "@keyguard/web/utils/trpc";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { IoKeyOutline } from "react-icons/io5";
 
 const defaultValues: VerifyMasterPasswordSchemaType = {
   master_password: "",
@@ -50,7 +49,6 @@ export default function LoginMasterForm() {
         placeholder="******"
         {...register("master_password")}
         error={errors.master_password?.message}
-        icon={<IoKeyOutline className="text-primary h-[16px] w-[16px]" />}
       />
 
       <Button className="mt-2" size={"lg"} disabled={loginPasswordMutation.isLoading || !isDirty || !isValid}>

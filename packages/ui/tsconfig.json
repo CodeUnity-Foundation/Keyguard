@@ -3,6 +3,6 @@
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "lib": ["ES2021.String"]
+    "lib": ["ES2021.String", "dom", "esnext"]
   }
 }
