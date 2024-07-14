@@ -1,11 +1,20 @@
+import { cn } from "@keyguard/lib";
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { Column } from "@tanstack/react-table";
+
+import { Badge } from "../badge";
 import { Button } from "../button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "../command";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import { Separator } from "../separator";
-import { Badge } from "../badge";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "../command";
-import { cn } from "@keyguard/lib";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -28,7 +37,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
+        <Button variant="outline" size="sm" className="bg-accent-foreground h-8 border-dashed">
           <PlusCircledIcon className="mr-2 h-4 w-4" />
           {title}
           {selectedValues?.size > 0 && (
@@ -78,12 +87,12 @@ export function DataTableFacetedFilter<TData, TValue>({
                     }}>
                     <div
                       className={cn(
-                        "border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border",
+                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-black dark:border-white",
                         isSelected ? "bg-primary text-primary-foreground" : "opacity-50 [&_svg]:invisible"
                       )}>
                       <CheckIcon className={cn("h-4 w-4")} />
                     </div>
-                    {option.icon && <option.icon className="text-muted-foreground mr-2 h-4 w-4" />}
+                    {option.icon && <option.icon className="mr-2 h-4 w-4 text-black dark:text-white" />}
                     <span>{option.label}</span>
                     {facets?.get(option.value) && (
                       <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
