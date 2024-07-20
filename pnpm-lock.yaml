@@ -34,6 +34,15 @@ importers:
       "@trpc/next":
         specifier: ^10.45.0
         version: 10.45.1(@tanstack/react-query@4.36.1)(@trpc/client@10.45.1)(@trpc/react-query@10.45.1)(@trpc/server@10.45.1)(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
+      "@trpc/server":
+        specifier: ^10.43.3
+        version: 10.45.1
+      "@types/bcrypt":
+        specifier: ^5.0.2
+        version: 5.0.2
+      bcrypt:
+        specifier: ^5.1.1
+        version: 5.1.1
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -65,9 +74,6 @@ importers:
       "@types/jsonwebtoken":
         specifier: ^9.0.5
         version: 9.0.5
-      "@types/moment":
-        specifier: ^2.13.0
-        version: 2.13.0
       "@types/node":
         specifier: ^20.9.0
         version: 20.11.20
@@ -98,6 +104,9 @@ importers:
       "@tanstack/react-query-devtools":
         specifier: ^4.36.1
         version: 4.36.1(@tanstack/react-query@4.36.1)(react-dom@18.2.0)(react@18.2.0)
+      "@tanstack/react-table":
+        specifier: ^8.19.2
+        version: 8.19.2(react-dom@18.2.0)(react@18.2.0)
       "@trpc/client":
         specifier: ^10.45.1
         version: 10.45.1(@trpc/server@10.45.1)
@@ -263,6 +272,9 @@ importers:
       clsx:
         specifier: ^2.1.0
         version: 2.1.0
+      moment:
+        specifier: ^2.30.1
+        version: 2.30.1
       tailwind-merge:
         specifier: ^2.2.1
         version: 2.2.1
@@ -354,6 +366,9 @@ importers:
       cmdk:
         specifier: ^1.0.0
         version: 1.0.0(@types/react-dom@18.2.19)(@types/react@18.2.58)(react-dom@18.2.0)(react@18.2.0)
+      react-icons:
+        specifier: ^5.0.1
+        version: 5.0.1(react@18.2.0)
       recharts:
         specifier: ^2.12.7
         version: 2.12.7(react-dom@18.2.0)(react@18.2.0)
@@ -2971,7 +2986,6 @@ packages:
       }
     dependencies:
       "@types/node": 20.11.20
-    dev: true
 
   /@types/body-parser@1.19.5:
     resolution:
@@ -3189,16 +3203,6 @@ packages:
       }
     dev: true
 
-  /@types/moment@2.13.0:
-    resolution:
-      {
-        integrity: sha512-DyuyYGpV6r+4Z1bUznLi/Y7HpGn4iQ4IVcGn8zrr1P4KotKLdH0sbK1TFR6RGyX6B+G8u83wCzL+bpawKU/hdQ==,
-      }
-    deprecated: This is a stub types definition for Moment (https://github.com/moment/moment). Moment provides its own type definitions, so you don't need @types/moment installed!
-    dependencies:
-      moment: 2.30.1
-    dev: true
-
   /@types/node@16.18.91:
     resolution:
       {
@@ -3213,7 +3217,6 @@ packages:
       }
     dependencies:
       undici-types: 5.26.5
-    dev: true
 
   /@types/nodemailer@6.4.14:
     resolution:
@@ -7982,6 +7985,7 @@ packages:
       {
         integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==,
       }
+    dev: false
 
   /mongodb-connection-string-url@3.0.0:
     resolution:
@@ -10864,7 +10868,6 @@ packages:
       {
         integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==,
       }
-    dev: true
 
   /universalify@2.0.1:
     resolution:

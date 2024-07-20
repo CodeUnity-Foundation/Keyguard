@@ -3,9 +3,9 @@ import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import jwt from "jsonwebtoken";
 
-import { UserJWTData } from "../../@types";
 import { Response } from "../../constants";
 import { TRPCContext } from "../../createContext";
+import { UserJWTData } from "../../types";
 
 interface ValidLinkForResetPassword {
   ctx: TRPCContext;
