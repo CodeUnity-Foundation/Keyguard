@@ -6,8 +6,8 @@ import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { UserJWTData } from "../../@types";
 import { Response } from "../../constants";
+import { UserJWTData } from "../../types";
 
 interface ResetPassword {
   input: ResetPasswordSchemaType;
