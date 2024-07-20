@@ -6,6 +6,7 @@ import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import React, { useState } from "react";
 
 import { BACKEND_URL } from "../utils/envvariables";
+import { removeItem } from "../utils/localstorage";
 import { trpc } from "../utils/trpc";
 
 export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
@@ -22,7 +23,8 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
   const logoutAll = () => {
     deleteCookie("access_token");
     deleteCookie("keyguard_auth_token");
-    localStorage.removeItem("$stored_person_properties");
+    // localStorage.removeItem("$stored_person_properties");
+    removeItem("stored_person_properties");
     location.replace("/auth/login");
   };
 

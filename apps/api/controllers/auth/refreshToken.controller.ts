@@ -1,11 +1,11 @@
 import { IUser } from "@keyguard/database";
 import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
-import { UserJWTData } from "@types";
 import jwt from "jsonwebtoken";
 
 import { Response } from "../../constants";
 import { TRPCContext } from "../../createContext";
+import { UserJWTData } from "../../types";
 import { generateJWT } from "../../utils/generateJWT";
 
 type RefreshTokenProps = {

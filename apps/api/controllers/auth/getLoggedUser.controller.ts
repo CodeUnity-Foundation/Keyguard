@@ -1,10 +1,10 @@
 import { IUser, sanatizedUser } from "@keyguard/database";
 import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
-import { UserJWTData } from "@types";
 import jwt from "jsonwebtoken";
 
 import { TRPCContext } from "../../createContext";
+import { UserJWTData } from "../../types";
 
 type LoggedUser = {
   ctx: TRPCContext;

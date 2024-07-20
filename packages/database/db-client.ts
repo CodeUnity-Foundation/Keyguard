@@ -9,7 +9,7 @@ if (MODE === "prod") {
   }
 }
 
-const DEV_URL = `mongodb://localhost:27017/${DB_NAME}`;
+const DEV_URL = CLUSTER_URL || "mongodb://localhost:27017";
 
 const PROD_URL = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${CLUSTER_URL}/${DB_NAME}?retryWrites=true&w=majority`;
 

@@ -13,3 +13,7 @@ export function getJSON<T>(key: string): T | null {
   }
   return null;
 }
+
+export function removeItem(key: string): void {
+  localStorage.removeItem(key);
+}
