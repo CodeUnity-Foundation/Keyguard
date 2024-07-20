@@ -3,8 +3,8 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import express, { Application } from "express";
 
-import { TRPCContext, createContextInner } from "./createContext";
 import { appRouter } from "./routes";
+import { TRPCContext, createContextInner } from "./trpc/createContext";
 
 const app: Application = express();
 

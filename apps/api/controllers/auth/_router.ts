@@ -12,7 +12,7 @@ import {
 
 import { existedMasterPassword } from "../../middlewares/existedMasterPassword";
 import { userAuthMiddleware } from "../../middlewares/userAuthMiddleware";
-import { publicProcedure, router } from "../../trpc";
+import { publicProcedure, router } from "../../trpc/trpc";
 import { changeMasterPasswordController } from "./changeMasterPassword.controller";
 import { changePasswordController } from "./changePassword.controller";
 import { checkValidLinkForResetPassword } from "./checkValidLinkForResetPassword.controller";

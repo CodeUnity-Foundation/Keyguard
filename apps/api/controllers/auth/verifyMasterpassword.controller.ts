@@ -4,7 +4,7 @@ import { sendAccountLoginSuccessEmail } from "@keyguard/emails";
 import { TRPCError } from "@trpc/server";
 
 import { Response } from "../../constants";
-import { TRPCContext } from "../../createContext";
+import { TRPCContext } from "../../trpc/createContext";
 import { generateJWT } from "../../utils/generateJWT";
 
 type VerifyMasterPasswordProps = {

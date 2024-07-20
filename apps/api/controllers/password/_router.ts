@@ -1,6 +1,6 @@
 import { checkValidAccessToken } from "../../middlewares/checkValidAccessToken";
 import { userAuthMiddleware } from "../../middlewares/userAuthMiddleware";
-import { publicProcedure, router } from "../../trpc";
+import { publicProcedure, router } from "../../trpc/trpc";
 
 export const passwordRouter = router({
   getAllPasswords: publicProcedure
