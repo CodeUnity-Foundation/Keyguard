@@ -33,11 +33,11 @@ import { useLayoutEffect, useMemo, useState } from "react";
 import { MdDelete, MdEdit, MdFavorite, MdFileCopy } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 
-import ComponentHeader from "../ComponentHeader";
+import ComponentHeader from "@keyguard/web/components/ComponentHeader";
 
 type LayoutType = "grid" | "table";
 
-export default function AllPasswordComp() {
+export default function FavoritesComp() {
   const [selectedLayout, setSelectedLayout] = useState<LayoutType>("table");
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -105,7 +105,7 @@ export default function AllPasswordComp() {
 
   return (
     <>
-      <ComponentHeader headerText={"All Passwords"} />
+      <ComponentHeader headerText={"Favorites"} />
 
       <div className="mt-4 space-y-4">
         <div className="flex items-center gap-2">

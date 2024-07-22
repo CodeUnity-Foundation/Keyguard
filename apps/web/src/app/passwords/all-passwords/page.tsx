@@ -1,5 +1,5 @@
 import DefaultLayout from "@keyguard/web/components/DefaultLayout";
-import AllPasswordComp from "@keyguard/web/components/passwords/AllPasswords";
+import AllPasswordComp from "./components/all-passwords";
 
 export default function AllPasswords() {
   return (
