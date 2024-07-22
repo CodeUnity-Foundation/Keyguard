@@ -3,12 +3,14 @@
 import { cn } from "@keyguard/lib";
 import {
   ActionDropdown,
+  Button,
   DataTable,
   DataTableColumnHeader,
   DataTablePagination,
   DataTableViewOptions,
   DropdownMenuItem,
   DropdownMenuSeparator,
+  FacetedFilter,
   Input,
   LayoutSwitcher,
 } from "@keyguard/ui";
@@ -29,12 +31,13 @@ import {
 import { Else, For, If, Then } from "classic-react-components";
 import { useLayoutEffect, useMemo, useState } from "react";
 import { MdDelete, MdEdit, MdFavorite, MdFileCopy } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 
-import ComponentHeader from "../ComponentHeader";
+import ComponentHeader from "@keyguard/web/components/ComponentHeader";
 
 type LayoutType = "grid" | "table";
 
-export default function AllPasswordComp() {
+export default function FavoritesComp() {
   const [selectedLayout, setSelectedLayout] = useState<LayoutType>("table");
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -86,6 +89,7 @@ export default function AllPasswordComp() {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
+  const isFiltered = table.getState().columnFilters.length > 0;
 
   const handleLayoutChange = (layout: string) => {
     localStorage.setItem("tableLayout", layout);
@@ -101,16 +105,37 @@ export default function AllPasswordComp() {
 
   return (
     <>
-      <ComponentHeader headerText={"All Passwords"} />
+      <ComponentHeader headerText={"Favorites"} />
 
       <div className="mt-4 space-y-4">
-        <div className="flex items-center justify-center gap-2">
-          <Input
-            placeholder="search..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-            onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
-            className="h-8 w-[150px] lg:w-[250px]"
-          />
+        <div className="flex items-center gap-2">
+          <div>
+            <Input
+              placeholder="search..."
+              value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+              onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
+              className="h-8 w-[150px] lg:w-[250px]"
+            />
+          </div>
+          <div className="mr-auto flex items-center gap-2">
+            {table.getColumn("category") && (
+              <FacetedFilter
+                column={table.getColumn("category")}
+                title="Category"
+                options={[
+                  { label: "Card", value: "card" },
+                  { label: "Web", value: "web" },
+                ]}
+              />
+            )}
+            <If condition={isFiltered}>
+              <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
+                Reset
+                <RxCross2 className="ml-2 h-4 w-4" />
+              </Button>
+            </If>
+          </div>
+
           <If condition={selectedRowCount > 0}>
             <ActionDropdown>
               <DropdownMenuItem>
@@ -240,7 +265,7 @@ const data: TColData[] = [
     name: "stackoverflow.com",
     username: "raju",
     password: "*****",
-    category: "card",
+    category: "web",
     folder: "string",
   },
   { id: 8, name: "react.dev", username: "sung", password: "*****", category: "card", folder: "string" },
@@ -252,7 +277,7 @@ const data: TColData[] = [
     name: "uidesigndaily.com",
     username: "goku",
     password: "*****",
-    category: "card",
+    category: "web",
     folder: "string",
   },
 ];
@@ -315,11 +340,17 @@ const cols: ColumnDef<TColData>[] = colsArr.map((col) => {
       },
     };
   }
-  return {
+  const config: ColumnDef<TColData> = {
     accessorKey: col,
     header: ({ column }) => <DataTableColumnHeader column={column} title={col} />,
     cell: ({ row }) => <div className="w-[80px]">{row.getValue(col)}</div>,
     enableSorting: true,
   };
+  if (col == "category") {
+    config["filterFn"] = (row, id, value) => {
+      return value.includes(row.getValue(id));
+    };
+  }
+  return config;
 });
 

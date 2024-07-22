@@ -14,6 +14,7 @@ export {
   DataTableRowActions,
   DataTableColumnHeader,
   DataTableViewOptions,
+  FacetedFilter,
   TableBody,
   TableCaption,
   TableCell,
