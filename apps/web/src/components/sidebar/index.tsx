@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { RiMenu2Fill } from "react-icons/ri";
 
 import ClickOutside from "../ClickOutside";
-import { menuItems } from "./menuItems";
+import { menuItems } from "./menu-items";
 
 interface SidebarProps {
   sidebarOpen: boolean;

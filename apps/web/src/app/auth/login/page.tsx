@@ -1,4 +1,4 @@
-import LoginForm from "@keyguard/web/components/auth/LoginForm";
+import LoginForm from "@keyguard/web/app/auth/components/login-form";
 import React from "react";
 
 import AuthLayout from "../auth.layout";

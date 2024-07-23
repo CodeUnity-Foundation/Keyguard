@@ -1,5 +1,5 @@
-import MainDashboard from "@keyguard/web/components/dashboard";
-import DefaultLayout from "@keyguard/web/components/DefaultLayout";
+import MainDashboard from "@keyguard/web/app/dashboard/components/dashboard";
+import DefaultLayout from "@keyguard/web/components/default-layout";
 
 export default function Dashboard() {
   return (
