@@ -15,7 +15,7 @@ export interface IUser extends Document {
   } | null;
   isLinkExpired: boolean;
   refreshToken?: string;
-  deletedAt?: Date;
+  deletedAt?: Date | null;
 }
 
 export interface IPassword extends Document {
@@ -35,9 +35,11 @@ export interface IFolder extends Document {
 }
 
 export interface IPasswordCategory extends Document {
-  password_category_id: string;
+  _id: string;
   category_name: string;
   user_id: mongoose.Types.ObjectId;
+  is_visible: boolean;
+  deletedAt?: Date | null;
 }
 
 export interface IDynamicFields extends Document {

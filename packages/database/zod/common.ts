@@ -12,3 +12,7 @@ export const passwordValidation = (message?: string) => {
     .min(6, { message: "Minimum 6 characters required" })
     .max(25, { message: "Maximum 25 characters required" });
 };
+
+export const booleanValidation = () => {
+  return z.boolean().default(false);
+};
