@@ -6,8 +6,8 @@ import { CiFolderOn } from "react-icons/ci";
 import { MdFavoriteBorder } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 
-import ComponentHeader from "../../../components/component-header";
-import { PieChartComponent } from "../../../components/pie-chart";
+import ComponentHeader from "../ComponentHeader";
+import { PieChartComponent } from "../PieChart";
 
 export default function MainDashboard() {
   return (

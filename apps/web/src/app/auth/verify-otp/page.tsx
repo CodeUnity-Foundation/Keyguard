@@ -1,4 +1,4 @@
-import VerifyOtpForm from "@keyguard/web/app/auth/components/verify-otp-form";
+import VerifyOtpForm from "@keyguard/web/components/auth/VerifyOtpForm";
 
 import AuthLayout from "../auth.layout";
 

@@ -1,4 +1,4 @@
-import LoginMasterForm from "@keyguard/web/app/auth/components/login-master-form";
+import LoginMasterForm from "@keyguard/web/components/auth/MasterPassword/LoginMasterForm";
 
 import AuthLayout from "../../auth.layout";
 

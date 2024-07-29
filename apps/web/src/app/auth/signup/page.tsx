@@ -1,4 +1,4 @@
-import SignupForm from "@keyguard/web/app/auth/components/signup-form";
+import SignupForm from "@keyguard/web/components/auth/SignupForm";
 import React from "react";
 
 import AuthLayout from "../auth.layout";

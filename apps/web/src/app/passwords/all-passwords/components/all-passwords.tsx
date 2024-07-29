@@ -33,7 +33,7 @@ import { useLayoutEffect, useMemo, useState } from "react";
 import { MdDelete, MdEdit, MdFavorite, MdFileCopy } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 
-import ComponentHeader from "@keyguard/web/components/component-header";
+import ComponentHeader from "@keyguard/web/components/ComponentHeader";
 
 type LayoutType = "grid" | "table";
 

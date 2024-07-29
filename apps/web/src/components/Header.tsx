@@ -17,7 +17,7 @@ import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
 import { RiMenu2Fill } from "react-icons/ri";
 
-import { ThemeSwitcher } from "./theme-switcher";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 interface HeaderProps {
   sidebarOpen: boolean;

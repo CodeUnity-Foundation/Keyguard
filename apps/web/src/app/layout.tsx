@@ -6,7 +6,7 @@ import Head from "next/head";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 
-import AuthTokenHandler from "./auth/components/auth-token-handler";
+import AuthTokenHandler from "../components/auth/AuthTokenHandler";
 import { ThemeProvider } from "../providers/theme.provider";
 import { TrpcProvider } from "../providers/trpc.providers";
 import { ToastDuration } from "../utils/constant";
