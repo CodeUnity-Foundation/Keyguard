@@ -1,5 +1,5 @@
 import { cn } from "@keyguard/lib";
-import { ArrowDownIcon, ArrowUpIcon, CaretSortIcon, EyeNoneIcon } from "@radix-ui/react-icons";
+import { ArrowDownIcon, ArrowUpIcon, CaretSortIcon, EyeNoneIcon, ResetIcon } from "@radix-ui/react-icons";
 import { Column } from "@tanstack/react-table";
 
 import { Button } from "../button";
@@ -22,14 +22,14 @@ export function DataTableColumnHeader<TData, TValue>({
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
-    return <div className={cn(className)}>{title}</div>;
+    return <div className={cn("capitalize", className)}>{title}</div>;
   }
 
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="data-[state=open]:bg-muted-300 -ml-3 h-8">
+          <Button variant="ghost" size="sm" className="data-[state=open]:bg-muted-300 -ml-3 h-8 capitalize">
             <span>{title}</span>
             {column.getIsSorted() === "desc" ? (
               <ArrowDownIcon className="ml-2 h-4 w-4" />
@@ -49,6 +49,10 @@ export function DataTableColumnHeader<TData, TValue>({
             <ArrowDownIcon className="text-muted-foreground/70 mr-2 h-3.5 w-3.5" />
             Desc
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => column.clearSorting()}>
+            <ResetIcon className="text-muted-foreground/70 mr-2 h-3.5 w-3.5" />
+            Reset
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
             <EyeNoneIcon className="text-muted-foreground/70 mr-2 h-3.5 w-3.5" />
@@ -59,3 +63,4 @@ export function DataTableColumnHeader<TData, TValue>({
     </div>
   );
 }
+

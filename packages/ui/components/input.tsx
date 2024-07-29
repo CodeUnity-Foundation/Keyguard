@@ -25,7 +25,7 @@ const inpulVariants = cva(
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, variant, isMessageHide = false, ...props }, ref) => {
     return (
-      <div className="mb-3 w-full">
+      <div className="w-full">
         {props.label && (
           <label htmlFor={props.id} className="text-sm font-light text-black dark:text-white">
             {props.label}

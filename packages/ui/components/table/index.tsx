@@ -5,5 +5,8 @@ export * from "./dataTablePagination";
 export * from "./dataTableFacetedFilter";
 export * from "./dataTableRowActions";
 export * from "./dataTableColumnHeader";
+export * from "./dataTableViewOptions";
+export * from "./faceted-filter";
 
 export * from "./data";
+
