@@ -13,6 +13,8 @@ export {
   DataTableFacetedFilter,
   DataTableRowActions,
   DataTableColumnHeader,
+  DataTableViewOptions,
+  FacetedFilter,
   TableBody,
   TableCaption,
   TableCell,
@@ -35,3 +37,6 @@ export * from "./components/popover";
 export * from "./components/command";
 export * from "./components/dialog";
 export * from "./components/badge";
+
+export { default as ActionDropdown } from "./components/ActionDropdown";
+export { default as LayoutSwitcher } from "./components/LayoutSwitcher";
