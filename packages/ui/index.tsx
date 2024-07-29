@@ -38,5 +38,5 @@ export * from "./components/command";
 export * from "./components/dialog";
 export * from "./components/badge";
 
-export { default as ActionDropdown } from "./components/action-dropdown";
-export { default as LayoutSwitcher } from "./components/layout-switcher";
+export { default as ActionDropdown } from "./components/ActionDropdown";
+export { default as LayoutSwitcher } from "./components/LayoutSwitcher";
