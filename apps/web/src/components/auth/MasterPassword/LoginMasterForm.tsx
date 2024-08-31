@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { VerifyMasterPasswordSchemaType, verifyMasterPasswordSchema } from "@keyguard/database/zod";
 import { Button, Input, Loader } from "@keyguard/ui";
 import { trpc } from "@keyguard/web/utils/trpc";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -27,7 +28,9 @@ export default function LoginMasterForm() {
     onSuccess(data) {
       if (data.status === 200 && data.success) {
         toast.success(data?.message);
+        // setting both local storage and cookies because, session is not accessible in middleware. So we are using cookies to store session, which is accessible in middleware.
         sessionStorage.setItem("access_token", data?.accessToken);
+        setCookie("access_token", data?.accessToken);
         router.push("/dashboard");
       }
     },

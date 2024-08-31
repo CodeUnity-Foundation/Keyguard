@@ -5,6 +5,7 @@ import { httpLink } from "@trpc/client";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import React, { useState } from "react";
 
+import AuthTokenHandler from "../components/auth/AuthTokenHandler";
 import { BACKEND_URL } from "../utils/envvariables";
 import { removeItem } from "../utils/localstorage";
 import { trpc } from "../utils/trpc";
@@ -62,7 +63,7 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
           async headers() {
             return {
               Authorization: `${getCookie("keyguard_auth_token")}`,
-              "x-access-token": `${getCookie("access_token")}`,
+              "x-access-token": `${getCookie("access_token")}` || "",
             };
           },
           async fetch(url, options) {
@@ -86,8 +87,10 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </trpc.Provider>
+    <AuthTokenHandler>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      </trpc.Provider>
+    </AuthTokenHandler>
   );
 };
