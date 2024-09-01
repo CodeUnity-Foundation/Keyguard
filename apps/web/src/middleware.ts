@@ -22,6 +22,7 @@ export async function middleware(request: NextRequest) {
     return;
   }
 
+  // Fetch the loggedIn user informations fron db.
   let user: IUser | null = null;
   try {
     const res = await fetch(`http://localhost:8000/api/auth.getLoggedUser?authToken=${token}`, {
@@ -36,18 +37,22 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
+  // If user is not found and i am on the steps which comes after login, redirect to login page.
   if (!user && pathname !== "/auth/login") {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
+  // If user found, but not verified and i am not on the verify-otp page, redirect them to verify the otp.
   if (!user?.is_verified && pathname !== "/auth/verify-otp") {
     return NextResponse.redirect(new URL("/auth/verify-otp", request.url));
   }
 
+  // If user is verified but the master-password is not been set before, redirect them to set the master password. This case will rise when user accessing the portal 1st time.
   if (user?.is_verified && !user?.master_password && pathname !== "/auth/set-master") {
     return NextResponse.redirect(new URL("/auth/set-master", request.url));
   }
 
+  // If user is verified and the master-password has been already set, give an access to login the dashboard with master-password.
   if (user?.is_verified && user?.master_password && pathname !== "/auth/login-master" && !accessToken) {
     return NextResponse.redirect(new URL("/auth/login-master", request.url));
   }

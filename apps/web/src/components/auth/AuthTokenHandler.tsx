@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 /**
- * @description: This component is used to handle access token. If access token is not present in cookies and session storage, it will redirect to login-master page.
+ * @description: This component is used to handle access token. If access token is not present in session, then it will also remove it from the cookie.
  */
 export default function AuthTokenHandler({ children }: { children: React.ReactNode }) {
   const router = useRouter();
