@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
-import { middleware } from "../trpc";
+import { middleware } from "../trpc/trpc";
 
 export const existedMasterPassword = middleware(async ({ ctx, next }) => {
   const user = ctx.user;

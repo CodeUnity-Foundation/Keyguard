@@ -3,7 +3,7 @@ import { logger } from "@keyguard/lib";
 import { TRPCError } from "@trpc/server";
 import jwt from "jsonwebtoken";
 
-import { TRPCContext } from "../../createContext";
+import { TRPCContext } from "../../trpc/createContext";
 import { UserJWTData } from "../../types";
 
 type LoggedUser = {

@@ -9,7 +9,7 @@ if (MODE === "prod") {
   }
 }
 
-const DEV_URL = CLUSTER_URL || "mongodb://localhost:27017";
+const DEV_URL = CLUSTER_URL || "mongodb://localhost:27017/vaultmaster";
 
 const PROD_URL = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${CLUSTER_URL}/${DB_NAME}?retryWrites=true&w=majority`;
 
@@ -32,6 +32,7 @@ export const connectToDB = async () => {
 
   if (!cached.promise) {
     const opts = {
+      family: 4,
       bufferCommands: false,
     };
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

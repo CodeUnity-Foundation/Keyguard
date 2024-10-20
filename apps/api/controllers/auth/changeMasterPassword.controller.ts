@@ -5,7 +5,7 @@ import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
 import { Response } from "../../constants";
-import type { TRPCContext } from "../../createContext";
+import type { TRPCContext } from "../../trpc/createContext";
 
 interface ChangePassword {
   input: ChangeMasterPasswordSchema;

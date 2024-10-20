@@ -12,7 +12,9 @@ import {
 
 import { existedMasterPassword } from "../../middlewares/existedMasterPassword";
 import { userAuthMiddleware } from "../../middlewares/userAuthMiddleware";
-import { publicProcedure, router } from "../../trpc";
+import { masterProtectedProcedure, protectedProcedure } from "../../procedures/authProcedure";
+import publicProcedure from "../../procedures/publicProcedure";
+import { router } from "../../trpc/trpc";
 import { changeMasterPasswordController } from "./changeMasterPassword.controller";
 import { changePasswordController } from "./changePassword.controller";
 import { checkValidLinkForResetPassword } from "./checkValidLinkForResetPassword.controller";
@@ -38,15 +40,13 @@ export const authRouter = router({
     .input(emailInputSchema)
     .mutation(async ({ input }) => resendOTPController({ input })),
 
-  createMasterPassword: publicProcedure
+  createMasterPassword: protectedProcedure
     .input(createMasterPasswordSchema)
-    .use(userAuthMiddleware)
     .use(existedMasterPassword)
     .mutation(async ({ input, ctx }) => createMasterPasswordController({ input, ctx })),
 
-  verifyMasterPassword: publicProcedure
+  verifyMasterPassword: protectedProcedure
     .input(verifyMasterPasswordSchema)
-    .use(userAuthMiddleware)
     .mutation(async ({ input, ctx }) => verifyMasterPasswordController({ input, ctx })),
 
   forgotPassword: publicProcedure
@@ -61,13 +61,11 @@ export const authRouter = router({
     .input(resetPasswordSchema)
     .mutation(async ({ input }) => resetPasswordController({ input })),
 
-  changePassword: publicProcedure
-    .use(userAuthMiddleware)
+  changePassword: masterProtectedProcedure
     .input(changePasswordSchema)
     .mutation(async ({ input, ctx }) => changePasswordController({ input, ctx })),
 
-  changeMasterPassword: publicProcedure
-    .use(userAuthMiddleware)
+  changeMasterPassword: masterProtectedProcedure
     .input(changeMasterPasswordSchema)
     .mutation(async ({ input, ctx }) => changeMasterPasswordController({ input, ctx })),
 

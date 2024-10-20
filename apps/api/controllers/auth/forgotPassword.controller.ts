@@ -2,7 +2,7 @@ import { userExisted } from "@keyguard/database";
 import { EmailInputSchemaType } from "@keyguard/database/zod";
 
 import { Response } from "../../constants";
-import { TRPCContext } from "../../createContext";
+import { TRPCContext } from "../../trpc/createContext";
 import { passwordResetRequest } from "../../utils/passwordResetRequest";
 
 type ForgotPassword = {

@@ -4,7 +4,7 @@ import { TRPCError } from "@trpc/server";
 import jwt from "jsonwebtoken";
 
 import { Response } from "../../constants";
-import { TRPCContext } from "../../createContext";
+import { TRPCContext } from "../../trpc/createContext";
 import { UserJWTData } from "../../types";
 
 interface ValidLinkForResetPassword {

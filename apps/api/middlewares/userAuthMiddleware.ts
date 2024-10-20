@@ -4,7 +4,7 @@ import { TRPCError } from "@trpc/server";
 import Jwt from "jsonwebtoken";
 
 import { Response } from "../constants";
-import { middleware } from "../trpc";
+import { middleware } from "../trpc/trpc";
 import { UserJWTData } from "./type";
 
 export const userAuthMiddleware = middleware(async ({ ctx, next }) => {

@@ -3,7 +3,7 @@ import { TRPCError } from "@trpc/server";
 import Jwt from "jsonwebtoken";
 
 import { Response } from "../constants";
-import { middleware } from "../trpc";
+import { middleware } from "../trpc/trpc";
 
 export const checkValidAccessToken = middleware(async ({ ctx, next }) => {
   const accessToken = ctx.req?.headers["x-access-token"] ?? "";

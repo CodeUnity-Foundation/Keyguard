@@ -1,10 +1,12 @@
 import { PORT, connectToDB } from "@keyguard/database";
+import { logger } from "@keyguard/lib";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import express, { Application } from "express";
 
-import { TRPCContext, createContextInner } from "./createContext";
+import { Response } from "./constants";
 import { appRouter } from "./routes";
+import { TRPCContext, createContextInner } from "./trpc/createContext";
 
 const app: Application = express();
 
@@ -15,7 +17,7 @@ connectToDB();
 app.use(express.json());
 
 // helth check route
-app.get("/", (req, res) => {
+app.get("/health-check", (req, res) => {
   res.send("OK");
 });
 
@@ -24,6 +26,25 @@ app.use(
   trpcExpress.createExpressMiddleware({
     router: appRouter,
     createContext: createContextInner as unknown as () => Promise<TRPCContext>,
+    async onError({ error, ctx }) {
+      const ctx_session = ctx?.session;
+
+      if (ctx_session) {
+        await ctx_session.abortTransaction();
+        await ctx_session.endSession();
+      }
+
+      logger.error({
+        api: ctx?.req?.url,
+        name: error.name,
+        message: error.message,
+      });
+
+      if (error.code === "INTERNAL_SERVER_ERROR") {
+        delete error.stack;
+        error.message = Response.INTERNAL_SERVER_ERROR;
+      }
+    },
   })
 );
 
