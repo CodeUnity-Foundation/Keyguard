@@ -2,10 +2,10 @@
   "name": "@keyguard/api",
   "version": "1.0.0",
   "description": "",
-  "main": "_app.ts",
+  "main": "./app/_app.ts",
   "module": "",
   "scripts": {
-    "dev": "nodemon _app.ts",
+    "dev": "nodemon ./app/_app.ts",
     "lint": "eslint . --max-warnings 0",
     "build": "tsc -p ."
   },
