@@ -6,7 +6,12 @@ export const logger = createLogger({
     format: format.combine(
       format.timestamp({ format: "MMM-DD-YYYY HH:mm:ss" }),
       format.align(),
-      format.printf((info) => `${info.level}: ${[info.timestamp]}: ${info.message}`)
+      format.printf((info) => {
+        if (info.api) {
+          return `${info.level}: ${[info.timestamp]}: api: ${info.api}, message: ${info.message}`;
+        }
+        return `${info.level}: ${[info.timestamp]}: ${info.message}`;
+      })
     ),
   }),
 });

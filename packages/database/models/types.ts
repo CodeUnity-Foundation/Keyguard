@@ -38,16 +38,18 @@ export interface IPasswordCategory extends Document {
   _id: string;
   category_name: string;
   user_id: mongoose.Types.ObjectId;
+  fields: { field_name: string; field_value: string; mandatory: boolean }[];
   is_visible: boolean;
   deletedAt?: Date | null;
 }
 
 export interface IDynamicFields extends Document {
-  dynamic_field_id: string;
+  _id: string;
   password_id: mongoose.Types.ObjectId;
   password_category_id: mongoose.Types.ObjectId;
   field_name: string;
   field_type: string;
   field_value: string;
   mandatory: boolean;
+  deletedAt?: Date | null;
 }

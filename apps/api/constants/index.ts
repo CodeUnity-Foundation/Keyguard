@@ -32,4 +32,5 @@ export const Response = {
   RESET_LINK_EXPIRED: "Password reset link expired. Please try again.",
   OLD_PASSWORD_USED_AGAIN: "New password should not be same as old password.",
   UNAUTHORIZED: "Unauthorized access. Please login again.",
+  INTERNAL_SERVER_ERROR: "Internal server error.",
 } as const;
