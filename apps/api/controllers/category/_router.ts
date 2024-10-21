@@ -5,7 +5,7 @@ import { router } from "../../trpc/trpc";
 import { addCategoryController } from "./addCategory.controller";
 
 export const passwordCategoryRouter = router({
-  addCategory: masterProtectedProcedure
+  "add-category": masterProtectedProcedure
     .input(addPasswordCategorySchema)
     .mutation(async ({ input, ctx }) => addCategoryController({ input, ctx })),
 });

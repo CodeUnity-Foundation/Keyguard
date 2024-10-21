@@ -34,44 +34,46 @@ export const authRouter = router({
 
   login: publicProcedure.input(loginSchema).mutation(async ({ input }) => loginController({ input })),
 
-  verifyOTP: publicProcedure.input(otpSchema).mutation(async ({ input }) => verifyOTPController({ input })),
+  "verify-otp": publicProcedure
+    .input(otpSchema)
+    .mutation(async ({ input }) => verifyOTPController({ input })),
 
-  resendOTP: publicProcedure
+  "resend-otp": publicProcedure
     .input(emailInputSchema)
     .mutation(async ({ input }) => resendOTPController({ input })),
 
-  createMasterPassword: protectedProcedure
+  "create-master-password": protectedProcedure
     .input(createMasterPasswordSchema)
     .use(existedMasterPassword)
     .mutation(async ({ input, ctx }) => createMasterPasswordController({ input, ctx })),
 
-  verifyMasterPassword: protectedProcedure
+  "verify-master-password": protectedProcedure
     .input(verifyMasterPasswordSchema)
     .mutation(async ({ input, ctx }) => verifyMasterPasswordController({ input, ctx })),
 
-  forgotPassword: publicProcedure
+  "forgot-password": publicProcedure
     .input(emailInputSchema)
     .mutation(async ({ input, ctx }) => forgotPasswordController({ input, ctx })),
 
-  validLinkForResetPassword: publicProcedure.query(async ({ ctx }) =>
+  "valid-link-for-reset-password": publicProcedure.query(async ({ ctx }) =>
     checkValidLinkForResetPassword({ ctx })
   ),
 
-  resetPassword: publicProcedure
+  "reset-password": publicProcedure
     .input(resetPasswordSchema)
     .mutation(async ({ input }) => resetPasswordController({ input })),
 
-  changePassword: masterProtectedProcedure
+  "change-password": masterProtectedProcedure
     .input(changePasswordSchema)
     .mutation(async ({ input, ctx }) => changePasswordController({ input, ctx })),
 
-  changeMasterPassword: masterProtectedProcedure
+  "change-master-password": masterProtectedProcedure
     .input(changeMasterPasswordSchema)
     .mutation(async ({ input, ctx }) => changeMasterPasswordController({ input, ctx })),
 
-  getLoggedUser: publicProcedure.query(async ({ ctx }) => getLoggedUser({ ctx })),
+  "get-logged-user": publicProcedure.query(async ({ ctx }) => getLoggedUser({ ctx })),
 
-  refreshToken: publicProcedure
+  "refresh-token": publicProcedure
     .use(userAuthMiddleware)
     .mutation(async ({ ctx }) => generateRefreshToken({ ctx })),
 });
