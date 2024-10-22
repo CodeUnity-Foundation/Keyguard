@@ -18,9 +18,17 @@ export const addCategoryController = async ({ input, ctx }: AddCategoryProps) =>
   // Check if category already exists with the same name for the loggedIn user.
   const categoryNameRegex = new RegExp(`^${input.category_name}$`, "i");
 
+  // Find the category in 2 ways.
+  // 1. If isdefault is false, then find category with category_name and user_id.
+  // 2. If isdefault is true, then find category with category_name only.
   const isCategoryExisted = await PasswordCategory.findOne({
     category_name: { $regex: categoryNameRegex },
-    user_id: authedUser?._id,
+    $or: [
+      // Match user_id only if isdefault is false
+      { user_id: input.is_default ? { $exists: false } : authedUser?._id },
+      // Handle case where isdefault is true
+      { user_id: { $exists: input.is_default } },
+    ],
   }).session(ctx_session);
 
   if (isCategoryExisted) {
@@ -29,7 +37,8 @@ export const addCategoryController = async ({ input, ctx }: AddCategoryProps) =>
 
   const newCategory = new PasswordCategory({
     category_name: input.category_name.trim(),
-    user_id: authedUser?._id,
+    user_id: !input.is_default ? authedUser?._id : null,
+    is_default: input.is_default,
     is_visible: input.is_visible,
   });
 

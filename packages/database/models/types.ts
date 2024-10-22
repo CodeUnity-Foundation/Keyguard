@@ -38,6 +38,7 @@ export interface IPasswordCategory extends Document {
   _id: string;
   category_name: string;
   user_id: mongoose.Types.ObjectId;
+  is_default: boolean;
   fields: { field_name: string; field_value: string; mandatory: boolean }[];
   is_visible: boolean;
   deletedAt?: Date | null;

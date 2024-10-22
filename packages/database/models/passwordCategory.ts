@@ -8,7 +8,8 @@ import { IPasswordCategory } from "./types";
 const PasswordCategorySchema = new mongoose.Schema<IPasswordCategory>(
   {
     category_name: { type: String, required: true, unique: true, trim: true },
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User", unique: false },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User", unique: false, required: false },
+    is_default: { type: Boolean, required: true, default: false },
     is_visible: { type: Boolean, required: true, default: true },
     deletedAt: { type: Date, default: null },
   },
