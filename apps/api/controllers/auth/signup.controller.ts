@@ -31,7 +31,7 @@ export const signupController = async ({ input }: SignUpProps) => {
     ...input,
     password: hashedPassword,
     master_password: null,
-    deletedAt: null,
+    deleted_at: null,
   });
 
   // return the user
@@ -58,7 +58,7 @@ export const signupController = async ({ input }: SignUpProps) => {
     { _id: user._id },
     {
       $set: {
-        refreshToken,
+        refresh_token: refreshToken,
       },
     }
   );

@@ -23,13 +23,13 @@ export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
     throw new TRPCError({ code: "BAD_REQUEST", message: Response.USER_ALREADY_VERIFIED });
   }
 
-  const { emailVerification } = user;
+  const { email_verification } = user;
 
-  if (!emailVerification) {
+  if (!email_verification) {
     throw new TRPCError({ code: "BAD_REQUEST", message: "OTP not found!" });
   }
 
-  const { otp: storedOTP, otp_expiry: storedOTPExpiry } = emailVerification;
+  const { otp: storedOTP, otp_expiry: storedOTPExpiry } = email_verification;
 
   if (checkOTPExpire(storedOTPExpiry)) {
     throw new TRPCError({ code: "BAD_REQUEST", message: "OTP expired!" });
@@ -40,7 +40,7 @@ export const verifyOTPController = async ({ input }: VerifyOTPProps) => {
   }
 
   user.is_verified = true;
-  user.emailVerification = null;
+  user.email_verification = null;
 
   await user.save();
 

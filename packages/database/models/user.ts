@@ -9,16 +9,19 @@ const UserSchema = new mongoose.Schema(
     password: { type: String },
     master_password: { type: String },
     profile: { type: String },
-    emailVerification: {
+    email_verification: {
       otp: { type: String },
       otp_expiry: { type: Date },
     },
     is_verified: { type: Boolean },
-    isLinkExpired: { type: Boolean, default: false },
-    refreshToken: { type: String },
-    deletedAt: { type: Date },
+    is_link_expired: { type: Boolean, default: false },
+    refresh_token: { type: String },
+    deleted_at: { type: Date },
   },
-  { timestamps: true, strict: true }
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+    strict: true,
+  }
 );
 
 export const User = mongoose.model<IUser>("User", UserSchema);

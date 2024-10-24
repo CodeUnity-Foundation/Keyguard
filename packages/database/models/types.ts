@@ -9,13 +9,13 @@ export interface IUser extends Document {
   profile?: string;
   is_verified: boolean;
   master_password?: string;
-  emailVerification: {
+  email_verification: {
     otp: string;
     otp_expiry: Date;
   } | null;
-  isLinkExpired: boolean;
-  refreshToken?: string;
-  deletedAt?: Date | null;
+  is_link_expired: boolean;
+  refresh_token?: string;
+  deleted_at?: Date | null;
 }
 
 export interface IPassword extends Document {
@@ -41,7 +41,7 @@ export interface IPasswordCategory extends Document {
   is_default: boolean;
   fields: { field_name: string; field_value: string; mandatory: boolean }[];
   is_visible: boolean;
-  deletedAt?: Date | null;
+  deleted_at?: Date | null;
 }
 
 export interface IDynamicFields extends Document {
@@ -52,5 +52,5 @@ export interface IDynamicFields extends Document {
   field_type: string;
   field_value: string;
   mandatory: boolean;
-  deletedAt?: Date | null;
+  deleted_at?: Date | null;
 }

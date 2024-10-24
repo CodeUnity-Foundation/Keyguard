@@ -50,7 +50,7 @@ export const loginController = async ({ input }: LoginProps) => {
     { _id: user._id },
     {
       $set: {
-        refreshToken,
+        refresh_token: refreshToken,
       },
     }
   );

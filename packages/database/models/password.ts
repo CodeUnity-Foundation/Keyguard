@@ -15,7 +15,10 @@ const PasswordSchema = new mongoose.Schema<IPassword>(
     notes: { type: String },
     // password_policy_id: { type: mongoose.Schema.Types.ObjectId, ref: "PasswordPolicy" },
   },
-  { timestamps: true, strict: true }
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+    strict: true,
+  }
 );
 
 export const Password = mongoose.model("Password", PasswordSchema);

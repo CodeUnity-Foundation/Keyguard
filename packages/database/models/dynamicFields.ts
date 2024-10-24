@@ -10,9 +10,12 @@ const DynamicFieldsSchema = new mongoose.Schema<IDynamicFields>(
     field_type: { type: String, required: true },
     field_value: { type: String },
     mandatory: { type: Boolean, required: true, default: false },
-    deletedAt: { type: Date, default: null },
+    deleted_at: { type: Date, default: null },
   },
-  { timestamps: true, strict: true }
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+    strict: true,
+  }
 );
 
 DynamicFieldsSchema.index({ password_category_id: 1, field_name: 1 });

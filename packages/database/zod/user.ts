@@ -18,7 +18,7 @@ export const rootAuthSchema = z.object({
   current_master_password: passwordValidation("Current master password is required"),
   confirm_master_password: passwordValidation("Confirm master password is required"),
   is_remember: z.boolean(),
-  requestToken: stringValidation("Request token is required"),
+  request_token: stringValidation("Request token is required"),
 });
 
 export const signupSchema = rootAuthSchema.pick({
@@ -65,7 +65,7 @@ export const verifyMasterPasswordSchema = rootAuthSchema.pick({
 export type VerifyMasterPasswordSchemaType = z.infer<typeof verifyMasterPasswordSchema>;
 
 export const resetPasswordSchema = rootAuthSchema.pick({
-  requestToken: true,
+  request_token: true,
   password: true,
   confirm_password: true,
 });

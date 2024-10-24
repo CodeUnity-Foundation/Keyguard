@@ -24,17 +24,17 @@ export const resendOTPController = async ({ input }: ResendOTPProps) => {
 
   const otp = generateOTP();
 
-  const { emailVerification } = user;
+  const { email_verification } = user;
 
   if (
-    emailVerification?.otp &&
-    emailVerification.otp_expiry &&
-    checkOTPExpire(emailVerification.otp_expiry, true)
+    email_verification?.otp &&
+    email_verification.otp_expiry &&
+    checkOTPExpire(email_verification.otp_expiry, true)
   ) {
     throw new TRPCError({ code: "BAD_REQUEST", message: "OTP already sent!" });
   }
 
-  user.emailVerification = {
+  user.email_verification = {
     otp: otp,
     otp_expiry: addDateTime(TWO, "minutes") as unknown as Date,
   };
