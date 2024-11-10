@@ -8,7 +8,10 @@ const FolderSchema = new mongoose.Schema<IFolder>(
     folder_name: { type: String, required: true },
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
-  { timestamps: true, strict: true }
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+    strict: true,
+  }
 );
 
 export const Folder = mongoose.model("Folder", FolderSchema);

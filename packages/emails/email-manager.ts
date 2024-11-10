@@ -92,3 +92,22 @@ export const sendPasswordResetLink = async (passwordResetLinkEvent: ResetPasswor
   };
   return await mailSender(mailerPayload);
 };
+
+type DeleteCategoryEvent = {
+  name: string;
+  email: string;
+};
+
+export const sentDeletedCategoryEmail = async (deleteCategoryEvent: DeleteCategoryEvent) => {
+  const mailerPayload = {
+    from: FROM_EMAIL ?? "",
+    to: deleteCategoryEvent.email,
+    subject: "Alert! Deleted category!",
+    html: renderEmail("DeletedCategory", {
+      name: deleteCategoryEvent.name,
+      email: deleteCategoryEvent.email,
+    }),
+    responseMessage: "Deleted category email sent successfully!",
+  };
+  return await mailSender(mailerPayload);
+};

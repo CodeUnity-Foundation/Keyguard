@@ -17,7 +17,7 @@ export const resetPasswordController = async ({ input }: ResetPassword) => {
   let decode: UserJWTData | null = null;
 
   try {
-    decode = jwt.verify(input.requestToken, process.env.VALID_LINK_TOKEN_SECRET!) as UserJWTData;
+    decode = jwt.verify(input.request_token, process.env.VALID_LINK_TOKEN_SECRET!) as UserJWTData;
   } catch (error) {
     logger.error("Error in resetPasswordController: ", error);
     throw new TRPCError({ code: "FORBIDDEN", message: Response.RESET_LINK_EXPIRED });
