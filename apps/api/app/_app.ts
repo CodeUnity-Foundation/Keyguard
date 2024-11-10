@@ -1,6 +1,6 @@
 import { PORT, connectToDB } from "@keyguard/database";
 import { logger } from "@keyguard/lib";
-import * as trpcExpress from "@trpc/server/adapters/express";
+import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import cors from "cors";
 import express, { Application } from "express";
 
@@ -23,13 +23,13 @@ app.get("/health-check", (req, res) => {
 
 app.use(
   "/api",
-  trpcExpress.createExpressMiddleware({
+  createExpressMiddleware({
     router: appRouter,
     createContext: createContextInner as unknown as () => Promise<TRPCContext>,
     async onError({ error, ctx }) {
       const ctx_session = ctx?.session;
 
-      if (ctx_session) {
+      if (ctx_session?.transaction.isActive) {
         await ctx_session.abortTransaction();
         await ctx_session.endSession();
       }
