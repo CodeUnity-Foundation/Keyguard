@@ -19,7 +19,7 @@ export interface IUser extends Document {
 }
 
 export interface IPassword extends Document {
-  password_id: string;
+  _id: string;
   name: string;
   user_id: mongoose.Types.ObjectId;
   folder_id?: mongoose.Types.ObjectId;
@@ -29,7 +29,7 @@ export interface IPassword extends Document {
 }
 
 export interface IFolder extends Document {
-  folder_id: string;
+  _id: string;
   folder_name: string;
   user_id: mongoose.Types.ObjectId;
 }
@@ -46,11 +46,11 @@ export interface IPasswordCategory extends Document {
 
 export interface IDynamicFields extends Document {
   _id: string;
-  password_id: mongoose.Types.ObjectId;
+  password_id?: mongoose.Types.ObjectId;
   password_category_id: mongoose.Types.ObjectId;
   field_name: string;
   field_type: string;
-  field_value: string;
+  field_value?: string;
   mandatory: boolean;
   deleted_at?: Date | null;
 }

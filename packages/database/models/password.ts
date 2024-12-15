@@ -4,15 +4,16 @@ import { IPassword } from "./types";
 
 const PasswordSchema = new mongoose.Schema<IPassword>(
   {
-    password_id: { type: String, required: true, unique: true },
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    name: { type: String, required: true, unique: true },
-    folder_id: { type: mongoose.Schema.Types.ObjectId, ref: "Folder" },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User", unique: false },
+    name: { type: String, required: true, unique: false, trim: true },
+    folder_id: { type: mongoose.Schema.Types.ObjectId, ref: "Folder", unique: false, required: false },
     password_category_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "PasswordCategory",
+      unique: false,
     },
-    notes: { type: String },
+    url: { type: String, required: false, trim: true },
+    notes: { type: String, required: false, trim: true },
     // password_policy_id: { type: mongoose.Schema.Types.ObjectId, ref: "PasswordPolicy" },
   },
   {
@@ -20,5 +21,7 @@ const PasswordSchema = new mongoose.Schema<IPassword>(
     strict: true,
   }
 );
+
+PasswordSchema.index({ name: 1, user_id: 1, password_category_id: 1 }, { unique: true });
 
 export const Password = mongoose.model("Password", PasswordSchema);

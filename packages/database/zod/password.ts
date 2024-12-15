@@ -1,4 +1,4 @@
-import z from "zod";
+import z, { string } from "zod";
 
 import { stringValidation } from "./common";
 
@@ -12,14 +12,16 @@ export const rootPasswordSchema = z.object({
   notes: stringValidation().optional(),
 });
 
-export const addPasswordSchema = rootPasswordSchema.pick({
-  password_id: true,
-  name: true,
-  user_id: true,
-  //   password_policy_id: true,
-  folder_id: true,
-  password_category_id: true,
-  notes: true,
-});
+export const addPasswordSchema = rootPasswordSchema
+  .pick({
+    name: true,
+    password_category_id: true,
+    //   password_policy_id: true,
+    folder_id: true,
+    notes: true,
+  })
+  .extend({
+    fields: z.record(z.string()),
+  });
 
 export type AddPasswordSchemaType = z.infer<typeof addPasswordSchema>;
